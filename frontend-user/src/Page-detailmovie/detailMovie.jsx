@@ -57,6 +57,45 @@ const DetailMovie = () => {
                     </div>
                 </div>
             )}
+            <div className="container1 pl-52 font-nunito  ">
+                <div className="flex flex-row gap-5 justify-start w-fit items-end -mt-11">
+                    <img className="w-[30%] h-[500px] border-white border-[3px] rounded-md z-10" src={Moana} alt="" />
+                    <div className="  flex flex-col gap-4">
+                        <p className="text-3xl font-bold text-[rgb(51_51_51)] ">Hành trình của Moana 2</p>
+                        <p className=" flex gap-4 text-gray-700">
+                            <span className="flex">
+                                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path className="w-[80px] text-yellow-400" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                                99 Phút
+                            </span>
+                            <span className="flex" ><svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path className="w-[80px] text-yellow-400" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z" />
+                            </svg>29/11/2024
+                            </span>
+                        </p>
+                        <p className="flex gap-2 items-center">
+                            <span>
+                                <svg className="w-7 h-7 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" viewBox="0 0 24 24">
+                                    <path className="w-44 h-44 text-yellow-400" d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146.633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z" />
+                                </svg>
+                            </span>
+                            <span className="text-2xl">8.9</span>
+                            <span className="text-gray-500">(217vote)</span>
+                        </p>
+                        <p className="text-gray-500 text-lg ">Quốc gia: <span>Mỹ</span></p>
+                        <p className="text-gray-500 text-lg  ">Nhà sản xuất: <span className="hover:text-orange-500">Walt Disney Pictures</span></p>
+                        <p className="text-gray-500 text-lg">Thể loại: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Hoạt Hình</span></p>
+                        <p className="text-gray-500 text-lg">Đạo  diễn: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">David G. Derrick Jr.</span></p>
+                        <p className="text-gray-500 text-lg">Diễn viên: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Tom halland</span></p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <span className="container2 relative">Nội dung phim</span>
+            </div>
 
 
         </>
