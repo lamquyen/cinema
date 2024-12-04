@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
@@ -15,6 +15,17 @@ function Header() {
   };
 
   const [modalType, setModalType] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    // Check localStorage for logged-in user on component mount
+    try {
+      const userData = localStorage.getItem("loggedInUser");
+      setLoggedInUser(userData ? JSON.parse(userData) : null); // Chỉ cần parse đối tượng, không phải email
+    } catch (error) {
+      console.error("Error parsing loggedInUser from localStorage:", error);
+    }
+  }, []);
 
   const handleLoginClick = () => {
     setModalType("login");
@@ -26,6 +37,29 @@ function Header() {
 
   const handleCloseModal = () => {
     setModalType(null);
+  };
+
+  const handleLoginSuccess = (userData) => {
+    // Save user data to localStorage
+    localStorage.setItem("loggedInUser", JSON.stringify(userData));
+
+    // Delay updating the state until after the modal closes
+    setTimeout(() => {
+      setLoggedInUser(userData); // Update the state to display the 'Hello, email' after modal closes
+
+      // Close the modal after 3 seconds
+      setTimeout(() => {
+        setModalType(null);
+      }, 3000);
+    }, 3000);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    // Update state to log out the user
+    setLoggedInUser(null);
+    // Optional: Redirect to the homepage or reload the page
+    window.location.reload(); // Reload to reset the UI
   };
 
   return (
@@ -57,12 +91,22 @@ function Header() {
         </div>
 
         <div className="ticket">
-          <button onClick={handleLoginClick}>Đăng nhập</button>
+          {loggedInUser ? (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <span>Hello, {loggedInUser.email}</span>
+              <button onClick={handleLogout} className="logout-button">
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button onClick={handleLoginClick}>Đăng nhập</button>
+          )}
           {modalType === "login" && (
             <Login
               isOpen={modalType === "login"}
               onClose={handleCloseModal}
               onRegisterClick={handleRegisterClick}
+              onLoginSuccess={handleLoginSuccess} // Pass success handler
             />
           )}
           {modalType === "register" && (
