@@ -1,12 +1,54 @@
 import React, { useState } from "react";
 import "./detailMovie.css"
-import Moana from "./Images/moanatrailer.jpg"
+import Moana from "./Images/moanatrailer.jpg";
+import moment from "moment";
+import 'moment/locale/vi';
+import MovieIsShowing from "./movieIsShowing";
+
+moment.locale("vi");
+
 
 
 
 
 const DetailMovie = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
+    const [startIndex, setStartIndex] = useState(0)
+    const daysToShow = 5;
+    const capitalizeFirstLetter = (text) => {
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    };
+
+
+
+    /* function hiển thị lịch chiếu*/
+    const getWeekDays = () => {
+        const days = [];
+        for (let i = 0; i < 7; i++) {
+            const date = moment().add(i, "days");
+            days.push({
+                day: capitalizeFirstLetter(date.format("dddd")),
+                date: date.format("DD/MM"),
+                fullDate: date.format("YYYY-MM-DD"),
+            });
+        }
+        return days;
+    };
+
+    const weekDays = getWeekDays();
+    const handleNext = () => {
+        if (startIndex + 2 + daysToShow - 2 < weekDays.length) {
+            setStartIndex(startIndex + 2);
+        }
+    };
+    const handlePrev = () => {
+        if (startIndex - 2 >= 0) {
+            setStartIndex(startIndex - 2);
+        }
+    };
+
+    /* fc mở model trailer*/
     const handelOpenModal = () => {
         setIsModalOpen(true);
     };
@@ -21,7 +63,7 @@ const DetailMovie = () => {
     };
     return (
         <>
-
+            {/* trailer */}
             <div className="flex justify-center items-center bg-black w-full h-fit relative">
                 <img className="w-[50%] h-[50%]" src={Moana} alt="" />
                 <a className="absolute self-center    z-10" onClick={(e) => {
@@ -57,10 +99,11 @@ const DetailMovie = () => {
                     </div>
                 </div>
             )}
-            <div className="container1 pl-52 font-nunito  ">
-                <div className="flex flex-row gap-5 justify-start w-fit items-end -mt-11">
-                    <img className="w-[30%] h-[500px] border-white border-[3px] rounded-md z-10" src={Moana} alt="" />
-                    <div className="  flex flex-col gap-4">
+            {/* detail Movie */}
+            <div className=" ml-36 mb-14  font-nunito relative   ">
+                <div className="flex flex-row gap-5 justify-start w-fit items-end -mt-11 ">
+                    <img className="w-[35%] h-[400px] border-white border-[3px] rounded-md z-10 shadow-2xl" src={Moana} alt="" />
+                    <div className="  flex flex-col gap-3">
                         <p className="text-3xl font-bold text-[rgb(51_51_51)] ">Hành trình của Moana 2</p>
                         <p className=" flex gap-4 text-gray-700">
                             <span className="flex">
@@ -81,21 +124,89 @@ const DetailMovie = () => {
                                 </svg>
                             </span>
                             <span className="text-2xl">8.9</span>
-                            <span className="text-gray-500">(217vote)</span>
+                            <span className="self-end text-gray-500">(217vote)</span>
                         </p>
-                        <p className="text-gray-500 text-lg ">Quốc gia: <span>Mỹ</span></p>
-                        <p className="text-gray-500 text-lg  ">Nhà sản xuất: <span className="hover:text-orange-500">Walt Disney Pictures</span></p>
-                        <p className="text-gray-500 text-lg">Thể loại: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Hoạt Hình</span></p>
-                        <p className="text-gray-500 text-lg">Đạo  diễn: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">David G. Derrick Jr.</span></p>
-                        <p className="text-gray-500 text-lg">Diễn viên: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Tom halland</span></p>
+                        <p className="text-gray-500 text-sm ">Quốc gia: <span>Mỹ</span></p>
+                        <p className="text-gray-500 text-sm  ">Nhà sản xuất: <span className="hover:text-orange-500">Walt Disney Pictures</span></p>
+                        <p className="text-gray-500 text-sm">Thể loại: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Hoạt Hình</span></p>
+                        <p className="text-gray-500 text-sm">Đạo  diễn: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">David G. Derrick Jr.</span></p>
+                        <p className="text-gray-500 text-sm">Diễn viên: <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">Tom halland</span></p>
 
                     </div>
                 </div>
+
+                <div className="absolute right-3 top-14 "> <MovieIsShowing /></div>
             </div>
 
-            <div>
-                <span className="container2 relative">Nội dung phim</span>
+            {/* Nội dung phim */}
+            <div className="ml-36 mr-[30%] font-nunito  h-fit">
+                <span className="mb-4 text-lg font-bold border-l-4 border-blue-700 pl-2 block">Nội dung phim</span>
+                <p className="text-gray-500">“Hành Trình của Moana 2” là màn tái hợp của Moana và Maui sau 3 năm, trở lại trong chuyến phiêu lưu cùng với những thành viên mới. Theo tiếng gọi của tổ tiên, Moana sẽ tham gia cuộc hành trình đến những vùng biển xa xôi của Châu Đại Dương và sẽ đi tới vùng biển nguy hiểm, đã mất tích từ lâu."</p>
             </div>
+            {/* fillter lịch chiếu*/}
+            <div className="ml-36 mr-[30%] mt-6 mb-10 font-nunito w-fit h-fit">
+                <span className="mb-4 text-lg font-bold border-l-4 border-blue-700 pl-2 block">Lịch chiếu</span>
+                <div className="flex items-center space-x-4 p-4 bg-white border-b-[2px]   border-b-blue-800 h-fit w-auto">
+                    {/* Nút điều hướng */}
+                    <div className="flex items-center space-x-4 min-w-fit">
+                        <button onClick={handlePrev} className=" py-2 rounded ">❮</button>
+
+                        {/* Hiển thị các ngày */}
+                        <div className="flex overflow-hidden  ">
+                            {weekDays.slice(startIndex, startIndex + daysToShow).map((day) => (
+                                <div
+                                    key={day.fullDate}
+                                    onClick={() => setSelectedDate(day.fullDate)}
+                                    className={`text-gray-700 text-base cursor-pointer text-center p-2 rounded transition-colors ${selectedDate === day.fullDate
+                                        ? "bg-blue-500 text-white"
+                                        : "hover:bg-gray-100"
+                                        }`}
+                                >
+                                    <div className="">{day.day}</div>
+                                    <div className="">{day.date}</div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Nút điều hướng */}
+                        <button onClick={handleNext} disabled={startIndex + daysToShow >= weekDays.length} className="py-2 rounded ">❯</button>
+                    </div>
+                    {/* Bộ lọc */}
+
+                    <div className="flex space-x-4">
+                        <select className="border rounded px-4 py-2">
+                            <option>Toàn quốc</option>
+                            <option>Hà Nội</option>
+                            <option>Đà Nẳng</option>
+                            <option>Hồ Chí Minh</option>
+                        </select>
+                        <select className="border rounded px-4 py-2">
+                            <option>Tất cả rạp</option>
+                            <option>rạp A</option>
+                            <option>rạp B</option>
+                            <option>rạp C</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div className="w-auto py-9 flex-row space-y-5 border-b-[1px]">
+                    <p className="font-bold text-lg text-gray-800">Galaxy Nguyễn Du</p>
+                    <div className="flex items-center ">
+                        <p className="text-gray-700 font-medium w-36 mr-8">2D Lồng Tiếng </p>
+                        <button className="border border-gray-400 rounded-md px-4 py-1">20:00</button>
+                    </div>
+                    <div className="flex items-center ">
+                        <p className="text-gray-700 text-[15px] w-36  font-medium mr-8">2D Phụ Đề</p>
+                        <button className="border border-gray-400 rounded-md px-4 py-1">21:00</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
 
 
         </>
