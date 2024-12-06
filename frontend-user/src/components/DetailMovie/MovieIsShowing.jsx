@@ -1,6 +1,5 @@
 import React from "react";
-import "./detailMovie.css";
-import Moana from "./Images/moanatrailer.jpg";
+import Moana from "../img/moanatrailer.png"
 const MovieIsShowing = () => {
     return (
         <div className="font-nunito grid items-end space-y-5 w-fit  h-fit   ">

@@ -1,70 +1,63 @@
 import React, { useState } from "react";
-import "./detailMovie.css"
-import Moana from "./Images/moanatrailer.jpg";
-import moment from "moment";
-import 'moment/locale/vi';
-import MovieIsShowing from "./movieIsShowing";
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 
-moment.locale("vi");
-
-
-
-
-
-const DetailMovie = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
-    const [startIndex, setStartIndex] = useState(0)
-    const daysToShow = 5;
-    const capitalizeFirstLetter = (text) => {
-        return text.charAt(0).toUpperCase() + text.slice(1);
-    };
+function DetailMovie() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
+  const [startIndex, setStartIndex] = useState(0)
+  const daysToShow = 5;
+  const capitalizeFirstLetter = (text) => {
+      return text.charAt(0).toUpperCase() + text.slice(1);
+  };
 
 
 
-    /* function hiển thị lịch chiếu*/
-    const getWeekDays = () => {
-        const days = [];
-        for (let i = 0; i < 7; i++) {
-            const date = moment().add(i, "days");
-            days.push({
-                day: capitalizeFirstLetter(date.format("dddd")),
-                date: date.format("DD/MM"),
-                fullDate: date.format("YYYY-MM-DD"),
-            });
-        }
-        return days;
-    };
+  /* function hiển thị lịch chiếu*/
+  const getWeekDays = () => {
+      const days = [];
+      for (let i = 0; i < 7; i++) {
+          const date = moment().add(i, "days");
+          days.push({
+              day: capitalizeFirstLetter(date.format("dddd")),
+              date: date.format("DD/MM"),
+              fullDate: date.format("YYYY-MM-DD"),
+          });
+      }
+      return days;
+  };
 
-    const weekDays = getWeekDays();
-    const handleNext = () => {
-        if (startIndex + 2 + daysToShow - 2 < weekDays.length) {
-            setStartIndex(startIndex + 2);
-        }
-    };
-    const handlePrev = () => {
-        if (startIndex - 2 >= 0) {
-            setStartIndex(startIndex - 2);
-        }
-    };
+  const weekDays = getWeekDays();
+  const handleNext = () => {
+      if (startIndex + 2 + daysToShow - 2 < weekDays.length) {
+          setStartIndex(startIndex + 2);
+      }
+  };
+  const handlePrev = () => {
+      if (startIndex - 2 >= 0) {
+          setStartIndex(startIndex - 2);
+      }
+  };
 
-    /* fc mở model trailer*/
-    const handelOpenModal = () => {
-        setIsModalOpen(true);
-    };
-    const handelCloseModal = () => {
-        setIsModalOpen(false);
-    }
-    const handleBackdropClick = (e) => {
-        // Đóng modal nếu nhấn ra bên ngoài nội dung modal
-        if (e.target.id === "modal-backdrop") {
-            handelCloseModal();
-        }
-    };
-    return (
-        <>
-            {/* trailer */}
-            <div className="flex justify-center items-center bg-black w-full h-fit relative">
+  /* fc mở model trailer*/
+  const handelOpenModal = () => {
+      setIsModalOpen(true);
+  };
+  const handelCloseModal = () => {
+      setIsModalOpen(false);
+  }
+  const handleBackdropClick = (e) => {
+      // Đóng modal nếu nhấn ra bên ngoài nội dung modal
+      if (e.target.id === "modal-backdrop") {
+          handelCloseModal();
+      }
+  };
+  return (
+    <>
+      <Header/>
+      <div>
+          {/* trailer */}
+          <div className="flex justify-center items-center bg-black w-full h-fit relative">
                 <img className="w-[50%] h-[50%]" src={Moana} alt="" />
                 <a className="absolute self-center    z-10" onClick={(e) => {
                     e.preventDefault();
@@ -203,15 +196,10 @@ const DetailMovie = () => {
 
                 </div>
             </div>
-
-
-
-
-
-
-        </>
-    )
-
-
+      </div>
+      <Footer/>
+    </>
+  )
 }
-export default DetailMovie;
+
+export default DetailMovie
