@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import "./Header.css";
 const Dropdown = ({ options, placeholder, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -19,7 +19,7 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
     }
   };
 
-  
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -28,9 +28,9 @@ const Dropdown = ({ options, placeholder, onSelect }) => {
   }, []);
 
   return (
-    <div className="dropdown" ref={dropdownRef}>
-      <button className="dropdown-toggle" onClick={handleToggle}>
-      {placeholder}
+    <div className="dropdown  " ref={dropdownRef}>
+      <button className="dropdown-toggle flex items-center h-fit text-gray-600 " onClick={handleToggle}>
+        {placeholder}
       </button>
       {isOpen && (
         <ul className="dropdown-menu">

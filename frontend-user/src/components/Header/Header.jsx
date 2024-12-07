@@ -4,6 +4,7 @@ import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
+import { Link } from "react-router";
 
 function Header() {
   const options = [" HCM", "Hà Nội", "Bình Dương"];
@@ -69,60 +70,71 @@ function Header() {
   };
 
   return (
-    <div className="header">
-      <div className="navbar">
-        <div className="logo">
-          <img src={logo} style={{ height: "100%", width: "100%" }} />
-        </div>
+    <div className="flex justify-around w-[100%] items-center h-20 ">
+      <Link to={"/"} className="w-fit h-20">
+        <img className="w-28 h-[100%]" src={logo} />
+      </Link>
 
-        <div className="toolbar">
+      <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
+        <div className="self-center text-center h-fit">
           <Dropdown
             options={options}
-            placeholder=" Rạp Chiếu"
+            placeholder="Rạp Chiếu"
             onSelect={handleSelect}
           />
+        </div>
+        <div>
           <Dropdown
             options={events}
             placeholder="Sự Kiện"
             onSelect={handleSelect}
           />
+        </div>
+        <div>
           <Dropdown
             options={movies}
             placeholder="Phim"
             onSelect={handleSelect}
           />
-          <a href="#">Mua vé</a>
-          <a href="#">Blog Mê Phim</a>
-          <input className="search" placeholder="Tìm kiếm ..." />
         </div>
+        <p className="hover:text-orange-500">
+          <Link to={"/"}>Mua vé</Link>
+        </p>
 
-        <div className="ticket" style={{ width: "12%" }}>
-          {loggedInUser ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
-              <span>Hello, {getDisplayName()}</span>
-              <button onClick={handleLogout} className="logout-button">
-                Logout
-              </button>
-            </div>
-          ) : (
-            <button onClick={handleLoginClick}>Đăng nhập</button>
-          )}
-          {modalType === "login" && (
-            <Login
-              isOpen={modalType === "login"}
-              onClose={handleCloseModal}
-              onRegisterClick={handleRegisterClick}
-              onLoginSuccess={handleLoginSuccess} // Pass success handler
-            />
-          )}
-          {modalType === "register" && (
-            <Register
-              isOpen={modalType === "register"}
-              onClose={handleCloseModal}
-              onLoginClick={handleLoginClick}
-            />
-          )}
+        <a className="hover:text-orange-500" href="#">
+          Blog Mê Phim
+        </a>
+        <div>
+          <input className="border-1-red" placeholder="Tìm kiếm ..." />
         </div>
+      </div>
+
+      <div className="ticket">
+        {loggedInUser ? (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span>Hello, {loggedInUser.email}</span>
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          </div>
+        ) : (
+          <button onClick={handleLoginClick}>Đăng nhập</button>
+        )}
+        {modalType === "login" && (
+          <Login
+            isOpen={modalType === "login"}
+            onClose={handleCloseModal}
+            onRegisterClick={handleRegisterClick}
+            onLoginSuccess={handleLoginSuccess} // Pass success handler
+          />
+        )}
+        {modalType === "register" && (
+          <Register
+            isOpen={modalType === "register"}
+            onClose={handleCloseModal}
+            onLoginClick={handleLoginClick}
+          />
+        )}
       </div>
     </div>
   );
