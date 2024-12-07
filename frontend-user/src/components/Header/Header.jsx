@@ -62,6 +62,12 @@ function Header() {
     window.location.reload(); // Reload to reset the UI
   };
 
+  const getDisplayName = () => {
+    if (!loggedInUser || !loggedInUser.fullName) return ""; // Không có user
+    const parts = loggedInUser.fullName.trim().split(" ");
+    return parts.length > 1 ? parts[parts.length - 1] : parts[0]; // Lấy từ cuối hoặc nguyên tên
+  };
+
   return (
     <div className="header">
       <div className="navbar">
@@ -90,10 +96,10 @@ function Header() {
           <input className="search" placeholder="Tìm kiếm ..." />
         </div>
 
-        <div className="ticket">
+        <div className="ticket" style={{ width: "12%" }}>
           {loggedInUser ? (
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <span>Hello, {loggedInUser.email}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+              <span>Hello, {getDisplayName()}</span>
               <button onClick={handleLogout} className="logout-button">
                 Logout
               </button>
