@@ -111,6 +111,7 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
             message={modal.message}
           />
           <div className="forgot-password">Quên mật khẩu?</div>
+          <hr />
           <div className="register">
             Bạn chưa có tài khoản?
             <a className="register-button" href="#" onClick={onRegisterClick}>

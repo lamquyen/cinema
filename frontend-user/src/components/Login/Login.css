@@ -92,6 +92,11 @@
     display: flex;
     flex-direction: column;
   }
+  .login-container .forgot-password {
+    text-align: left;
+    margin-bottom: 20px;
+    border-top-width: 2px;
+  }
   .login-container .close-button {
     position: absolute;
     top: 10px;

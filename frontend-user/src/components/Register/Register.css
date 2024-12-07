@@ -124,7 +124,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #d88a6e;
+    background-color: #ff7f00;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -134,7 +134,7 @@
     margin-bottom: 10px;
   }
   .btn:hover {
-    background-color: #c77a5d;
+    background-color: #e66b00;
   }
   .login-link {
     display: flex;
@@ -144,7 +144,7 @@
     color: #333;
   }
   .login-link a {
-    color: #d88a6e;
+    color: #ff7f00;
     text-decoration: none;
   }
 

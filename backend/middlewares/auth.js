@@ -14,7 +14,7 @@ const protect = asyncHandler(async (req, res, next) => {
   //check if token exists in headers
   if (
     req.headers.authorization &&
-    req.headers.authorization.starstWith("Bearer")
+    req.headers.authorization.startsWith("Bearer")
   ) {
     //set token from Bearer token in header
     try {

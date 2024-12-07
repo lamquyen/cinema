@@ -43,15 +43,17 @@ function Register({ isOpen, onClose, onLoginClick }) {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users", {
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        sex: formData.sex,
-        dateOfBirth: formData.dateOfBirth,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        {
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          sex: formData.sex,
+          dateOfBirth: formData.dateOfBirth,
+          password: formData.password,
+        }
+      );
 
       setModal({
         isOpen: true,
