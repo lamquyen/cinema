@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
 import { Link } from "react-router";
+import jwtDecode from "jwt-decode";
 
 function Header() {
   const options = [" HCM", "Hà Nội", "Bình Dương"];
@@ -46,7 +47,7 @@ function Header() {
 
     // Delay updating the state until after the modal closes
     setTimeout(() => {
-      setLoggedInUser(userData); // Update the state to display the 'Hello, email' after modal closes
+      setLoggedInUser(userData);
 
       // Close the modal after 3 seconds
       setTimeout(() => {
@@ -63,16 +64,21 @@ function Header() {
     window.location.reload(); // Reload to reset the UI
   };
 
+  const getDisplayName = () => {
+    if (!loggedInUser || !loggedInUser.fullName) return ""; // Không có user
+    const parts = loggedInUser.fullName.trim().split(" ");
+    return parts.length > 1 ? parts[parts.length - 1] : parts[0]; // Lấy từ cuối hoặc nguyên tên
+  };
+
   return (
     <div className="flex justify-around w-[100%] items-center h-20 ">
-      <Link to={'/'} className="w-fit h-20">
+      <Link to={"/"} className="w-fit h-20">
         <img className="w-28 h-[100%]" src={logo} />
       </Link>
 
       <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
         <div className="self-center text-center h-fit">
           <Dropdown
-
             options={options}
             placeholder="Rạp Chiếu"
             onSelect={handleSelect}
@@ -83,24 +89,40 @@ function Header() {
             options={events}
             placeholder="Sự Kiện"
             onSelect={handleSelect}
-          /></div>
-        <div><Dropdown
-          options={movies}
-          placeholder="Phim"
-          onSelect={handleSelect}
-        /></div>
-        <p className="hover:text-orange-500"><Link to={'/'}>Mua vé</Link></p>
-
-        <a className="hover:text-orange-500" href="#">Blog Mê Phim</a>
-        <div><input className="border-1-red" placeholder="Tìm kiếm ..." />
+          />
         </div>
+        <div>
+          <Dropdown
+            options={movies}
+            placeholder="Phim"
+            onSelect={handleSelect}
+          />
+        </div>
+        <p className="hover:text-orange-500">
+          <Link to={"/"}>Mua vé</Link>
+        </p>
 
+        <a className="hover:text-orange-500" href="#">
+          Blog Mê Phim
+        </a>
+        <div>
+          <input className="border-1-red" placeholder="Tìm kiếm ..." />
+        </div>
       </div>
 
       <div className="ticket">
         {loggedInUser ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span>Hello, {loggedInUser.email}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+            <Link
+              to="/Profile"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                cursor: "pointer",
+              }}
+            >
+              Hello, {getDisplayName()}
+            </Link>
             <button onClick={handleLogout} className="logout-button">
               Logout
             </button>
@@ -124,7 +146,6 @@ function Header() {
           />
         )}
       </div>
-
     </div>
   );
 }

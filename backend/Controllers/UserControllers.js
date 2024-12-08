@@ -5,15 +5,7 @@ import { generateToken } from "../middlewares/auth.js";
 
 //Register
 const registerUser = asyncHandler(async (req, res) => {
-  const {
-    fullName,
-    email,
-    phone,
-    sex,
-    dateOfBirth,
-    password,
-    confirmPassword,
-  } = req.body;
+  const { fullName, email, phone, sex, dateOfBirth, password } = req.body;
   try {
     const userExists = await User.findOne({ email });
     //check user exists
@@ -35,7 +27,6 @@ const registerUser = asyncHandler(async (req, res) => {
       sex,
       dateOfBirth,
       password: hashedPassword,
-      confirmPassword: hashedPassword,
     });
 
     // if user create success send user data and token to client
@@ -86,4 +77,43 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser };
+// update user
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // find user in db
+    const user = await User.findById(req.user._id);
+    // if user exists update user data and save to DB
+    if (user) {
+      user.email = email || user.email;
+
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+      }
+
+      const updatedUser = await user.save();
+      // send updated user data and token to client
+      res.json({
+        _id: updatedUser._id,
+        fullName: updatedUser.fullName,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        sex: updatedUser.sex,
+        dateOfBirth: updatedUser.dateOfBirth,
+        password: updatedUser.password,
+        isAdmin: updatedUser.isAdmin,
+        token: generateToken(updatedUser._id),
+      });
+    }
+    // else send error
+    else {
+      res.status(404);
+      throw new Error("Không tìm thấy tài khoản");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+export { registerUser, loginUser, updateUserProfile };
