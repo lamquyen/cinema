@@ -1,14 +1,17 @@
 [
     {
         "cinema-name": "Galaxy Nguyễn Du",
-        "location": "Hồ Chí Minh"
+        "location": "Hồ Chí Minh",
+        "numberOfScreen": "5"
     },
     {
         "cinema-name": "Galaxy Đà Nẳng",
-        "location": "Đà Nẳng"
+        "location": "Đà Nẳng",
+        "numberOfScreen": "5"
     },
     {
         "cinema-name": "Galaxy Hà Nội",
-        "location": "Hà Nội"
+        "location": "Hà Nội",
+        "numberOfScreen": "5"
     }
 ]
