@@ -5,6 +5,7 @@ import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
 import { Link } from "react-router";
+import jwtDecode from "jwt-decode";
 
 function Header() {
   const options = [" HCM", "Hà Nội", "Bình Dương"];
@@ -46,7 +47,7 @@ function Header() {
 
     // Delay updating the state until after the modal closes
     setTimeout(() => {
-      setLoggedInUser(userData); // Update the state to display the 'Hello, email' after modal closes
+      setLoggedInUser(userData);
 
       // Close the modal after 3 seconds
       setTimeout(() => {
@@ -111,8 +112,17 @@ function Header() {
 
       <div className="ticket">
         {loggedInUser ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span>Hello, {loggedInUser.email}</span>
+          <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+            <Link
+              to="/Profile"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                cursor: "pointer",
+              }}
+            >
+              Hello, {getDisplayName()}
+            </Link>
             <button onClick={handleLogout} className="logout-button">
               Logout
             </button>

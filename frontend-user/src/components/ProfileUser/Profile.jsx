@@ -1,95 +1,181 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Profile.css";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import moment from "moment";
 
 const Profile = () => {
   const [user, setUser] = useState({
-    name: "",
-    dob: "",
     email: "",
-    phone: "",
-    gender: "",
+    password: "",
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        // Gửi request đến API backend
-        const response = await axios.get("/api/user/profile"); // Thay thế bằng endpoint thực tế
-        setUser(response.data); // Đảm bảo backend trả về dữ liệu đúng định dạng
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-
-    fetchUserData();
+    // Lấy thông tin user từ localStorage
+    const storedUser = localStorage.getItem("loggedInUser");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser({
+        fullName: parsedUser.fullName,
+        email: parsedUser.email,
+        phone: parsedUser.phone,
+        sex: parsedUser.sex,
+        dateOfBirth: parsedUser.dateOfBirth
+          ? moment(parsedUser.dateOfBirth).format("DD/MM/YYYY")
+          : "",
+        password: parsedUser.password,
+      });
+    }
   }, []);
 
-  const handleUpdate = () => {
-    console.log("User data to update:", user);
-    alert("Thông tin cá nhân đã được cập nhật!");
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [id]: value,
+    }));
+    setIsEditing(true);
+  };
+
+  const handleUpdate = async () => {
+    try {
+      // Lấy token từ localStorage (nếu sử dụng authentication)
+      const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+      const token = storedUser.token;
+
+      // Gửi request update tới backend
+      const response = await axios.put(
+        "http://localhost:5000/api/users/update",
+        {
+          email: user.email,
+          password: user.password, // Chỉ gửi password nếu có thay đổi
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Cập nhật localStorage với thông tin mới
+      localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify({
+          ...storedUser,
+          email: response.data.email,
+        })
+      );
+
+      // Reset state
+      setSuccess("Cập nhật thông tin thành công!");
+      setIsEditing(false);
+
+      // Tự động ẩn thông báo sau 3 giây
+      setTimeout(() => {
+        setSuccess("");
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setError("Cập nhật thất bại. Vui lòng thử lại.");
+
+      // Tự động ẩn thông báo lỗi sau 3 giây
+      setTimeout(() => {
+        setError("");
+      }, 3000);
+    }
   };
 
   return (
-    <div className="container">
-      <div className="nav-tabs">
-        <a href="#">Lịch Sử Giao Dịch</a>
-        <a href="#" className="active">
-          Thông Tin Cá Nhân
-        </a>
-        <a href="#">Thông Báo</a>
-        <a href="#">Quà Tặng</a>
-        <a href="#">Chính Sách</a>
-      </div>
-      <div className="form-group">
-        <label htmlFor="name">Họ và tên</label>
-        <div style={{ position: "relative", width: "calc(50% - 10px)" }}>
-          <i className="fas fa-user"></i>
-          <input type="text" id="name" value={user.name} disabled />
+    <div>
+      <Header />
+      <div className="profile-container">
+        <div className="nav-tabs">
+          <a href="#">Lịch Sử Giao Dịch</a>
+          <a href="#" className="active">
+            Thông Tin Cá Nhân
+          </a>
+          <a href="#">Thông Báo</a>
+          <a href="#">Quà Tặng</a>
+          <a href="#">Chính Sách</a>
         </div>
-        <label htmlFor="dob">Ngày sinh</label>
-        <div style={{ position: "relative", width: "calc(50% - 10px)" }}>
-          <i className="fas fa-calendar-alt"></i>
-          <input type="text" id="dob" value={user.dob} disabled />
+
+        {error && <div className="error-message">{error}</div>}
+        {success && <div className="success-message">{success}</div>}
+
+        <div className="profile-form-group">
+          <div className="profile-input-group">
+            <label htmlFor="fullName">Họ và tên</label>
+            <input type="text" id="fullName" value={user.fullName} disabled />
+          </div>
+          <div className="profile-input-group">
+            <label htmlFor="dateOfBirth">Ngày sinh</label>
+            <input
+              type="text"
+              id="dateOfBirth"
+              value={user.dateOfBirth}
+              disabled
+            />
+          </div>
+          <div className="profile-input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              value={user.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="profile-input-group">
+            <label htmlFor="phone">Số điện thoại</label>
+            <input type="text" id="phone" value={user.phone} disabled />
+          </div>
+          <div className="profile-input-group">
+            <label htmlFor="password">Mật khẩu</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Nhập mật khẩu mới (để trống nếu không muốn thay đổi)"
+              value={user.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="profile-input-group">
+            <div className="gender">
+              <label>Giới tính</label>
+              <input
+                type="radio"
+                id="male"
+                name="sex"
+                value="Nam"
+                checked={user.sex === "Nam"}
+                disabled
+              />
+              <label htmlFor="male">Nam</label>
+              <input
+                type="radio"
+                id="female"
+                name="sex"
+                value="Nữ"
+                checked={user.sex === "Nữ"}
+                disabled
+              />
+              <label htmlFor="female">Nữ</label>
+            </div>
+          </div>
+          <button
+            className="btn-update"
+            onClick={handleUpdate}
+            disabled={!isEditing}
+          >
+            Cập nhật
+          </button>
         </div>
       </div>
-      <div className="form-group">
-        <label htmlFor="email">Email</label>
-        <div style={{ position: "relative", width: "calc(50% - 10px)" }}>
-          <i className="fas fa-envelope"></i>
-          <input type="text" id="email" value={user.email} disabled />
-          <span className="change-link">Thay đổi</span>
-        </div>
-        <label htmlFor="phone">Số điện thoại</label>
-        <div style={{ position: "relative", width: "calc(50% - 10px)" }}>
-          <i className="fas fa-phone"></i>
-          <input type="text" id="phone" value={user.phone} disabled />
-        </div>
-      </div>
-      <div className="form-group gender">
-        <label>Giới tính</label>
-        <input
-          type="radio"
-          id="male"
-          name="gender"
-          value="male"
-          checked={user.gender === "male"}
-          disabled
-        />
-        <label htmlFor="male">Nam</label>
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          value="female"
-          checked={user.gender === "female"}
-          disabled
-        />
-        <label htmlFor="female">Nữ</label>
-      </div>
-      <button className="btn-update" onClick={handleUpdate}>
-        Cập nhật
-      </button>
+      <Footer />
     </div>
   );
 };
