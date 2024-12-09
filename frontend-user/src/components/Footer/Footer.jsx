@@ -4,7 +4,7 @@ import "./Footer.css";
 function Footer() {
   return (
     <div className="footer">
-      <div className="contentFooter">
+      <div className="contentFooter px-12 bg-[#333]">
         <div className="card">
           <p class="text-4x1 p-2 text-white font-medium  dark:text-white ">
             {" "}
@@ -129,7 +129,7 @@ function Footer() {
           © 2023 <a href="#">PHIM VIỆT</a>. All Rights
           Reserved.
         </span>
-        
+
       </div>
     </div>
   );

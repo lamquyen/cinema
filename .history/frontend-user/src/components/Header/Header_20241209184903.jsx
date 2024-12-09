@@ -78,11 +78,16 @@ function Header() {
 
       <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
         <div className="self-center text-center h-fit">
+      <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
+        <div className="self-center text-center h-fit">
           <Dropdown
             options={options}
             placeholder="Rạp Chiếu"
+            placeholder="Rạp Chiếu"
             onSelect={handleSelect}
           />
+        </div>
+        <div>
         </div>
         <div>
           <Dropdown
@@ -151,4 +156,3 @@ function Header() {
 }
 
 export default Header;
-

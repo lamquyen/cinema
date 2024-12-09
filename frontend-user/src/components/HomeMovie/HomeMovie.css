@@ -54,6 +54,15 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.imgBox{
+  width: 100% !important;
+  
+}
+
+.boxCard{
+  width: 15%;
+}
+
 .cardM{
   width: 90%;
   height: 95%;
