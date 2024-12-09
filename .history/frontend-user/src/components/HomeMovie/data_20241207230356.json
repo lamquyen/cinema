@@ -1,0 +1,11 @@
+{
+    "title": "Avatar: The Way of Water",
+    "img": "https://example.com/avatar.jpg",
+    "describe": "Jake Sully lives with his newfound family formed on the planet of Pandora.",
+    "linkTrailer": "https://youtube.com/watch?v=d9MyW72ELq0",
+    "showDate": "2022-12-16",
+    "genre": ["Action", "Adventure", "Sci-Fi"],
+    "cast": ["Sam Worthington", "Zoe Saldana", "Sigourney Weaver"],
+    "rating": 8.5
+  }
+  
