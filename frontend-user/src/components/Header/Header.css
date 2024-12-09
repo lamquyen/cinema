@@ -165,7 +165,9 @@ img {
 .ticket {
 	width: 10%;
 	height: 50px;
-	margin-top: 18px;
+
+	margin-top: 8px;
+
 	border-radius: 20px;
 	text-align: center;
 	padding-top: 10px;
@@ -177,6 +179,14 @@ img {
 a {
 	font-size: 20px;
 
+
+
+}
+
+.btnInput{
+	width: 300px;
+	padding: 5px;
+	border-radius: 20px;
 
 }
 
@@ -195,8 +205,6 @@ a {
 	font-size: 20px;
 
 }
-
-
 
 .dropdown-menu {
 	position: absolute;

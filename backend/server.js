@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRouter from "./Routes/UserRouter.js";
+import userMovie from "./Routes/MovieRouter.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { connect } from "./config/db.js";
 
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRouter);
+app.use("/api/movies", userMovie);
 
 // error handler
 app.use(errorHandler);

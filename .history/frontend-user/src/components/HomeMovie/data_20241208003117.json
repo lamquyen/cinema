@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Avatar: The Way of Water",
+        "img": "https://example.com/avatar.jpg",
+        "describe": "Jake Sully lives with his newfound family formed on the planet of Pandora.",
+        "linkTrailer": "https://youtube.com/watch?v=d9MyW72ELq0",
+        "showDate": "2022-12-16",
+        "genre": ["Action", "Adventure", "Sci-Fi"],
+        "cast": ["Sam Worthington", "Zoe Saldana", "Sigourney Weaver"],
+        "rating": 8.5
+      },
+      {
+        "title": "Công Tử Bạc Liêu",
+        "img": "https://www.cgv.vn/media/catalog/product/cache/1/image/1800x/71252117777b696995f01934522c402d/c/_/c_ng_t_b_c_li_u_-_1st_look_poster_-_kc_122024.jpg",
+        "describe": "Lấy cảm hứng từ giai thoại nổi tiếng của nhân vật được mệnh danh là thiên hạ đệ nhất chơi ngông, Công Tử Bạc Liêu là bộ phim tâm lý hài hước, lấy bối cảnh Nam Kỳ Lục Tỉnh xưa của Việt Nam. BA HƠN - Con trai được thương yêu hết mực của ông Hội đồng Lịnh vốn là chủ ngân hàng đầu tiên tại Việt Nam, sau khi du học Pháp về đã sử dụng cả gia sản của mình vào những trò vui tiêu khiển, ăn chơi trác tán – nên được người dân gọi bằng cái tên Công Tử Bạc Liêu.",
+        "linkTrailer": "https://www.youtube.com/watch?v=7oVbS8zQxQ0",
+        "showDate": "2024-12-6",
+        "genre": ["Hài", "Tiểu Sử", "Tâm Lý"],
+        "cast": ["Song Luân", "Kity Nguyễn", "NSUT Thành Lộc", "Hữu Châu"],
+        "rating": 7.2
+      }
+      
+]
