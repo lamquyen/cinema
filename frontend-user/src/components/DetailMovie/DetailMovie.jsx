@@ -6,8 +6,10 @@ import Moana from '../img/moanatrailer.png'
 import moment from "moment";
 import 'moment/locale/vi';
 import MovieIsShowing from "./MovieIsShowing";
+import { useNavigate } from 'react-router-dom';
 
 function DetailMovie() {
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
     const [startIndex, setStartIndex] = useState(0)
@@ -16,7 +18,9 @@ function DetailMovie() {
         return text.charAt(0).toUpperCase() + text.slice(1);
     };
 
-
+    const handleChangePage = () => {
+        navigate('/Booking'); // thay thế '/trang-moi' bằng đường dẫn trang bạn muốn chuyển đến
+    };
 
     /* function hiển thị lịch chiếu*/
     const getWeekDays = () => {
@@ -193,7 +197,7 @@ function DetailMovie() {
                         <p className="font-bold text-lg text-gray-800">Galaxy Nguyễn Du</p>
                         <div className="flex items-center ">
                             <p className="text-gray-700 font-medium w-36 mr-8">2D Lồng Tiếng </p>
-                            <button className="border border-gray-400 rounded-md px-4 py-1">20:00</button>
+                            <button onClick={handleChangePage} className="border border-gray-400 rounded-md px-4 py-1">20:00</button>
                         </div>
                         <div className="flex items-center ">
                             <p className="text-gray-700 text-[15px] w-36  font-medium mr-8">2D Phụ Đề</p>
