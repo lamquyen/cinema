@@ -8,8 +8,10 @@ import Moana from '../img/moanatrailer.png'
 import moment from "moment";
 import 'moment/locale/vi';
 import MovieIsShowing from "./MovieIsShowing";
+import { useNavigate } from 'react-router-dom';
 
 function DetailMovie() {
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(moment().format("YYYY-MM-DD"));
     const [startIndex, setStartIndex] = useState(0)
@@ -18,26 +20,29 @@ function DetailMovie() {
         return text.charAt(0).toUpperCase() + text.slice(1);
     };
 
-  const { id } = useParams();  // Lấy id phim từ URL
-  console.log(id);
-  const [movieDetails, setMovieDetails] = useState(null);
-  
-  useEffect(() => {
-    const fetchMovieDetails = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/movies/${id}`);  // Gọi API lấy thông tin phim
-        setMovieDetails(response.data);  // Lưu thông tin phim vào state
-      } catch (error) {
-        console.error('Error fetching movie details:', error);
-      }
+    const { id } = useParams();  // Lấy id phim từ URL
+    console.log(id);
+    const [movieDetails, setMovieDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchMovieDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/api/movies/${id}`);  // Gọi API lấy thông tin phim
+                setMovieDetails(response.data);  // Lưu thông tin phim vào state
+            } catch (error) {
+                console.error('Error fetching movie details:', error);
+            }
+        };
+
+        fetchMovieDetails();
+    }, [id]);  // Gọi lại khi id thay đổi
+
+    if (!movieDetails) return <p>Loading...</p>;
+
+
+    const handleChangePage = () => {
+        navigate('/Booking'); // thay thế '/trang-moi' bằng đường dẫn trang bạn muốn chuyển đến
     };
-
-    fetchMovieDetails();
-  }, [id]);  // Gọi lại khi id thay đổi
-
-  if (!movieDetails) return <p>Loading...</p>;
-
-
 
     /* function hiển thị lịch chiếu*/
     const getWeekDays = () => {
@@ -214,7 +219,7 @@ function DetailMovie() {
                         <p className="font-bold text-lg text-gray-800">Galaxy Nguyễn Du</p>
                         <div className="flex items-center ">
                             <p className="text-gray-700 font-medium w-36 mr-8">2D Lồng Tiếng </p>
-                            <button className="border border-gray-400 rounded-md px-4 py-1">20:00</button>
+                            <button onClick={handleChangePage} className="border border-gray-400 rounded-md px-4 py-1">20:00</button>
                         </div>
                         <div className="flex items-center ">
                             <p className="text-gray-700 text-[15px] w-36  font-medium mr-8">2D Phụ Đề</p>

@@ -4,8 +4,7 @@ import HomeMovie from "./components/HomeMovie/HomeMovie";
 import DetailMovie from "./components/DetailMovie/DetailMovie";
 import Profile from "./components/ProfileUser/ProfileUser";
 
-
-
+import Booking from "./components/DetailMovie/Booking.jsx";
 function App() {
   return (
     <>
@@ -15,8 +14,10 @@ function App() {
           <Route path="/DetailMovie/:id" element={<DetailMovie />} />
 
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/Booking" element={<Booking />} />
         </Routes>
       </Router>
+
     </>
   );
 }

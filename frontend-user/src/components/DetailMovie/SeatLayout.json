@@ -1,0 +1,335 @@
+[
+    {
+        "layoutName": "basic",
+        "seat": [
+            {
+                "row": "A",
+                "seats": [
+                    {
+                        "number": "A1"
+                    },
+                    {
+                        "number": "A2"
+                    },
+                    {
+                        "number": "A3"
+                    },
+                    {
+                        "number": "A4"
+                    },
+                    {
+                        "number": "A5"
+                    },
+                    {
+                        "number": "A6"
+                    },
+                    {
+                        "number": "A7"
+                    },
+                    {
+                        "number": "A8"
+                    },
+                    {
+                        "number": "A9"
+                    },
+                    {
+                        "number": "A10"
+                    },
+                    {
+                        "number": "A11"
+                    },
+                    {
+                        "number": "A12"
+                    }
+                ]
+            },
+            {
+                "row": "B",
+                "seats": [
+                    {
+                        "number": "B1"
+                    },
+                    {
+                        "number": "B2"
+                    },
+                    {
+                        "number": "B3"
+                    },
+                    {
+                        "number": "B4"
+                    },
+                    {
+                        "number": "B5"
+                    },
+                    {
+                        "number": "B6"
+                    },
+                    {
+                        "number": "B7"
+                    },
+                    {
+                        "number": "B8"
+                    },
+                    {
+                        "number": "B9"
+                    },
+                    {
+                        "number": "B10"
+                    },
+                    {
+                        "number": "B11"
+                    },
+                    {
+                        "number": "B12"
+                    }
+                ]
+            },
+            {
+                "row": "C",
+                "seats": [
+                    {
+                        "number": "C1"
+                    },
+                    {
+                        "number": "C2"
+                    },
+                    {
+                        "number": "C3"
+                    },
+                    {
+                        "number": "C4"
+                    },
+                    {
+                        "number": "C5"
+                    },
+                    {
+                        "number": "C6"
+                    },
+                    {
+                        "number": "C7"
+                    },
+                    {
+                        "number": "C8"
+                    },
+                    {
+                        "number": "C9"
+                    },
+                    {
+                        "number": "C10"
+                    },
+                    {
+                        "number": "C11"
+                    },
+                    {
+                        "number": "C12"
+                    }
+                ]
+            },
+            {
+                "row": "D",
+                "seats": [
+                    {
+                        "number": "D1"
+                    },
+                    {
+                        "number": "D2"
+                    },
+                    {
+                        "number": "D3"
+                    },
+                    {
+                        "number": "D4"
+                    },
+                    {
+                        "number": "D5"
+                    },
+                    {
+                        "number": "D6"
+                    },
+                    {
+                        "number": "D7"
+                    },
+                    {
+                        "number": "D8"
+                    },
+                    {
+                        "number": "D9"
+                    },
+                    {
+                        "number": "D10"
+                    },
+                    {
+                        "number": "D11"
+                    },
+                    {
+                        "number": "D12"
+                    }
+                ]
+            },
+            {
+                "row": "E",
+                "seats": [
+                    {
+                        "number": "E1"
+                    },
+                    {
+                        "number": "E2"
+                    },
+                    {
+                        "number": "E3"
+                    },
+                    {
+                        "number": "E4"
+                    },
+                    {
+                        "number": "E5"
+                    },
+                    {
+                        "number": "E6"
+                    },
+                    {
+                        "number": "E7"
+                    },
+                    {
+                        "number": "E8"
+                    },
+                    {
+                        "number": "E9"
+                    },
+                    {
+                        "number": "E10"
+                    },
+                    {
+                        "number": "E11"
+                    },
+                    {
+                        "number": "E12"
+                    }
+                ]
+            },
+            {
+                "row": "F",
+                "seats": [
+                    {
+                        "number": "F1"
+                    },
+                    {
+                        "number": "F2"
+                    },
+                    {
+                        "number": "F3"
+                    },
+                    {
+                        "number": "F4"
+                    },
+                    {
+                        "number": "F5"
+                    },
+                    {
+                        "number": "F6"
+                    },
+                    {
+                        "number": "F7"
+                    },
+                    {
+                        "number": "F8"
+                    },
+                    {
+                        "number": "F9"
+                    },
+                    {
+                        "number": "F10"
+                    },
+                    {
+                        "number": "F11"
+                    },
+                    {
+                        "number": "F12"
+                    }
+                ]
+            },
+            {
+                "row": "G",
+                "seats": [
+                    {
+                        "number": "G1"
+                    },
+                    {
+                        "number": "G2"
+                    },
+                    {
+                        "number": "G3"
+                    },
+                    {
+                        "number": "G4"
+                    },
+                    {
+                        "number": "G5"
+                    },
+                    {
+                        "number": "G6"
+                    },
+                    {
+                        "number": "G7"
+                    },
+                    {
+                        "number": "G8"
+                    },
+                    {
+                        "number": "G9"
+                    },
+                    {
+                        "number": "G10"
+                    },
+                    {
+                        "number": "G11"
+                    },
+                    {
+                        "number": "G12"
+                    }
+                ]
+            },
+            {
+                "row": "H",
+                "seats": [
+                    {
+                        "number": "H1"
+                    },
+                    {
+                        "number": "H2"
+                    },
+                    {
+                        "number": "H3"
+                    },
+                    {
+                        "number": "H4"
+                    },
+                    {
+                        "number": "H5"
+                    },
+                    {
+                        "number": "H6"
+                    },
+                    {
+                        "number": "H7"
+                    },
+                    {
+                        "number": "H8"
+                    },
+                    {
+                        "number": "H9"
+                    },
+                    {
+                        "number": "H10"
+                    },
+                    {
+                        "number": "H11"
+                    },
+                    {
+                        "number": "H12"
+                    }
+                ]
+            }
+        ]
+    }
+]

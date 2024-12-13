@@ -5,6 +5,7 @@ import userRouter from "./Routes/UserRouter.js";
 import userMovie from "./Routes/MovieRouter.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { connect } from "./config/db.js";
+import movieRouter from "./Routes/MovieRouter.js"
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ connect();
 app.get("/", (req, res) => {
   res.send("API is running ...");
 });
-
+app.use("/api/movie", movieRouter)
 app.use("/api/users", userRouter);
 app.use("/api/movies", userMovie);
 
