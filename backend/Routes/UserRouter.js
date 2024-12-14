@@ -1,5 +1,7 @@
 import express from "express";
 import {
+  getAllUsers,
+  loginAdmin,
   loginUser,
   registerUser,
   updateUserProfile,
@@ -10,7 +12,8 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-
+router.post("/login-admin", loginAdmin);
 router.put("/update", protect, updateUserProfile);
+router.get("/", getAllUsers);
 
 export default router;

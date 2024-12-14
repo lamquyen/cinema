@@ -50,7 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-//Login
+//Login user
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -71,6 +71,37 @@ const loginUser = asyncHandler(async (req, res) => {
     } else {
       res.status(401);
       throw new Error("Email hoặc mật khẩu không hợp lệ");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// login admin
+const loginAdmin = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Tìm user trong DB
+    const user = await User.findOne({ email });
+
+    // Kiểm tra tồn tại và vai trò admin
+    if (
+      user &&
+      user.isAdmin &&
+      (await bcrypt.compare(password, user.password))
+    ) {
+      res.json({
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(401);
+      throw new Error(
+        "Thông tin đăng nhập không hợp lệ hoặc bạn không phải admin"
+      );
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -116,4 +147,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, updateUserProfile };
+// Get All User
+const getAllUsers = asyncHandler(async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+export { registerUser, loginUser, loginAdmin, updateUserProfile, getAllUsers };
