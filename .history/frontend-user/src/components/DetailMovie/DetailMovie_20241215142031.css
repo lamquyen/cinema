@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+
+
+.seatLayout {
+    @apply flex justify-between font-semibold text-lg text-gray-500 mb-3;
+
+}
+
+.stepper {
+    @apply pr-4 pb-5 border-b-2 border-gray-300 text-base text-gray-500 font-nunito font-bold;
+}

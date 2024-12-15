@@ -1,0 +1,64 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/************************ CSS CINEMA INFO*************************************/
+.cinemaInfo{
+    max-width: 100%;
+    height: auto;
+    background-color:  rgb(240, 242, 242);;
+}
+
+.titleCinema{
+    display: grid; /* Kích hoạt Grid Layout */
+    grid-template-columns: repeat(1, 1fr); /* 1 cột mặc định */
+    grid-auto-flow: row; /* Sắp xếp các item theo hàng */
+    gap: 1.5rem; /* Khoảng cách giữa các hàng (24px) */
+    margin: 0 auto; /* Căn giữa theo chiều ngang */
+    background-color: white; /* Nền màu trắng */
+    padding: 1.5rem; /* Padding trên dưới (24px) và padding ngang mặc định */
+}
+
+.containerCinema{
+    margin-top: 30px; /* my-0 */
+    margin-bottom: 0; /* my-0 */
+    margin-left: auto; /* mx-auto */
+    margin-right: auto; /* mx-auto */
+    align-items: center; /* items-center - căn giữa theo chiều dọc trong flexbox */
+    padding-top: 1.5rem; /* py-6 (24px) */
+    padding-bottom: 1.5rem; /* py-6 (24px) */
+    padding-left: 1rem; /* px-[16px] */
+    padding-right: 1rem; /* px-[16px] */
+    background-color: white;
+    max-width: 1200px;
+    display: block;
+}
+
+.buttonChooseDay{
+    width: 500px;
+    height: 100px;
+    margin-left: 30%;
+    display: flex;
+    align-items: center;
+}
+
+.line{
+    width: 100%;
+    height: 2px;
+    background-color: #034ea2;
+    margin: 1rem 0;
+}
+
+.custom-bg{
+    background-color: #f97316;
+    
+}
+
+.box{
+    display: grid;
+}
+
+.cinemaTicketsPricing{
+    list-style: none;
+}

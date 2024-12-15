@@ -1,0 +1,80 @@
+import React, { useState } from "react";
+
+function MovieSchedule  ({  movies }) {
+  const [selectedDate, setSelectedDate] = useState(weekDays[0]?.fullDate);
+
+  // Lọc phim dựa trên ngày được chọn
+  const filteredMovies = movies.filter((movie) =>
+    movie.showDates.includes(selectedDate)
+  );
+  const generateWeekDays = (numberOfDays = 7) => {
+    const today = new Date();
+    const days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+  
+    return Array.from({ length: numberOfDays }, (_, i) => {
+      const currentDate = new Date();
+      currentDate.setDate(today.getDate() + i); // Cộng i ngày vào hôm nay
+  
+      return {
+        day: i === 0 ? "Hôm Nay" : days[currentDate.getDay()], // "Hôm Nay" cho ngày đầu tiên
+        fullDate: currentDate.toISOString().split("T")[0], // Định dạng YYYY-MM-DD
+      };
+    });
+  };
+  
+  // Gọi hàm để tạo danh sách tuần (ví dụ: 7 ngày)
+  const weekDays = generateWeekDays(3);
+
+  return (
+    <div>
+      {/* Thanh chọn ngày */}
+      <div className="text-gray-700 text-base cursor-pointer text-center p-4 rounded transition-colors">
+        {weekDays.map((day) => (
+          <button
+            key={day.fullDate}
+            onClick={() => setSelectedDate(day.fullDate)}
+            className={`p-2 rounded-lg ${
+              selectedDate === day.fullDate
+                ? "bg-blue-500 text-white"
+                : "bg-gray-200 text-gray-900"
+            }`}
+          >
+            <div className="">{day.day}</div>
+            <div className="">{day.date}</div>
+          </button>
+        ))}
+      </div>
+      <div class="line"></div>
+      {/* Hiển thị danh sách phim */}
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((movie) => (
+            <div
+              key={movie.id}
+              className=" bg-gray-100 p-4 rounded-lg shadow hover:shadow-lg transition"
+            >
+              <img
+                src={movie.img}
+                alt={movie.title}
+                className="w-full h-40 object-cover rounded"
+              />
+              <h3 className="text-lg font-bold mt-2">{movie.title}</h3>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-yellow-500 font-bold">{movie.rating}★</span>
+                <span className="bg-red-600 text-white text-xs px-2 py-1 rounded">
+                  {movie.type}
+                </span>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="col-span-3 text-center text-gray-500">
+            Không có phim nào trong ngày này.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default MovieSchedule

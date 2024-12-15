@@ -25,4 +25,3 @@ SeatStatusSchema.index({ showtimeId: 1, seatId: 1 }, { unique: true });
 
 const SeatStatusModel = mongoose.model('layouts', SeatStatusSchema);
 export default SeatStatusModel;
-
