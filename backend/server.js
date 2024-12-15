@@ -20,7 +20,7 @@ connect();
 app.get("/", (req, res) => {
   res.send("API is running ...");
 });
-
+app.use("/api/movie", movieRouter)
 app.use("/api/users", userRouter);
 app.use("/api/movies", userMovie);
 app.use("/api/cinemas",userCinema);
