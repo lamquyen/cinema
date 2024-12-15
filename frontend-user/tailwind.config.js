@@ -1,14 +1,11 @@
-
 export const content = [
   "./src/**/*.{js,jsx,ts,tsx}",
-  "./node_modules/flowbite/**/*.js"
+  "./node_modules/flowbite/**/*.js",
 ];
 export const theme = {
   extend: {},
 };
-export const plugins = [
-  require('flowbite/plugin')
-];
+export const plugins = [require("flowbite/plugin")];
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -18,10 +15,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        nunito: ['"Nunito Sans"', 'sans-serif'], // Đặt tên cho font
+        nunito: ['"Nunito Sans"', "sans-serif"], // Đặt tên cho font
       },
     },
   },
   plugins: [],
-}
-
+};
