@@ -7,6 +7,7 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null); // Movie đang được chỉnh sửa
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false); // Trạng thái Modal thông báo
@@ -14,6 +15,25 @@ const MovieList = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false); // Modal xác nhận xóa
   const [isDeleteSuccessModalVisible, setIsDeleteSuccessModalVisible] =
     useState(false); // Modal thông báo xóa thành công
+  const [newMovie, setNewMovie] = useState({
+    title: "",
+    img: "",
+    img02: "",
+    describe: "",
+    linkTrailer: "",
+    showDate: "",
+    genre: "",
+    cast: "",
+    // rating: "",
+    type: "",
+    times: "",
+    nation: "",
+    director: "",
+    manufacturer: "",
+  });
+  const [isAddSuccessModalVisible, setIsAddSuccessModalVisible] =
+    useState(false); // Modal thông báo thêm thành công
+  const [isAddErrorModalVisible, setIsAddErrorModalVisible] = useState(false); // Modal thông báo thêm thất bại
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -100,6 +120,43 @@ const MovieList = () => {
     setIsDeleteModalVisible(false); // Đóng modal xác nhận
   };
 
+  const handleAddMovie = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/movie/",
+        newMovie
+      );
+      setMovies([...movies, response.data]); // Thêm phim mới vào danh sách
+      setShowModal(false); // Ẩn modal
+      setNewMovie({
+        title: "",
+        img: "",
+        img02: "",
+        describe: "",
+        linkTrailer: "",
+        showDate: "",
+        genre: "",
+        cast: "",
+        // rating: "",
+        type: "",
+        times: "",
+        nation: "",
+        director: "",
+        manufacturer: "",
+      });
+      setIsAddSuccessModalVisible(true); // Hiển thị modal thông báo thành công
+      setTimeout(() => setIsAddSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
+    } catch (error) {
+      setIsAddErrorModalVisible(true); // Hiển thị modal thông báo thất bại
+      setTimeout(() => setIsAddErrorModalVisible(false), 3000); // Tự động đóng modal
+    }
+  };
+
+  const handleAddInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewMovie({ ...newMovie, [name]: value });
+  };
+
   return (
     <div className="container">
       <Sidebar />
@@ -114,6 +171,7 @@ const MovieList = () => {
           <table className="table">
             <thead>
               <tr>
+                <th>STT</th>
                 <th>IMAGE</th>
                 <th>TITLE</th>
                 <th>DATE</th>
@@ -124,8 +182,9 @@ const MovieList = () => {
               </tr>
             </thead>
             <tbody>
-              {movies.map((movie) => (
+              {movies.map((movie, index) => (
                 <tr key={movie._id}>
+                  <td>{index + 1}</td>
                   <td>
                     <img
                       src={movie.img || "https://placehold.co/50x50"}
@@ -307,6 +366,184 @@ const MovieList = () => {
               <button
                 className="btn-noti-close"
                 onClick={() => setIsDeleteSuccessModalVisible(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+        <button className="add-btn" onClick={() => setShowModal(true)}>
+          Add Movie
+        </button>
+        {showModal && (
+          <div className="modal-add">
+            <div className="modal-add-content">
+              <h3>Add New Movie</h3>
+              <form>
+                <label>
+                  Title:
+                  <input
+                    type="text"
+                    name="title"
+                    value={newMovie.title}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Image URL:
+                  <input
+                    type="text"
+                    name="img"
+                    value={newMovie.img}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Image URL 02:
+                  <input
+                    type="text"
+                    name="img02"
+                    value={newMovie.img02}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Describe:
+                  <input
+                    type="text"
+                    name="describe"
+                    value={newMovie.describe}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Link Trailer:
+                  <input
+                    type="text"
+                    name="linkTrailer"
+                    value={newMovie.linkTrailer}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Show Date:
+                  <input
+                    type="date"
+                    name="showDate"
+                    value={newMovie.showDate}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Genre:
+                  <input
+                    type="text"
+                    name="genre"
+                    value={newMovie.genre}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Cast:
+                  <input
+                    type="text"
+                    name="cast"
+                    value={newMovie.cast}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                {/* <label>
+                  Rating:
+                  <input
+                    type="number"
+                    name="rating"
+                    value={newMovie.rating}
+                    onChange={handleAddInputChange}
+                  />
+                </label> */}
+                <label>
+                  Type:
+                  <input
+                    type="text"
+                    name="type"
+                    value={newMovie.type}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Times:
+                  <input
+                    type="number"
+                    name="times"
+                    value={newMovie.times}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Nation:
+                  <input
+                    type="text"
+                    name="nation"
+                    value={newMovie.nation}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Director:
+                  <input
+                    type="text"
+                    name="director"
+                    value={newMovie.director}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+                <label>
+                  Manufacturer:
+                  <input
+                    type="text"
+                    name="manufacturer"
+                    value={newMovie.manufacturer}
+                    onChange={handleAddInputChange}
+                  />
+                </label>
+              </form>
+              <button className="btn save" onClick={handleAddMovie}>
+                Add
+              </button>
+              <button
+                className="btn cancel"
+                onClick={() => setShowModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+        {/* Modal thông báo thêm thành công */}
+        {isAddSuccessModalVisible && (
+          <div className="modal-noti">
+            <div className="modal-noti-content">
+              <h3>Success</h3>
+              <p>Movie added successfully!</p>
+              <button
+                className="btn-noti-close"
+                onClick={() => setIsAddSuccessModalVisible(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Modal thông báo thêm thất bại */}
+        {isAddErrorModalVisible && (
+          <div className="modal-noti">
+            <div className="modal-noti-content">
+              <h3>Error</h3>
+              <p>Failed to add movie. Please try again.</p>
+              <button
+                className="btn-noti-close"
+                onClick={() => setIsAddErrorModalVisible(false)}
               >
                 Close
               </button>
