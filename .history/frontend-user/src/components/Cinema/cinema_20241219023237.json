@@ -1,0 +1,13 @@
+[
+    {
+      "cinemaName": "Cinema A",
+      "location": "City Center",
+      "address": "123 Main Street"
+    },
+    {
+      "cinemaName": "Cinema B",
+      "location": "Downtown",
+      "address": "456 Side Street"
+    }
+  ]
+  

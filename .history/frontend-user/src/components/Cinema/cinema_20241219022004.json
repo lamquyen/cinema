@@ -1,0 +1,13 @@
+[
+    {
+    "cinema": "675c8b8579efe4448958fd41",
+    "movie": "6754ca264433d730d0344f1d",
+    "times": "9:00",
+    "room": "rạp 2",
+    "priceStandard": 100000,
+    "priceVIP": 150000,
+    "seatsStandard": { "total": 100, "available": 100 },
+    "seatsVIP": { "total": 20, "available": 20 },
+    "days":["2024-12-20"]
+    }
+]
