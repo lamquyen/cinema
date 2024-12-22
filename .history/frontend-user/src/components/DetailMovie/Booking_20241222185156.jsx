@@ -42,6 +42,7 @@ const Booking = () => {
   };
 
   const formattedDate = days ? formatDate(days) : "Không có thông tin ngày";
+  const formattedTimes = Array.isArray(times) ? times.join(", ") : "Không có thông tin suất";
 
   return (
     <>
@@ -80,7 +81,7 @@ const Booking = () => {
                   <p className="flex font-bold">
                     {cinemaName} - <span className="font-normal">{roomName}</span>
                   </p>
-                  <p>Suất: <span className="font-bold">{times}</span> - {formattedDate}</p>
+                  <p>Suất: <span className="font-bold">{formattedTimes}</span> - {formattedDate}</p>
                 </div>
               </div>
               <div className="flex justify-between pt-4 font-bold">
