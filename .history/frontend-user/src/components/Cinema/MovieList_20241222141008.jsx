@@ -46,17 +46,17 @@ const MovieList = ({ groupedShowtimes, onTimeClick }) => {
         <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
           <h4 className="text-lg font-bold mb-2">Suất chiếu</h4>
           <div className="flex gap-4">
-  {groupedShowtimes[selectedMovieId].times.map(({ id, time }) => (
-    <Link
-      key={id} // ID suất chiếu
-      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      to={`/Booking/${id}`} // Truyền ID suất chiếu vào URL
-    >
-      {time}
-    </Link>
-  ))}
-</div>
-
+            {groupedShowtimes[selectedMovieId].times.map((time, index) => (
+              <Link
+                key={index}
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                to={`/Booking/${selectedMovieId}/${time}`}  
+                
+              >
+                {time}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>

@@ -1,48 +1,50 @@
-import React, { useEffect, useState } from "react";
-import "./DetailMovie.css";
-import Header from "../Header/Header";
-import Footer from "../Footer/Footer";
-import Moana from "../img/moanatrailer.png"; // Tạm thời sử dụng ảnh này
-import PickingSeat from "./PickSeat";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import './DetailMovie.css';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import Moana from '../img/moanatrailer.png'; // Tạm thời sử dụng ảnh này
+import PickingSeat from './PickSeat';
+import { useParams } from 'react-router-dom';
 
 const Booking = () => {
-  const { id } = useParams(); // Nhận ID suất chiếu từ URL
+  const { selectedMovieId, time } = useParams(); // Nhận selectedMovieId và time từ URL
   const [showtimeData, setShowtimeData] = useState(null);
 
   useEffect(() => {
+    // Gọi API để lấy dữ liệu suất chiếu dựa trên selectedMovieId và time
     const fetchShowtimeData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/showtimes/${id}`);
+        const response = await fetch(`http://localhost:5000/api/showtimes/${selectedMovieId}`);
         const data = await response.json();
-        setShowtimeData(data); // Giả sử API trả về đối tượng suất chiếu
+        setShowtimeData(data[0]); // Giả sử API trả về mảng với một phần tử
       } catch (error) {
-        console.error("Error fetching showtime data:", error);
+        console.error('Error fetching showtime data:', error);
       }
     };
 
-    if (id) {
+    if (selectedMovieId && time) {
       fetchShowtimeData();
     }
-  }, [id]);
+  }, [selectedMovieId, time]);
 
   if (!showtimeData) {
-    return <div>Loading...</div>; // Loading state
+    return <div>Loading...</div>;  // Hoặc bạn có thể xử lý loading state ở đây
   }
 
-  const { movie, room, times, cinema, days } = showtimeData;
+  // Khi showtime đã có dữ liệu
+  const { movie, room, times,  cinema , days} = showtimeData;
   const { title, img, type } = movie || {};
-  const cinemaName = cinema ? cinema.cinemaName : "Không có thông tin rạp";
-  const roomName = room ? room.roomName : "Không có thông tin phòng";
+  const cinemaName = cinema ? cinema.cinemaName : 'Không có thông tin rạp';
+  const roomName = room ? room.roomName : 'Không có thông tin rạp';
+  
 
   const formatDate = (dateString) => {
-    const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
-    return date.toLocaleDateString("vi-VN", options); // Hiển thị theo định dạng ngày Việt Nam
+    return date.toLocaleDateString('vi-VN', options); // Hiển thị theo định dạng ngày Việt Nam
   };
 
-  const formattedDate = days ? formatDate(days) : "Không có thông tin ngày";
-
+  const formattedDate = formatDate(days);
   return (
     <>
       <Header />
@@ -61,9 +63,12 @@ const Booking = () => {
           </ul>
         </div>
         <div className="mt-1 flex justify-around w-full">
+          {/*picking */}
           <div className="h-fit w-[65%] bg-white rounded-lg py-8 px-10 mb-10">
             <PickingSeat />
           </div>
+
+          {/*tag total */}
           <div className="h-fit w-[25%] font-nunito rounded-lg border-t-4 border-orange-600 float-right">
             <div className="bg-white w-full p-4">
               <div className="border-dashed border-b-[1px] border-black pb-4">
@@ -78,7 +83,7 @@ const Booking = () => {
                 </div>
                 <div className="mt-4">
                   <p className="flex font-bold">
-                    {cinemaName} - <span className="font-normal">{roomName}</span>
+                    {cinemaName} - <p className="font-normal">  {roomName}</p>
                   </p>
                   <p>Suất: <span className="font-bold">{times}</span> - {formattedDate}</p>
                 </div>
@@ -88,6 +93,7 @@ const Booking = () => {
                 <p className="text-orange-600">0 đ</p>
               </div>
             </div>
+
             <div className="flex justify-around mt-7">
               <button className="bg-white font-bold rounded-lg w-32 py-1 text-orange-600 hover:bg-orange-600 hover:text-white">
                 Quay lại
@@ -99,6 +105,7 @@ const Booking = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

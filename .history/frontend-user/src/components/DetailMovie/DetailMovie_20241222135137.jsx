@@ -44,36 +44,30 @@ function DetailMovie() {
 
   useEffect(() => {
     const fetchShowtimes = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/api/showtimes/movie/${id}`);
-            const filteredShowtimes = groupByCinema(response.data); // Chỉ lấy suất chiếu hôm nay
-            setShowtimes(filteredShowtimes);
-        } catch (error) {
-            console.error('Error fetching showtimes:', error);
-        }
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/showtimes/movie/${id}`
+        );
+        console.log(response.data);
+        setShowtimes(groupByCinema(response.data));
+      } catch (error) {
+        console.error("Error fetching showtimes:", error);
+      }
     };
 
     fetchShowtimes();
-}, [id]);
-
+  }, [id]);
 
   const groupByCinema = (data) => {
-    // Lấy ngày hôm nay theo định dạng YYYY-MM-DD
-    const today = moment().format("YYYY-MM-DD");
-
     return data.reduce((acc, current) => {
-        // Lọc suất chiếu theo ngày hôm nay
-        if (moment(current.showDate).format("YYYY-MM-DD") === today) {
-            const cinemaName = current.cinema.cinemaName;
-            if (!acc[cinemaName]) {
-                acc[cinemaName] = [];
-            }
-            acc[cinemaName].push(current);
-        }
-        return acc;
+      const cinemaName = current.cinema.cinemaName;
+      if (!acc[cinemaName]) {
+        acc[cinemaName] = [];
+      }
+      acc[cinemaName].push(current);
+      return acc;
     }, {});
-};
-
+  };
 
   if (!movieDetails) return <p>Loading...</p>;
 
@@ -360,25 +354,35 @@ function DetailMovie() {
             </div>
           </div>
           <div className="w-auto py-9 flex-row space-y-5 border-b-[1px]">
-  {Object.keys(showtimes).map((cinemaName) => (
-    <div key={cinemaName} className="w-auto py-9 flex-row space-y-5 border-b-[1px]">
-      <p className="font-bold text-lg text-gray-800">{cinemaName}</p>
-      <div className="flex items-center space-x-4">
-        <p className="text-gray-700 font-medium w-36 mr-8">Suất Chiếu</p>
-        {showtimes[cinemaName].map((showtime) => (
-          <button
-            key={showtime._id}
-            onClick={() => handleChangePage(showtime.times)}
-            className="border border-gray-400 rounded-md px-4 py-1"
-          >
-            {showtime.times}
-          </button>
-        ))}
-      </div>
-    </div>
-  ))}
-</div>
+  {Object.keys(showtimes).map((cinemaName) => {
+    // Gộp các suất chiếu của cùng một rạp
+    const showtimesByCinema = showtimes[cinemaName];
 
+    return (
+      <div
+        key={cinemaName}
+        className="w-auto py-9 flex-row space-y-5 border-b-[1px]"
+      >
+        {/* Hiển thị tên rạp */}
+        <p className="font-bold text-lg text-gray-800">{cinemaName}</p>
+
+        {/* Hiển thị danh sách suất chiếu */}
+        <div className="flex items-center space-x-4">
+          <p className="text-gray-700 font-medium w-36 mr-8">Suất Chiếu</p>
+          {showtimesByCinema.map((showtime) => (
+            <button
+              key={showtime._id}
+              onClick={() => handleChangePage(showtime.times)}
+              className="border border-gray-400 rounded-md px-4 py-1"
+            >
+              {showtime.times}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</div>
 
         </div>
       </div>

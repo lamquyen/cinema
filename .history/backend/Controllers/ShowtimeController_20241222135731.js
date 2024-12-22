@@ -34,10 +34,7 @@ export const CreateShowtime = async(req,res) =>{
 // Get Showttimes By Id
 export const getShowtimeById = async (req, res) => {
   try {
-    const showTime = await Showtime.findById(req.params.id) // Truy vấn bằng ID
-    .populate('movie', 'img title type') // Populating trường movie để lấy thông tin img01, title, type
-      .populate('cinema', 'cinemaName') // Populating trường cinema để lấy thông tin cinemaName
-      .populate('room', 'roomName') // Populating trường Room để lấy thông tin roomName
+    const showTime = await Showtime.findById(req.params.id); // Truy vấn bằng ID
     if (!showTime) {
       return res.status(404).json({ message: "Showtime not found" });
     }

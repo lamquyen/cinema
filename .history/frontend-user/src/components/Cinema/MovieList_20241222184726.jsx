@@ -50,7 +50,8 @@ const MovieList = ({ groupedShowtimes, onTimeClick }) => {
     <Link
       key={id} // ID suất chiếu
       className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-      to={`/Booking/${id}`} // Truyền ID suất chiếu vào URL
+      to={`/Booking/${selectedMovieId}/${id}`} // Truyền ID suất chiếu vào URL
+      onClick={() => onTimeClick(id)} // Gọi callback với ID suất chiếu
     >
       {time}
     </Link>

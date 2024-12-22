@@ -42,6 +42,7 @@ const Booking = () => {
   };
 
   const formattedDate = days ? formatDate(days) : "Không có thông tin ngày";
+  const formattedTimes = Array.isArray(times) ? times.join(", ") : "Không có thông tin suất";
 
   return (
     <>
