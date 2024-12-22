@@ -1,5 +1,7 @@
 import Movie from "../Models/MovieModels.js";
 import SeatLayoutModel from "../Models/SeatLayout.js";
+import SeatStatusModel from '../Models/StatusSeatModel.js'
+import mongoose from 'mongoose';
 // CreateMovie
 export const createMovie = async (req, res) => {
   try {
@@ -135,15 +137,36 @@ export const getTopRating = async (req, res) => {
 };
 
 const SeatLayout = async (req, res) => {
-  try {
-    const layout = await SeatLayoutModel.findOne({ layoutName: "basic" }); // Tìm layout có tên 'basic'
+  const { showtimeId } = req.params;
 
+  try {
+    const layout = await SeatLayoutModel.findOne({ layoutName: "basic" });
     if (!layout) {
       return res.status(404).send("Layout not found");
     }
-    return res.send(layout); // 'layout' là tên file EJS (view)
+    console.log('đây là layout', layout)
+    const seatStatus = await SeatStatusModel.findOne({ showtimeId });
+    console.log("đây là status", seatStatus)
+    if (seatStatus) {
+      // Chuyển đổi layout sang object thuần
+      const layoutJSON = layout.toObject();
+
+      // Cập nhật trạng thái ghế
+      layoutJSON.seat.forEach(row => {
+        row.seats.forEach(seat => {
+          const seatState = seatStatus.StatusSeats.find(s => s.number === seat.number);
+          seat.status = seatState ? seatState.status : "available";
+        });
+      });
+
+      // Trả về layout đã cập nhật
+      return res.json(layoutJSON);
+    }
+
+    // Nếu không có trạng thái ghế, trả về layout gốc
+    return res.json(layout.toObject());
   } catch (err) {
-    console.error(err);
+    console.error("Error:", err);
     res.status(500).send("Server error");
   }
 };
@@ -192,5 +215,46 @@ export const deleteMovie = async (req, res) => {
   } catch (error) {
     console.error("Error deleting movie:", error);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const updateStatusSeat = async (req, res) => {
+  const { showtimeId } = req.params; // Lấy showtimeId từ params
+  const { StatusSeats } = req.body; // Lấy StatusSeats từ body
+
+  // Kiểm tra dữ liệu đầu vào
+
+  try {
+    let seatStatus = await SeatStatusModel.findOne({ showtimeId });
+
+
+    if (seatStatus) {
+      // Nếu đã tồn tại, thêm các ghế mới vào mảng StatusSeats
+      StatusSeats.forEach(newSeat => {
+        // Kiểm tra xem ghế đã tồn tại chưa
+        const existingSeat = seatStatus.StatusSeats.find(seat => seat.number === newSeat.number);
+        if (!existingSeat) {
+          seatStatus.StatusSeats.push(newSeat); // Thêm ghế mới nếu chưa tồn tại
+        } else {
+          // Nếu ghế đã tồn tại, có thể cập nhật trạng thái nếu cần
+          existingSeat.status = newSeat.status; // Cập nhật trạng thái nếu cần
+        }
+      });
+    } else {
+      // Nếu không tồn tại, tạo mới
+      seatStatus = new SeatStatusModel({
+        showtimeId,
+        StatusSeats,
+      });
+    }
+
+    // Lưu vào cơ sở dữ liệu
+    await seatStatus.save();
+
+    // Trả về phản hồi thành công
+    return res.status(201).json(seatStatus);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Có lỗi xảy ra khi thêm trạng thái ghế.', error });
   }
 };

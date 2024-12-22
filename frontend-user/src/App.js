@@ -15,7 +15,7 @@ function App() {
           <Route path="/DetailMovie/:id" element={<DetailMovie />} />
           <Route path="/Profile" element={<Profile />} />
           <Route path="/rap-phim/:location" element={<Cinema />} />
-          <Route path="/Booking" element={<Booking />} />
+          <Route path="/Booking/:showtimeId" element={<Booking />} />
         </Routes>
       </Router>
 

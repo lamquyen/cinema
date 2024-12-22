@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DetailMovie.css'
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -7,7 +7,22 @@ import PickingSeat from './PickSeat';
 
 
 const Booking = () => {
+    const [selectedSeats, setSelectedSeats] = useState([]); // State lưu ghế đã chọn
 
+    const handleSeatSelect = (seat) => {
+        setSelectedSeats((prevSeats) => {
+            // Kiểm tra ghế đã được chọn chưa
+            const isAlreadySelected = prevSeats.some((s) => s.number === seat.number);
+
+            if (isAlreadySelected) {
+                // Nếu đã chọn, loại bỏ ghế
+                return prevSeats.filter((s) => s.number !== seat.number);
+            } else {
+                // Nếu chưa chọn, thêm ghế vào danh sách
+                return [...prevSeats, seat];
+            }
+        });
+    };
 
 
 
@@ -32,7 +47,7 @@ const Booking = () => {
                     {/*picking */}
                     <div className="h-fit w-[65%] bg-white rounded-lg py-8 px-10 mb-10">
 
-                        <PickingSeat />
+                        <PickingSeat onSeatSelect={handleSeatSelect} selectedSeats={selectedSeats} />
 
 
 
@@ -54,12 +69,25 @@ const Booking = () => {
                                     <p className="flex font-bold">Galaxy Tân Bình - <p className="font-normal"> RẠP 1</p> </p>
                                     <p>Suất: <span className="font-bold">18:15</span> - Chủ nhật, 8/12/2024</p>
                                 </div>
+                                {selectedSeats.map((seat, index) => (<div className=' flex justify-between font-medium text-base text-gray-500'>
+                                    <p>{seat.number}</p>
+                                    <p>{seat.typeSeat === 'vip' ? '150,000 đ' : '100,000 đ'}</p>
+
+                                </div>))}
+
+
 
                             </div>
                             <div className="flex justify-between pt-4 font-bold">
                                 <p className="">Tổng Cộng</p>
-                                <p className="text-orange-600">0 đ</p>
-                            </div>
+                                <p className="text-orange-600">
+                                    {selectedSeats
+                                        .reduce((sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000), 0)
+                                        .toLocaleString()}{' '}
+                                    đ
+                                </p>                            </div>
+
+
 
                         </div>
 

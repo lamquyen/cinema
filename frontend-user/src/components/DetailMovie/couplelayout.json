@@ -1,17 +1,17 @@
 [
     {
-        "layoutName": "basic",
+        "layoutName": "couple",
         "seat": [
             {
                 "row": "A",
                 "seats": [
                     {
                         "number": "A1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "A2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "A3",
@@ -52,6 +52,14 @@
                     {
                         "number": "A12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "A14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -60,11 +68,11 @@
                 "seats": [
                     {
                         "number": "B1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "B2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "B3",
@@ -105,6 +113,14 @@
                     {
                         "number": "B12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "B14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -113,19 +129,19 @@
                 "seats": [
                     {
                         "number": "C1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "C2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "C3",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "C4",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "C5",
@@ -158,6 +174,14 @@
                     {
                         "number": "C12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "C13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "C14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -166,19 +190,19 @@
                 "seats": [
                     {
                         "number": "D1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "D2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "D3",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "D4",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "D5",
@@ -211,6 +235,14 @@
                     {
                         "number": "D12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "D13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "D14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -219,19 +251,19 @@
                 "seats": [
                     {
                         "number": "E1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "E2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "E3",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "E4",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "E5",
@@ -264,6 +296,14 @@
                     {
                         "number": "E12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "E13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "E14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -272,19 +312,19 @@
                 "seats": [
                     {
                         "number": "F1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "F2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "F3",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "F4",
-                        "typeSeat": "vip"
+                        "typeSeat": "normal"
                     },
                     {
                         "number": "F5",
@@ -317,6 +357,14 @@
                     {
                         "number": "F12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "F13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "F14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -325,11 +373,11 @@
                 "seats": [
                     {
                         "number": "G1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "G2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "G3",
@@ -370,6 +418,14 @@
                     {
                         "number": "G12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "G14",
+                        "typeSeat": "couple"
                     }
                 ]
             },
@@ -378,11 +434,11 @@
                 "seats": [
                     {
                         "number": "H1",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "H2",
-                        "typeSeat": "normal"
+                        "typeSeat": "couple"
                     },
                     {
                         "number": "H3",
@@ -423,6 +479,14 @@
                     {
                         "number": "H12",
                         "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "H14",
+                        "typeSeat": "couple"
                     }
                 ]
             }
