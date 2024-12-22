@@ -267,6 +267,7 @@ li {
 
 .modal-edit,
 .modal-delete,
+.modal-add,
 .modal-confirm {
   position: fixed;
   top: 0;
@@ -282,6 +283,7 @@ li {
 
 .modal-edit-content,
 .modal-delete-content,
+.modal-add-content,
 .modal-confirm-content {
   background: #fff;
   padding: 20px;
@@ -293,6 +295,7 @@ li {
 
 .modal-edit-content h3,
 .modal-delete-content h3,
+.modal-add-content h3,
 .modal-confirm-content h3 {
   margin-top: 0;
   margin-bottom: 20px;
@@ -300,6 +303,7 @@ li {
 
 .modal-edit-content label,
 .modal-delete-content label,
+.modal-add-content label,
 .modal-confirm-content label {
   display: block;
   margin: 10px 0;
@@ -309,6 +313,8 @@ li {
 .modal-edit-content textarea,
 .modal-confirm-content input,
 .modal-confirm-content textarea,
+.modal-add-content input,
+.modal-add-content textarea,
 .modal-delete-content input,
 .modal-delete-content textarea {
   width: 95%;

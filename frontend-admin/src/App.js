@@ -5,7 +5,6 @@ import Dashboard from "./components/Admin/Dashboard.jsx";
 import Users from "./components/Admin/Users.jsx";
 import ProtectedRoute from "./components/Admin/ProtectedRoute";
 import MovieList from "./components/Admin/MovieList.jsx";
-import AddMovie from "./components/Admin/AddMovie.jsx";
 
 function App() {
   return (
@@ -26,14 +25,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <MovieList />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Add-Movie"
-            element={
-              <ProtectedRoute>
-                <AddMovie />
               </ProtectedRoute>
             }
           />
