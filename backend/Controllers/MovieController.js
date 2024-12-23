@@ -1,6 +1,8 @@
 import Movie from "../Models/MovieModels.js";
 import SeatLayoutModel from "../Models/SeatLayout.js";
 import SeatStatusModel from '../Models/StatusSeatModel.js'
+import Room from "../Models/RoomModels.js";
+import Showtime from "../Models/ShowtimeModels.js";
 import mongoose from 'mongoose';
 // CreateMovie
 export const createMovie = async (req, res) => {
@@ -140,11 +142,29 @@ const SeatLayout = async (req, res) => {
   const { showtimeId } = req.params;
 
   try {
-    const layout = await SeatLayoutModel.findOne({ layoutName: "basic" });
+    const showtime = await Showtime.findById(showtimeId);
+    if (!showtime) {
+      return res.status(404).send("Showtime not found");
+    }
+
+    const roomId = showtime.room; // Lấy roomId từ showtime document
+
+    // Tìm room để lấy layoutId
+    const room = await Room.findById(roomId);
+    if (!room) {
+      return res.status(404).send("Room not found");
+    }
+
+    const layoutId = room.seat; // Lấy layoutId từ room document
+
+    // Tìm layout từ layoutId
+    const layout = await SeatLayoutModel.findById(layoutId);
     if (!layout) {
       return res.status(404).send("Layout not found");
     }
-    console.log('đây là layout', layout)
+
+    console.log("Layout found:", layout);
+
     const seatStatus = await SeatStatusModel.findOne({ showtimeId });
     console.log("đây là status", seatStatus)
     if (seatStatus) {

@@ -40,6 +40,9 @@ const PickingSeat = ({ onSeatSelect, selectedSeats }) => {
                 <p className='flex  items-center'>
                     <span className='border px-2 mr-2 bg-green-600 text-white'>A1</span> <p>Ghế đang chọn</p>
                 </p>
+                <p className='flex  items-center'>
+                    <span className='border px-2 mr-2 bg-pink-200 text-white'>A1</span> <p>Ghế đôi</p>
+                </p>
             </div>
             <div>
                 {layout.seat.map((row, index) => (
@@ -55,7 +58,7 @@ const PickingSeat = ({ onSeatSelect, selectedSeats }) => {
                                         onClick={() => !isBooked && onSeatSelect(seat)} // Xử lý chọn ghế
                                         className={`py-1 border text-sm w-9 text-center cursor-pointer
                                          ${seat.typeSeat === 'vip' ? 'border-red-700' : ''}
-                                         ${seat.typeSeat === 'couple' ? 'border-pink-800' : ''} 
+                                         ${seat.typeSeat === 'couple' ? 'bg-pink-200' : ''} 
                                          ${isSelected ? 'bg-green-600 text-white' : ''}
                                          ${isBooked ? 'bg-red-500 text-white' : ''}`
                                         } // Đổi màu nếu được chọn

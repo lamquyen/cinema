@@ -7,6 +7,7 @@ import userCinema from "./Routes/CinemaRouter.js"
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { connect } from "./config/db.js";
 import movieRouter from "./Routes/MovieRouter.js"
+import paymentRouter from "./Routes/PaymentRouter.js"
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ app.use("/api/users", userRouter);
 app.use("/api/movies", userMovie);
 app.use("/api/cinemas", userCinema);
 app.use("/api/movie", movieRouter)
-
+app.use("/api/zalopay", paymentRouter)
 // error handler
 app.use(errorHandler);
 
