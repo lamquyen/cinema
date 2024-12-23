@@ -1,0 +1,556 @@
+[
+    {
+        "layoutName": "couple-plush",
+        "seat": [
+            {
+                "row": "A",
+                "seats": [
+                    {
+                        "number": "A1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "A2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "A3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A5",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A6",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A7",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A8",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A9",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A10",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "A13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "A14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "B",
+                "seats": [
+                    {
+                        "number": "B1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "B2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "B3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B5",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B6",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B7",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B8",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B9",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B10",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "B13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "B14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "C",
+                "seats": [
+                    {
+                        "number": "C1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "C2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "C3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "C4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "C5",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C6",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C7",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C8",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C9",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C10",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "C11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "C12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "C13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "C14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "D",
+                "seats": [
+                    {
+                        "number": "D1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "D2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "D3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "D4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "D5",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D6",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D7",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D8",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D9",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D10",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "D11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "D12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "D13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "D14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "E",
+                "seats": [
+                    {
+                        "number": "E1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "E2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "E3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "E4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "E5",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E6",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E7",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E8",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E9",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E10",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "E11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "E12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "E13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "E14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "F",
+                "seats": [
+                    {
+                        "number": "F1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "F2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "F3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "F4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "F5",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F6",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F7",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F8",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F9",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F10",
+                        "typeSeat": "vip"
+                    },
+                    {
+                        "number": "F11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "F12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "F13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "F14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "G",
+                "seats": [
+                    {
+                        "number": "G1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "G2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "G3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G5",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G6",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G7",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G8",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G9",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G10",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "G13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "G14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "H",
+                "seats": [
+                    {
+                        "number": "H1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "H2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "H3",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H4",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H5",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H6",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H7",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H8",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H9",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H10",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H11",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H12",
+                        "typeSeat": "normal"
+                    },
+                    {
+                        "number": "H13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "H14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            },
+            {
+                "row": "I",
+                "seats": [
+                    {
+                        "number": "I1",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I2",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I3",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I4",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I5",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I6",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I7",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I8",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I9",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I10",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I11",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I12",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I13",
+                        "typeSeat": "couple"
+                    },
+                    {
+                        "number": "I14",
+                        "typeSeat": "couple"
+                    }
+                ]
+            }
+        ]
+    }
+]

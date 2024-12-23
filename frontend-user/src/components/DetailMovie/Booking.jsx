@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 const Booking = () => {
   const { id } = useParams(); // Nhận ID suất chiếu từ URL
   const [showtimeData, setShowtimeData] = useState(null);
-
+  const [selectedSeats, setSelectedSeats] = useState([]); // State lưu ghế đã chọn
   useEffect(() => {
     const fetchShowtimeData = async () => {
       try {
@@ -19,6 +19,7 @@ const Booking = () => {
       } catch (error) {
         console.error("Error fetching showtime data:", error);
       }
+
     };
 
     if (id) {
@@ -28,6 +29,20 @@ const Booking = () => {
 
   if (!showtimeData) {
     return <div>Loading...</div>; // Loading state
+  }
+  const handleSeatSelect = (seat) => {
+    setSelectedSeats((prevSeats) => {
+      // Kiểm tra ghế đã được chọn chưa
+      const isAlreadySelected = prevSeats.some((s) => s.number === seat.number);
+
+      if (isAlreadySelected) {
+        // Nếu đã chọn, loại bỏ ghế
+        return prevSeats.filter((s) => s.number !== seat.number);
+      } else {
+        // Nếu chưa chọn, thêm ghế vào danh sách
+        return [...prevSeats, seat];
+      }
+    });
   }
 
   const { movie, room, times, cinema, days } = showtimeData;
@@ -62,7 +77,7 @@ const Booking = () => {
         </div>
         <div className="mt-1 flex justify-around w-full">
           <div className="h-fit w-[65%] bg-white rounded-lg py-8 px-10 mb-10">
-            <PickingSeat />
+            <PickingSeat onSeatSelect={handleSeatSelect} selectedSeats={selectedSeats} />
           </div>
           <div className="h-fit w-[25%] font-nunito rounded-lg border-t-4 border-orange-600 float-right">
             <div className="bg-white w-full p-4">

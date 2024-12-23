@@ -161,10 +161,10 @@ function Cinema() {
                     </h1>
                   </div>
                 </div>
-        
+
                 {/* Hiển thị danh sách phim */}
                 <MoviePage cinemaLocation={location} />
-              
+
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 mt-8  my-0 mx-auto  py-6 (24px px-[16px] bg-white max-w-[1200px] ">
                 <div className="bg-white p-4">
@@ -177,7 +177,7 @@ function Cinema() {
                   <ul className="cinemaTicketsPricing">
                     <li className="mb-4 text-center">
                       <img
-                        className='inline object-cover object-cover duration-500 ease-in-out group-hover:opacity-100"
+                        className='inline  object-cover duration-500 ease-in-out group-hover:opacity-100"
       scale-100 blur-0 grayscale-0)'
                         src="https://cdn.galaxycine.vn/media/2023/12/29/banggiave-2024-tan-binh---truong-chinh---kdv---trung-chanh_1703839866233.jpg"
                       ></img>
