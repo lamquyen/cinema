@@ -34,11 +34,11 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to="/Add-Movie"
+              to="/Cinema"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <i className="fas fa-plus-circle"></i>
-              Add Movie
+              Cinema
             </NavLink>
           </li>
           <li>

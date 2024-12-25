@@ -161,7 +161,12 @@ const MovieList = () => {
     <div className="container">
       <Sidebar />
       <main className="main">
-        <h2 className="subtitle">Movies List</h2>
+        <div className="movie-title">
+          <h2 className="subtitle">Movies List</h2>
+          <button className="add-btn" onClick={() => setShowModal(true)}>
+            Add Movie
+          </button>
+        </div>
 
         {isLoading ? (
           <p>Loading movies...</p>
@@ -372,9 +377,7 @@ const MovieList = () => {
             </div>
           </div>
         )}
-        <button className="add-btn" onClick={() => setShowModal(true)}>
-          Add Movie
-        </button>
+
         {showModal && (
           <div className="modal-add">
             <div className="modal-add-content">
@@ -507,15 +510,17 @@ const MovieList = () => {
                   />
                 </label>
               </form>
-              <button className="btn save" onClick={handleAddMovie}>
-                Add
-              </button>
-              <button
-                className="btn cancel"
-                onClick={() => setShowModal(false)}
-              >
-                Cancel
-              </button>
+              <div className="btns-add">
+                <button className="btn save" onClick={handleAddMovie}>
+                  Add
+                </button>
+                <button
+                  className="btn cancel"
+                  onClick={() => setShowModal(false)}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         )}

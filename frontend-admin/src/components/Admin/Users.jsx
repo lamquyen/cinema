@@ -4,25 +4,9 @@ import Sidebar from "./SideBar";
 import "./Admin.css";
 
 const Users = () => {
-  const [movies, setMovies] = useState([]);
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/movies/");
-        setMovies(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        setError("Failed to fetch movies. Please try again.");
-        setIsLoading(false);
-      }
-    };
-
-    fetchMovies();
-  }, []);
 
   useEffect(() => {
     const fetchUsers = async () => {
