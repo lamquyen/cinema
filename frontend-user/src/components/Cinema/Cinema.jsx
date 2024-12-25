@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import CarouselBanner from "../HomeMovie/CarouselBanner";
 import moment from "moment";
 import "moment/locale/vi";
 import "./Cinema.css";
 import axios from "axios";
 import { useParams } from "react-router";
+import CinemaCarousel from "./CinemaCarousel";
+import CinemaInfo from "./CinemaInfo";
+import MoviePage from "./MoviePage";
 
 function Cinema() {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -18,19 +20,7 @@ function Cinema() {
   console.log(location);
   const [cinemas, setCinemas] = useState([]);
   const [error, setError] = useState("");
-  const items = [
-    {
-      image:
-        "https://cdn.galaxycine.vn/media/2019/5/6/rapgiave-hinhrap-tan-binh-1_1557134148145.jpg",
-    },
-    {
-      image: "https://cdn.galaxycine.vn/media/2023/11/22/1_1700639852832.jpg",
-    },
-    {
-      image:
-        "https://cdn.galaxycine.vn/media/2019/5/6/rapgiave-hinhrap-tan-binh-3_1557133920863.jpg",
-    },
-  ];
+
   const movies = [
     {
       id: 1,
@@ -38,7 +28,7 @@ function Cinema() {
       img: "https://cdn.galaxycine.vn/media/2024/11/29/gai-ngo-gap-ma-lay-500_1732863355133.jpg",
       rating: 9.3,
       type: "T16",
-      showDates: ["2024-12-13", "2024-12-14"],
+      showDates: ["2024-12-13", "2024-12-19"],
       showTimes: ["11:30", "14:45", "16:45"],
     },
     {
@@ -80,24 +70,22 @@ function Cinema() {
     // Thêm các phim khác...
   ];
 
+
   useEffect(() => {
-    async function fetchCinemas() {
+    async function fetchData() {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/cinemas/${location}`
-        );
-        console.log("API Response:", JSON.stringify(response.data, null, 2));
-        setCinemas(response.data);
+        const [cinemaResponse, showtimeResponse] = await Promise.all([
+          axios.get(`http://localhost:5000/api/cinemas/${location}`),
+        ]);
+
+        setCinemas(cinemaResponse.data);
       } catch (error) {
-        if (error.response) {
-          setError(error.response.data.message);
-        } else {
-          setError("Network error");
-        }
+        setError(
+          error.response ? error.response.data.message : "Network error"
+        );
       }
     }
-    fetchCinemas();
-    console.log(cinemas);
+    fetchData();
   }, [location]);
 
   useEffect(() => {
@@ -161,31 +149,9 @@ function Cinema() {
       <div>
         {cinemas.map((cinema, index) => (
           <>
-            <div style={{ padding: "20px" }}>
-              <CarouselBanner
-                items={cinema.img01.map((img) => ({ image: img }))}
-              />
-            </div>
+            <CinemaCarousel images={cinema.img01} />
             <div className="cinemaInfo" key={index}>
-              <div className="titleCinema">
-                <div class="col-span-2 ml-[20%]">
-                  <h1 class="text-2xl  font-medium  dark:text-white mx-2">
-                    {cinema.cinemaName}
-                  </h1>
-                  <p class="text-sm md:mt-5">
-                    <span class="text-grey-40">Địa chỉ:</span> {cinema.address}
-                  </p>
-                  <p class="text-sm text-blue-10">
-                    <span class="text-grey-40">Hotline:</span>{" "}
-                    <a
-                      class="text-blue-600 transition-all duration-300"
-                      href="tel:1900 2224"
-                    >
-                      1900 2224
-                    </a>{" "}
-                  </p>
-                </div>
-              </div>
+              <CinemaInfo cinema={cinema} />
               <div className="containerCinema">
                 <div className="bg-white p-4">
                   <div class="mb-4">
@@ -195,98 +161,10 @@ function Cinema() {
                     </h1>
                   </div>
                 </div>
-                <div className="buttonChooseDay">
-                  {/* Nút điều hướng */}
-                  <div className="flex items-center space-x-4 min-w-fit">
-                    <button onClick={handlePrev} className=" py-2 rounded ">
-                      ❮
-                    </button>
 
-                    {/* Hiển thị các ngày */}
-                    <div className="flex overflow-hidden  ">
-                      {weekDays
-                        .slice(startIndex, startIndex + daysToShow)
-                        .map((day) => (
-                          <button
-                            key={day.fullDate}
-                            onClick={() => setSelectedDate(day.fullDate)}
-                            className={`text-gray-700 text-base cursor-pointer text-center p-4 rounded transition-colors ${
-                              selectedDate === day.fullDate
-                                ? "bg-blue-500 text-white"
-                                : "hover:bg-gray-100"
-                            }`}
-                          >
-                            <div className="">{day.day}</div>
-                            <div className="">{day.date}</div>
-                          </button>
-                        ))}
-                    </div>
-
-                    {/* Nút điều hướng */}
-                    <button
-                      onClick={handleNext}
-                      disabled={startIndex + daysToShow >= weekDays.length}
-                      className="py-2 rounded "
-                    >
-                      ❯
-                    </button>
-                  </div>
-                </div>
-                <div class="line"></div>
                 {/* Hiển thị danh sách phim */}
-                <div className="grid grid-cols-5 gap-6 mt-6">
-                  {filteredMovies.length > 0 ? (
-                    filteredMovies.map((movie) => (
-                      <div
-                        key={movie.id}
-                        className={`relative group bg-gray-200 p-5 rounded-lg shadow-lg hover:shadow-xl ${
-                          selectedMovie === movie.id
-                            ? "border border-blue-500"
-                            : ""
-                        }`}
-                        onClick={() => handleMovieClick(movie.id)} // Dùng hàm xử lý này
-                      >
-                        <img
-                          src={movie.img}
-                          alt={movie.title}
-                          className="w-full rounded-md"
-                        />
-                        <div className="flex items-center justify-between mt-2">
-                          <span className="text-yellow-500 font-bold">
-                            {movie.rating}★
-                          </span>
-                          <span className="custom-bg text-white text-xs px-2 py-1 rounded">
-                            {movie.type}
-                          </span>
-                        </div>
-                        <h3 className="text-lg font-bold mt-2">
-                          {movie.title}
-                        </h3>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="col-span-3 text-center text-gray-500">
-                      Không có phim nào trong ngày này.
-                    </p>
-                  )}
-                </div>
-                {selectedMovie && (
-                  <div className="showtimes mt-4 p-4 bg-gray-100 rounded-md shadow-md">
-                    <h3 className="text-lg font-bold">Suất chiếu:</h3>
-                    <div className="flex gap-2 mt-2">
-                      {movies
-                        .find((movie) => movie.id === selectedMovie)
-                        .showTimes.map((time, index) => (
-                          <button
-                            key={index}
-                            className="border border-gray-400 rounded-md px-4 py-1 hover:bg-blue-600 hover:text-white"
-                          >
-                            {time}
-                          </button>
-                        ))}
-                    </div>
-                  </div>
-                )}
+                <MoviePage cinemaLocation={location} />
+
               </div>
               <div className="grid md:grid-cols-2 grid-cols-1 mt-8  my-0 mx-auto  py-6 (24px px-[16px] bg-white max-w-[1200px] ">
                 <div className="bg-white p-4">
@@ -299,7 +177,7 @@ function Cinema() {
                   <ul className="cinemaTicketsPricing">
                     <li className="mb-4 text-center">
                       <img
-                        className='inline object-cover object-cover duration-500 ease-in-out group-hover:opacity-100"
+                        className='inline  object-cover duration-500 ease-in-out group-hover:opacity-100"
       scale-100 blur-0 grayscale-0)'
                         src="https://cdn.galaxycine.vn/media/2023/12/29/banggiave-2024-tan-binh---truong-chinh---kdv---trung-chanh_1703839866233.jpg"
                       ></img>

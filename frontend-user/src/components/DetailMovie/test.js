@@ -1,0 +1,1 @@
+<PickingSeat onSeatSelect={handleSeatSelect} selectedSeats={selectedSeats} />

@@ -1,14 +1,15 @@
 import express from "express";
 import {
-  createMovie,
-  getAllMovie,
-  getMovieById,
-  getReleasedMovies,
-  getNotReleasedMovies,
-  getTopRating,
-  SeatLayout,
-  updateMovie,
-  deleteMovie,
+    createMovie,
+    getAllMovie,
+    getMovieById,
+    getReleasedMovies,
+    getNotReleasedMovies,
+    getTopRating,
+    SeatLayout,
+    updateMovie,
+    deleteMovie,
+    updateStatusSeat
 } from "../Controllers/MovieController.js";
 
 const router = express.Router();
@@ -18,8 +19,9 @@ router.get("/", getAllMovie);
 router.get("/released", getReleasedMovies);
 router.get("/not_released", getNotReleasedMovies);
 router.get("/top_rating", getTopRating);
-router.get("/seats", SeatLayout);
+router.get("/seats/:showtimeId", SeatLayout);
+router.post("/update-status/:showtimeId", updateStatusSeat)
 router.get("/:id", getMovieById);
-router.put("/:id", updateMovie);
+router.post("/:id", updateMovie);
 router.delete("/:id", deleteMovie);
 export default router;

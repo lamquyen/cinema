@@ -6,40 +6,52 @@
                 "row": "A",
                 "seats": [
                     {
-                        "number": "A1"
+                        "number": "A1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A2"
+                        "number": "A2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A3"
+                        "number": "A3",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A4"
+                        "number": "A4",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A5"
+                        "number": "A5",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A6"
+                        "number": "A6",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A7"
+                        "number": "A7",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A8"
+                        "number": "A8",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A9"
+                        "number": "A9",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A10"
+                        "number": "A10",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A11"
+                        "number": "A11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "A12"
+                        "number": "A12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -47,40 +59,52 @@
                 "row": "B",
                 "seats": [
                     {
-                        "number": "B1"
+                        "number": "B1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B2"
+                        "number": "B2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B3"
+                        "number": "B3",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B4"
+                        "number": "B4",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B5"
+                        "number": "B5",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B6"
+                        "number": "B6",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B7"
+                        "number": "B7",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B8"
+                        "number": "B8",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B9"
+                        "number": "B9",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B10"
+                        "number": "B10",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B11"
+                        "number": "B11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "B12"
+                        "number": "B12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -88,40 +112,52 @@
                 "row": "C",
                 "seats": [
                     {
-                        "number": "C1"
+                        "number": "C1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "C2"
+                        "number": "C2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "C3"
+                        "number": "C3",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C4"
+                        "number": "C4",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C5"
+                        "number": "C5",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C6"
+                        "number": "C6",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C7"
+                        "number": "C7",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C8"
+                        "number": "C8",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C9"
+                        "number": "C9",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C10"
+                        "number": "C10",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "C11"
+                        "number": "C11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "C12"
+                        "number": "C12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -129,40 +165,52 @@
                 "row": "D",
                 "seats": [
                     {
-                        "number": "D1"
+                        "number": "D1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "D2"
+                        "number": "D2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "D3"
+                        "number": "D3",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D4"
+                        "number": "D4",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D5"
+                        "number": "D5",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D6"
+                        "number": "D6",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D7"
+                        "number": "D7",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D8"
+                        "number": "D8",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D9"
+                        "number": "D9",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D10"
+                        "number": "D10",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "D11"
+                        "number": "D11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "D12"
+                        "number": "D12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -170,40 +218,52 @@
                 "row": "E",
                 "seats": [
                     {
-                        "number": "E1"
+                        "number": "E1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "E2"
+                        "number": "E2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "E3"
+                        "number": "E3",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E4"
+                        "number": "E4",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E5"
+                        "number": "E5",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E6"
+                        "number": "E6",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E7"
+                        "number": "E7",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E8"
+                        "number": "E8",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E9"
+                        "number": "E9",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E10"
+                        "number": "E10",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "E11"
+                        "number": "E11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "E12"
+                        "number": "E12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -211,40 +271,52 @@
                 "row": "F",
                 "seats": [
                     {
-                        "number": "F1"
+                        "number": "F1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "F2"
+                        "number": "F2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "F3"
+                        "number": "F3",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F4"
+                        "number": "F4",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F5"
+                        "number": "F5",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F6"
+                        "number": "F6",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F7"
+                        "number": "F7",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F8"
+                        "number": "F8",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F9"
+                        "number": "F9",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F10"
+                        "number": "F10",
+                        "typeSeat": "vip"
                     },
                     {
-                        "number": "F11"
+                        "number": "F11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "F12"
+                        "number": "F12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -252,40 +324,52 @@
                 "row": "G",
                 "seats": [
                     {
-                        "number": "G1"
+                        "number": "G1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G2"
+                        "number": "G2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G3"
+                        "number": "G3",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G4"
+                        "number": "G4",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G5"
+                        "number": "G5",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G6"
+                        "number": "G6",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G7"
+                        "number": "G7",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G8"
+                        "number": "G8",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G9"
+                        "number": "G9",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G10"
+                        "number": "G10",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G11"
+                        "number": "G11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "G12"
+                        "number": "G12",
+                        "typeSeat": "normal"
                     }
                 ]
             },
@@ -293,40 +377,52 @@
                 "row": "H",
                 "seats": [
                     {
-                        "number": "H1"
+                        "number": "H1",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H2"
+                        "number": "H2",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H3"
+                        "number": "H3",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H4"
+                        "number": "H4",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H5"
+                        "number": "H5",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H6"
+                        "number": "H6",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H7"
+                        "number": "H7",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H8"
+                        "number": "H8",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H9"
+                        "number": "H9",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H10"
+                        "number": "H10",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H11"
+                        "number": "H11",
+                        "typeSeat": "normal"
                     },
                     {
-                        "number": "H12"
+                        "number": "H12",
+                        "typeSeat": "normal"
                     }
                 ]
             }
