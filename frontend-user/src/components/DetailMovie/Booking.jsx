@@ -58,6 +58,51 @@ const Booking = () => {
 
   const formattedDate = days ? formatDate(days) : "Không có thông tin ngày";
 
+
+
+  const handlePayment = async () => {
+    const amount = selectedSeats.reduce(
+      (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000),
+      0
+    );
+
+    const userData = localStorage.getItem('loggedInUser');
+    if (!userData) {
+      console.error('Người dùng chưa đăng nhập.');
+      return;
+    }
+
+    const user = JSON.parse(userData);
+    const userId = user._id;
+
+
+    try {
+      const response = await fetch("http://localhost:5000/api/momo/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, userId, selectedSeats, showtimeId: id }), // Truyền TT vào request
+      });
+
+      const data = await response.json();
+
+      if (data && data.payUrl) {
+        if (data.token) {
+          // Lưu token vào localStorage
+          localStorage.setItem('paymentToken', data.token);
+          console.log('Token thanh toán đã được lưu:', data.token);
+        } else {
+          console.error("Không có token thanh toán trong phản hồi.");
+        }
+        window.location.href = data.payUrl;
+      } else {
+        console.error("Không nhận được URL thanh toán từ MoMo.");
+      }
+    } catch (error) {
+      console.error("Lỗi khi gọi API thanh toán:", error);
+    }
+  };
   return (
     <>
       <Header />
@@ -97,18 +142,29 @@ const Booking = () => {
                   </p>
                   <p>Suất: <span className="font-bold">{times}</span> - {formattedDate}</p>
                 </div>
+                {selectedSeats.map((seat, index) => (<div className=' flex justify-between font-medium text-base text-gray-500'>
+                  <p>{seat.number}</p>
+                  <p>{seat.typeSeat === 'vip' ? '150,000 đ' : '100,000 đ'}</p>
+
+                </div>))}
+
               </div>
               <div className="flex justify-between pt-4 font-bold">
                 <p className="">Tổng Cộng</p>
-                <p className="text-orange-600">0 đ</p>
+                <p className="text-orange-600">
+                  {selectedSeats
+                    .reduce((sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000), 0)
+                    .toLocaleString()}{' '}
+                  đ
+                </p>
               </div>
             </div>
             <div className="flex justify-around mt-7">
               <button className="bg-white font-bold rounded-lg w-32 py-1 text-orange-600 hover:bg-orange-600 hover:text-white">
                 Quay lại
               </button>
-              <button className="bg-white font-bold rounded-lg w-32 py-1 text-orange-600 hover:bg-orange-600 hover:text-white">
-                Tiếp tục
+              <button onClick={handlePayment} className="bg-white font-bold rounded-lg w-32 py-1 text-orange-600 hover:bg-orange-600 hover:text-white">
+                Thanh toán
               </button>
             </div>
           </div>

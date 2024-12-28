@@ -5,6 +5,8 @@ import DetailMovie from "./components/DetailMovie/DetailMovie";
 import Profile from "./components/ProfileUser/ProfileUser";
 import Cinema from "./components/Cinema/Cinema";
 import Booking from "./components/DetailMovie/Booking.jsx";
+import Thanks from "./components/DetailMovie/Thankyou.jsx";
+
 function App() {
   return (
     <>
@@ -15,6 +17,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/rap-phim/:location" element={<Cinema />} />
           <Route path="/Booking/:id" element={<Booking />} />
+          <Route path="/thanks" element={<Thanks />} />
         </Routes>
       </Router>
 
