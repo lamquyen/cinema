@@ -3,6 +3,7 @@ import axios from 'axios';
 import PaymentModel from '../Models/PaymentModels.js';
 import dotenv from "dotenv";
 import BookingModels from '../Models/BookingModels.js';
+import { updateStatusSeat } from './MovieController.js';
 import jwt from 'jsonwebtoken';
 dotenv.config();
 var accessKey = 'F8BBA842ECF85';
@@ -13,7 +14,7 @@ const Payment = async (req, res) => {
     const { amount, userId, selectedSeats, showtimeId } = req.body;
     var orderInfo = 'Thanh toán vé xem phim';
     var partnerCode = 'MOMO';
-    var redirectUrl = 'http://localhost:3000';
+    var redirectUrl = `http://localhost:3000`;
     var orderId = partnerCode + new Date().getTime();
     var requestId = orderId;
     var extraData = '';
@@ -93,19 +94,24 @@ const CallbackPayment = async (req, res) => {
                 return res.status(400).json({ error: "Token không hợp lệ hoặc hết hạn" });
             }
             const { orderId, amount, userId, selectedSeats, showtimeId } = decoded;
-
+            const ticketCode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
             // Lưu thông tin vào MongoDB
             const bookingData = new BookingModels({
                 orderId,  // Thêm orderId vào dữ liệu cần lưu
                 userId,
                 showtimeId,
                 seat: selectedSeats,
-                totalPrice: amount
+                totalPrice: amount,
+                ticketCode
             });
             console.log(bookingData)
             await bookingData.save();
 
             console.log("Đơn hàng đã được lưu thành công vào database!");
+            await updateStatusSeat(showtimeId, selectedSeats.map(seat => ({ number: seat.number, status: 'booked' })));
+
+            // Trả về phản hồi thành công một lần duy nhất
+            return res.send('Thành công');
             return res.send('thành công');
         });
     } catch (error) {

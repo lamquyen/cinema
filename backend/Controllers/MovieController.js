@@ -238,26 +238,19 @@ export const deleteMovie = async (req, res) => {
   }
 };
 
-export const updateStatusSeat = async (req, res) => {
-  const { showtimeId } = req.params; // Lấy showtimeId từ params
-  const { StatusSeats } = req.body; // Lấy StatusSeats từ body
-
-  // Kiểm tra dữ liệu đầu vào
-
+// Hàm updateStatusSeat không nên gửi phản hồi HTTP trực tiếp
+export const updateStatusSeat = async (showtimeId, StatusSeats) => {
   try {
     let seatStatus = await SeatStatusModel.findOne({ showtimeId });
 
-
     if (seatStatus) {
-      // Nếu đã tồn tại, thêm các ghế mới vào mảng StatusSeats
+      // Nếu đã tồn tại, thêm hoặc cập nhật các ghế mới vào mảng StatusSeats
       StatusSeats.forEach(newSeat => {
-        // Kiểm tra xem ghế đã tồn tại chưa
         const existingSeat = seatStatus.StatusSeats.find(seat => seat.number === newSeat.number);
         if (!existingSeat) {
-          seatStatus.StatusSeats.push(newSeat); // Thêm ghế mới nếu chưa tồn tại
+          seatStatus.StatusSeats.push(newSeat); // Thêm ghế mới
         } else {
-          // Nếu ghế đã tồn tại, có thể cập nhật trạng thái nếu cần
-          existingSeat.status = newSeat.status; // Cập nhật trạng thái nếu cần
+          existingSeat.status = newSeat.status; // Cập nhật trạng thái ghế
         }
       });
     } else {
@@ -270,11 +263,12 @@ export const updateStatusSeat = async (req, res) => {
 
     // Lưu vào cơ sở dữ liệu
     await seatStatus.save();
-
-    // Trả về phản hồi thành công
-    return res.status(201).json(seatStatus);
+    return seatStatus;  // Trả về dữ liệu đã cập nhật
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Có lỗi xảy ra khi thêm trạng thái ghế.', error });
+    throw new Error('Có lỗi xảy ra khi thêm trạng thái ghế.');
   }
 };
+
+// CallbackPayment tối ưu hơn
+

@@ -12,7 +12,8 @@ const BookingSchema = new Schema({
             typeSeat: { type: String, required: true }
         }
     ],
-    totalPrice: { type: Number, required: true }
+    totalPrice: { type: Number, required: true },
+    ticketCode: { type: String, required: true }
 }, { timestamps: true });
 
 const BookingModel = mongoose.model('bookings', BookingSchema);
