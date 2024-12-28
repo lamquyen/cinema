@@ -112,7 +112,7 @@ const CallbackPayment = async (req, res) => {
 
             // Trả về phản hồi thành công một lần duy nhất
             return res.send('Thành công');
-            return res.send('thành công');
+
         });
     } catch (error) {
         console.error("Lỗi khi xử lý callback thanh toán:", error);
