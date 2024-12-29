@@ -1,4 +1,4 @@
-import express from "express";
+import express, { urlencoded } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRouter from "./Routes/UserRouter.js";
@@ -16,6 +16,7 @@ dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
 
 // connect DB
 connect();
@@ -32,7 +33,7 @@ app.use("/api/showtimes", showtimeRouter);
 app.use("/api/rooms", roomRouter);
 
 
-app.use("/api/zalopay", paymentRouter)
+app.use("/api/momo", paymentRouter)
 // error handler
 app.use(errorHandler);
 
