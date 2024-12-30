@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const BookingSchema = new Schema({
     orderId: { type: String },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'users', required: true },
-    showtimeId: { type: mongoose.Schema.Types.ObjectId, ref: 'showtimes', required: true },
+    showtimeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Showtime', required: true },
     seat: [
         {
             number: { type: String, required: true },

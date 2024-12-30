@@ -2,6 +2,8 @@ import asyncHandler from "express-async-handler";
 import User from "../Models/UserModels.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../middlewares/auth.js";
+import BookingModel from "../Models/BookingModels.js";
+import Showtime from "../Models/ShowtimeModels.js";
 
 //Register
 const registerUser = asyncHandler(async (req, res) => {
@@ -157,4 +159,54 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, loginAdmin, updateUserProfile, getAllUsers };
+const GetAllTicketsOfUser = async (req, res) => {
+  const { userId } = req.query;
+  const page = parseInt(req.query.page) || 1;
+  const pageSize = 8;
+
+  try {
+    const skip = (page - 1) * pageSize;
+    const bookings = await BookingModel.find({ userId })
+      .populate({
+        path: 'showtimeId',
+        select: 'movie times days',
+        populate: {
+          path: 'movie',
+          select: 'title'
+        }
+      }).sort({ createdAt: -1 }) // Sắp xếp theo ngày mới nhất
+      .skip(skip) // Bỏ qua các bản ghi ở các trang trước
+      .limit(pageSize); // Giới hạn số lượng bản ghi mỗi lần trả về
+
+
+    if (bookings.length === 0) {
+      return res.status(400).send('No bookings found for this user')
+    }
+    const formattedBookings = bookings.map(booking => ({
+      totalPrice: booking.totalPrice,
+      ticketCode: booking.ticketCode,
+      seats: booking.seat.map((seat) => seat.number).join(', '),
+      showtime: {
+        time: booking.showtimeId?.times,
+        movieTitle: booking.showtimeId?.movie?.title,
+        day: booking.showtimeId?.days.map((day) =>
+          new Date(day).toISOString().split('T')[0]
+        ),
+      }
+    }))
+    const totalBookings = await BookingModel.countDocuments({ userId }); // Đếm tổng số booking của user
+    const totalPages = Math.ceil(totalBookings / pageSize); // Tính số trang
+
+    return res.status(200).json({
+      bookings: formattedBookings,
+      totalPages, // Số trang tổng cộng
+      currentPage: page, // Trang hiện tại
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Server error', error });
+  }
+};
+
+
+export { registerUser, loginUser, loginAdmin, updateUserProfile, getAllUsers, GetAllTicketsOfUser };

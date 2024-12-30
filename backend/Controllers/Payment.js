@@ -14,7 +14,7 @@ const Payment = async (req, res) => {
     const { amount, userId, selectedSeats, showtimeId } = req.body;
     var orderInfo = 'Thanh toán vé xem phim';
     var partnerCode = 'MOMO';
-    var redirectUrl = `http://localhost:3000/Booking/${showtimeId}`;
+    var redirectUrl = `http://localhost:3000/Profile`;
     var orderId = partnerCode + new Date().getTime();
     var requestId = orderId;
     var extraData = '';
@@ -25,7 +25,7 @@ const Payment = async (req, res) => {
         orderId, amount, userId, selectedSeats, showtimeId: showtimeId
     }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    var ipnUrl = `https://162d-2402-800-639f-abb9-d062-c908-9a7-cd51.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
+    var ipnUrl = `https://6485-2402-800-639f-abb9-816a-b62d-6812-a7c1.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
     var requestType = "payWithMethod";
 
 
