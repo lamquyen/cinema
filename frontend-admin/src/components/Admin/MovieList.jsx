@@ -5,6 +5,8 @@ import "./Admin.css";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -38,8 +40,14 @@ const MovieList = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/movies/");
-        setMovies(response.data);
+        const response = await axios.get(
+          `http://localhost:5000/api/movies/all-movie-pag`,
+          {
+            params: { page: currentPage },
+          }
+        );
+        setMovies(response.data.movies);
+        setTotalPages(response.data.totalPages);
         setIsLoading(false);
       } catch (error) {
         setError("Failed to fetch movies. Please try again.");
@@ -48,7 +56,7 @@ const MovieList = () => {
     };
 
     fetchMovies();
-  }, []);
+  }, [currentPage]);
 
   const handleEditClick = async (movieId) => {
     try {
@@ -157,6 +165,10 @@ const MovieList = () => {
     setNewMovie({ ...newMovie, [name]: value });
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <div className="container">
       <Sidebar />
@@ -173,55 +185,92 @@ const MovieList = () => {
         ) : error ? (
           <p className="error">{error}</p>
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>IMAGE</th>
-                <th>TITLE</th>
-                <th>DATE</th>
-                <th>TYPE</th>
-                <th>NATION</th>
-                <th>DIRECTOR</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {movies.map((movie, index) => (
-                <tr key={movie._id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <img
-                      src={movie.img || "https://placehold.co/50x50"}
-                      alt={movie.title}
-                      className="thumbnail"
-                    />
-                  </td>
-                  <td>{movie.title}</td>
-                  <td>
-                    {new Date(movie.showDate).toLocaleDateString("en-GB")}
-                  </td>
-                  <td>{movie.type}</td>
-                  <td>{movie.nation}</td>
-                  <td>{movie.director}</td>
-                  <td>
-                    <button
-                      className="btn edit"
-                      onClick={() => handleEditClick(movie._id)}
-                    >
-                      <i className="fas fa-edit"></i> Edit
-                    </button>
-                    <button
-                      className="btn delete"
-                      onClick={() => handleDeleteClick(movie._id)}
-                    >
-                      <i className="fas fa-trash"></i> Delete
-                    </button>
-                  </td>
+          <>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>IMAGE</th>
+                  <th>TITLE</th>
+                  <th>DATE</th>
+                  <th>TYPE</th>
+                  <th>NATION</th>
+                  <th>DIRECTOR</th>
+                  <th>ACTIONS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {movies.map((movie, index) => (
+                  <tr key={movie._id}>
+                    <td>{(currentPage - 1) * 5 + index + 1}</td>
+                    <td>
+                      <img
+                        src={movie.img || "https://placehold.co/50x50"}
+                        alt={movie.title}
+                        className="thumbnail"
+                      />
+                    </td>
+                    <td>{movie.title}</td>
+                    <td>
+                      {new Date(movie.showDate).toLocaleDateString("en-GB")}
+                    </td>
+                    <td>{movie.type}</td>
+                    <td>{movie.nation}</td>
+                    <td>{movie.director}</td>
+                    <td>
+                      <button
+                        className="btn edit"
+                        onClick={() => handleEditClick(movie._id)}
+                      >
+                        <i className="fas fa-edit"></i> Edit
+                      </button>
+                      <button
+                        className="btn delete"
+                        onClick={() => handleDeleteClick(movie._id)}
+                      >
+                        <i className="fas fa-trash"></i> Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="pagination">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m15 19-7-7 7-7"
+                  />
+                </svg>
+              </button>
+
+              <span>
+                Trang {currentPage} / {totalPages}
+              </span>
+
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="m9 5 7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </>
         )}
 
         {/* Modal */}

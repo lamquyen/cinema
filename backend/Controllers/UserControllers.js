@@ -168,32 +168,32 @@ const GetAllTicketsOfUser = async (req, res) => {
     const skip = (page - 1) * pageSize;
     const bookings = await BookingModel.find({ userId })
       .populate({
-        path: 'showtimeId',
-        select: 'movie times days',
+        path: "showtimeId",
+        select: "movie times days",
         populate: {
-          path: 'movie',
-          select: 'title'
-        }
-      }).sort({ createdAt: -1 }) // Sắp xếp theo ngày mới nhất
+          path: "movie",
+          select: "title",
+        },
+      })
+      .sort({ createdAt: -1 }) // Sắp xếp theo ngày mới nhất
       .skip(skip) // Bỏ qua các bản ghi ở các trang trước
       .limit(pageSize); // Giới hạn số lượng bản ghi mỗi lần trả về
 
-
     if (bookings.length === 0) {
-      return res.status(400).send('No bookings found for this user')
+      return res.status(400).send("No bookings found for this user");
     }
-    const formattedBookings = bookings.map(booking => ({
+    const formattedBookings = bookings.map((booking) => ({
       totalPrice: booking.totalPrice,
       ticketCode: booking.ticketCode,
-      seats: booking.seat.map((seat) => seat.number).join(', '),
+      seats: booking.seat.map((seat) => seat.number).join(", "),
       showtime: {
         time: booking.showtimeId?.times,
         movieTitle: booking.showtimeId?.movie?.title,
-        day: booking.showtimeId?.days.map((day) =>
-          new Date(day).toISOString().split('T')[0]
+        day: booking.showtimeId?.days.map(
+          (day) => new Date(day).toISOString().split("T")[0]
         ),
-      }
-    }))
+      },
+    }));
     const totalBookings = await BookingModel.countDocuments({ userId }); // Đếm tổng số booking của user
     const totalPages = Math.ceil(totalBookings / pageSize); // Tính số trang
 
@@ -204,9 +204,112 @@ const GetAllTicketsOfUser = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Server error', error });
+    return res.status(500).json({ message: "Server error", error });
   }
 };
 
+// Get User By Id
+const getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id); // Truy vấn bằng ID
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user); // Trả về dữ liệu phim
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error retrieving user" });
+  }
+};
 
-export { registerUser, loginUser, loginAdmin, updateUserProfile, getAllUsers, GetAllTicketsOfUser };
+// Delete User By Id
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params; // Lấy ID từ request params
+
+    // Tìm và xóa phim dựa trên ID
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    // Kiểm tra nếu không tìm thấy phim
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully", deletedUser });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// Update user by Admin
+const updateUserByAdmin = asyncHandler(async (req, res) => {
+  const { fullName, email, phone, sex, dateOfBirth } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.fullName = fullName || user.fullName;
+      user.email = email || user.email;
+      user.phone = phone || user.phone;
+      user.sex = sex || user.sex;
+      user.dateOfBirth = dateOfBirth || user.dateOfBirth;
+
+      const updatedUser = await user.save();
+      res.json({
+        _id: updatedUser._id,
+        fullName: updatedUser.fullName,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        sex: updatedUser.sex,
+        dateOfBirth: updatedUser.dateOfBirth,
+        // isAdmin: updatedUser.isAdmin,
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete User By Id
+const deleteUserByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Kiểm tra xem user có tồn tại không
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Xóa user
+    await User.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete user",
+      error: error.message,
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  loginAdmin,
+  updateUserProfile,
+  getAllUsers,
+  GetAllTicketsOfUser,
+  getUserById,
+  deleteUser,
+  updateUserByAdmin,
+  deleteUserByAdmin,
+};

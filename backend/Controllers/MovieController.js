@@ -1,9 +1,9 @@
 import Movie from "../Models/MovieModels.js";
 import SeatLayoutModel from "../Models/SeatLayout.js";
-import SeatStatusModel from '../Models/StatusSeatModel.js'
+import SeatStatusModel from "../Models/StatusSeatModel.js";
 import Room from "../Models/RoomModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 // CreateMovie
 export const createMovie = async (req, res) => {
   try {
@@ -166,15 +166,17 @@ const SeatLayout = async (req, res) => {
     console.log("Layout found:", layout);
 
     const seatStatus = await SeatStatusModel.findOne({ showtimeId });
-    console.log("đây là status", seatStatus)
+    console.log("đây là status", seatStatus);
     if (seatStatus) {
       // Chuyển đổi layout sang object thuần
       const layoutJSON = layout.toObject();
 
       // Cập nhật trạng thái ghế
-      layoutJSON.seat.forEach(row => {
-        row.seats.forEach(seat => {
-          const seatState = seatStatus.StatusSeats.find(s => s.number === seat.number);
+      layoutJSON.seat.forEach((row) => {
+        row.seats.forEach((seat) => {
+          const seatState = seatStatus.StatusSeats.find(
+            (s) => s.number === seat.number
+          );
           seat.status = seatState ? seatState.status : "available";
         });
       });
@@ -245,8 +247,10 @@ export const updateStatusSeat = async (showtimeId, StatusSeats) => {
 
     if (seatStatus) {
       // Nếu đã tồn tại, thêm hoặc cập nhật các ghế mới vào mảng StatusSeats
-      StatusSeats.forEach(newSeat => {
-        const existingSeat = seatStatus.StatusSeats.find(seat => seat.number === newSeat.number);
+      StatusSeats.forEach((newSeat) => {
+        const existingSeat = seatStatus.StatusSeats.find(
+          (seat) => seat.number === newSeat.number
+        );
         if (!existingSeat) {
           seatStatus.StatusSeats.push(newSeat); // Thêm ghế mới
         } else {
@@ -263,12 +267,34 @@ export const updateStatusSeat = async (showtimeId, StatusSeats) => {
 
     // Lưu vào cơ sở dữ liệu
     await seatStatus.save();
-    return seatStatus;  // Trả về dữ liệu đã cập nhật
+    return seatStatus; // Trả về dữ liệu đã cập nhật
   } catch (error) {
     console.error(error);
-    throw new Error('Có lỗi xảy ra khi thêm trạng thái ghế.');
+    throw new Error("Có lỗi xảy ra khi thêm trạng thái ghế.");
   }
 };
 
 // CallbackPayment tối ưu hơn
+export const getAllMoviePagination = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5; // Items per page
+    const skip = (page - 1) * limit;
 
+    const totalMovies = await Movie.countDocuments();
+    const totalPages = Math.ceil(totalMovies / limit);
+
+    const movies = await Movie.find()
+      .skip(skip)
+      .limit(limit)
+      .sort({ showDate: -1 }); // Sort by show date descending
+
+    res.json({
+      movies,
+      totalPages,
+      currentPage: page,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
