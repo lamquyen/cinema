@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.post("/", createMovie);
 router.get("/", getAllMovie);
-router.get("/all-movie-pag", getAllMoviePagination);
+router.get("/all-movie-pagination", getAllMoviePagination);
 router.get("/released", getReleasedMovies);
 router.get("/not_released", getNotReleasedMovies);
 router.get("/top_rating", getTopRating);

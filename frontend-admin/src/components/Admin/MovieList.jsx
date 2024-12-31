@@ -41,7 +41,7 @@ const MovieList = () => {
     const fetchMovies = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/movies/all-movie-pag`,
+          `http://localhost:5000/api/movies/all-movie-pagination`,
           {
             params: { page: currentPage },
           }
