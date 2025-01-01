@@ -3,6 +3,7 @@ import SeatLayoutModel from "../Models/SeatLayout.js";
 import SeatStatusModel from '../Models/StatusSeatModel.js'
 import Room from "../Models/RoomModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
+import BlogModel from "../Models/BlogModels.js";
 import mongoose from 'mongoose';
 // CreateMovie
 export const createMovie = async (req, res) => {
@@ -269,6 +270,14 @@ export const updateStatusSeat = async (showtimeId, StatusSeats) => {
     throw new Error('Có lỗi xảy ra khi thêm trạng thái ghế.');
   }
 };
+export const blog = async (req, res) => {
+  try {
+    const blog = await BlogModel.find()
+    res.status(200).json(blog)
+  } catch {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
 
 // CallbackPayment tối ưu hơn
 

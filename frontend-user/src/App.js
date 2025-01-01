@@ -6,7 +6,7 @@ import Profile from "./components/ProfileUser/ProfileUser";
 import Cinema from "./components/Cinema/Cinema";
 import Booking from "./components/DetailMovie/Booking.jsx";
 import Transaction from "./components/ProfileUser/Transaction.jsx";
-
+import BlogMovies from "./components/HomeMovie/BlogMovies.jsx";
 function App() {
   return (
     <>
@@ -18,6 +18,7 @@ function App() {
           <Route path="/rap-phim/:location" element={<Cinema />} />
           <Route path="/Booking/:id" element={<Booking />} />
           <Route path="/Transaction" element={<Transaction />} />
+          <Route path="/Blog-Movies" element={<BlogMovies />} />
         </Routes>
       </Router>
 

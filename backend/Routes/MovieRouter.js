@@ -9,7 +9,8 @@ import {
     SeatLayout,
     updateMovie,
     deleteMovie,
-    updateStatusSeat
+    updateStatusSeat,
+    blog
 } from "../Controllers/MovieController.js";
 
 const router = express.Router();
@@ -19,6 +20,7 @@ router.get("/", getAllMovie);
 router.get("/released", getReleasedMovies);
 router.get("/not_released", getNotReleasedMovies);
 router.get("/top_rating", getTopRating);
+router.get("/blog-movie", blog)
 router.get("/seats/:showtimeId", SeatLayout);
 router.post("/update-status/:showtimeId", updateStatusSeat)
 router.get("/:id", getMovieById);

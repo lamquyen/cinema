@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Header.css";
+// import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
@@ -8,7 +8,7 @@ import { Link } from "react-router";
 import jwtDecode from "jwt-decode";
 
 function Header() {
-  const options = ["HCM","Hà-Nội","Đà-Nẵng"];
+  const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
   const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
 
@@ -71,12 +71,12 @@ function Header() {
   };
 
   return (
-    <div className="flex justify-around w-[100%] items-center h-20 ">
+    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
         <img className="w-28 h-[100%]" src={logo} />
       </Link>
 
-      <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
+      <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
         <div className="self-center text-center h-fit">
           <Dropdown
             options={options}
@@ -103,28 +103,24 @@ function Header() {
           <Link to={"/"}>Mua vé</Link>
         </p>
 
-        <a className="hover:text-orange-500" href="#">
-          Blog Mê Phim
+        <a className="hover:text-orange-500" href="/Blog-movies">
+          Blog Mê phim
         </a>
-        <div>
-          <input className="border-1-red" placeholder="Tìm kiếm ..." />
-        </div>
+
+      </div>
+      <div>
+        <input className="border-1-red" placeholder="Tìm kiếm ..." />
       </div>
 
-      <div className="ticket">
+      <div className="">
         {loggedInUser ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+          <div className="flex gap-3 justify-center items-center " >
             <Link
               to="/Profile"
-              style={{
-                textDecoration: "none",
-                color: "inherit",
-                cursor: "pointer",
-              }}
             >
               Hello, {getDisplayName()}
             </Link>
-            <button onClick={handleLogout} className="logout-button">
+            <button onClick={handleLogout} className="">
               Logout
             </button>
           </div>

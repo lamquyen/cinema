@@ -36,40 +36,38 @@ function ListMovie() {
     fetchMovies0();
   }, []);
 
-  
 
 
-  
 
-  
+
+
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-const handleBackdropClick = (e) => {
+  const handleBackdropClick = (e) => {
     // Đóng modal nếu nhấn ra bên ngoài nội dung modal
     if (e.target.id === "modal-backdrop") {
-      setSelectedTrailer(null); 
+      setSelectedTrailer(null);
     }
-};
+  };
   return (
-    <div className="listMovie">
-      <div className="titleM">
-        <p class="text-2xl p-2 text-red-600 font-medium text-gray-900 dark:text-white mx-2">
+    <div className="listMovie px-[10%] py-10 ">
+      <div className="titleM font-nunito border-l-4 border-blue-600">
+        <p class="text-2xl p-2  font-medium text-gray-900  mx-2">
           PHIM
         </p>
         <button
-          className={`text-2 p-0.5 font-medium  dark:text-white mx-2 ${
-            activeTab === "dangChieu" ? "text-blue-600" : "text-gray-900"
-          }`}
+          className={`text-2 p-0.5 font-medium   mx-2 ${activeTab === "dangChieu" ? "text-blue-600" : "text-gray-900"
+            }`}
           onClick={() => handleTabClick("dangChieu")}
         >
           Đang chiếu
         </button>
         <button
-          className={`text-2 p-0.5 font-medium  dark:text-white mx-2 ${
-            activeTab === "sapChieu" ? "text-blue-600" : "text-gray-900"
-          }`}
+          className={`text-2 p-0.5 font-medium   mx-2 ${activeTab === "sapChieu" ? "text-blue-600" : "text-gray-900"
+            }`}
           onClick={() => handleTabClick("sapChieu")}
         >
           Sắp chiếu
@@ -77,58 +75,58 @@ const handleBackdropClick = (e) => {
       </div>
       <div className="phimList">
         {activeTab === "dangChieu" && (
-          <div className="boxM">
+          <div className="boxM ">
             {showingM.map((phim) => (
-              <div 
+              <div
                 key={phim._id}
-                className="relative group bg-gray-200 p-5 rounded-lg shadow-lg hover:shadow-xl cardM"
-                style={{width:"80%"}}
+                className="relative group border-none rounded-lg   shadow-lg hover:shadow-xl h-max w-fit cardM"
+
               >
-                <img src={phim.img} className="imgBox"/>
-                <p class="text-2 p-1 text-black-600  mb-3 font-medium text-gray-900 dark:text-white mx-2" >{phim.title}</p>
-               
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link to={`/DetailMovie/${phim._id}`} className="bg-red-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-red-700">
+                <img src={phim.img} className="h-96 w-72 border-none rounded-lg " />
+                <p class="text-2 p-1 text-black-600  mb-3 font-medium text-gray-900 " >{phim.title}</p>
+
+                <div className="border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Link to={`/DetailMovie/${phim._id}`} className="bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
                     Đặt vé
                   </Link>
                   <button
-                  className="bg-blue-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-blue-700"
-                  onClick={() =>
-                
-                    setSelectedTrailer(selectedTrailer === phim._id ? null : phim._id)
-                    
-                  }
-                >
-                  Xem trailer
-                </button>
+                    className="bg-blue-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-blue-700"
+                    onClick={() =>
+
+                      setSelectedTrailer(selectedTrailer === phim._id ? null : phim._id)
+
+                    }
+                  >
+                    Xem trailer
+                  </button>
                 </div>
-                {selectedTrailer === phim._id  && (
-                  
+                {selectedTrailer === phim._id && (
+
                   <div
                     id="modal-backdrop"
                     className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
 
                     onClick={handleBackdropClick}
-                >
+                  >
                     <div className="rounded-lg shadow-lg w-3/5 relative">
-                        <div className="self-center">
-                            <iframe
-                                width="100%"
-                                height="600"
-                                src={phim.linkTrailer}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
+                      <div className="self-center">
+                        <iframe
+                          width="100%"
+                          height="600"
+                          src={phim.linkTrailer}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </div>
-                </div>
-              )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
-          
+
         )}
         {activeTab === "sapChieu" && (
           <div className="boxM">
@@ -136,48 +134,48 @@ const handleBackdropClick = (e) => {
               <div
                 key={phim._id}
                 className="relative group bg-gray-200 p-4 rounded-lg shadow-lg hover:shadow-xl cardM"
-                style={{width:"80%"}}
+                style={{ width: "80%" }}
               >
-               <img src={phim.img} className="imgBox"/>
-               <p class="text-2 p-1 text-black-600 font-medium text-gray-900 dark:text-white mx-2 mb-3" >{phim.title}</p>
-               <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link to={`/DetailMovie/${phim._id}`}  className="bg-red-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-red-700">
+                <img src={phim.img} className="imgBox" />
+                <p class="text-2 p-1 text-black-600 font-medium text-gray-900 dark:text-white mx-2 mb-3" >{phim.title}</p>
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Link to={`/DetailMovie/${phim._id}`} className="bg-red-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-red-700">
                     Đặt vé
                   </Link>
                   <button
-                  className="bg-blue-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-blue-700"
-                  onClick={() =>
-                
-                    setSelectedTrailer(selectedTrailer === phim._id ? null : phim._id)
-                    
-                  }
-                >
-                  Xem trailer
-                </button>
+                    className="bg-blue-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-blue-700"
+                    onClick={() =>
+
+                      setSelectedTrailer(selectedTrailer === phim._id ? null : phim._id)
+
+                    }
+                  >
+                    Xem trailer
+                  </button>
                 </div>
-                {selectedTrailer === phim._id  && (
-                  
+                {selectedTrailer === phim._id && (
+
                   <div
                     id="modal-backdrop"
                     className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
 
                     onClick={handleBackdropClick}
-                >
+                  >
                     <div className="rounded-lg shadow-lg w-3/5 relative">
-                        <div className="self-center">
-                            <iframe
-                                width="100%"
-                                height="600"
-                                src={phim.linkTrailer}
-                                title="YouTube video player"
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
+                      <div className="self-center">
+                        <iframe
+                          width="100%"
+                          height="600"
+                          src={phim.linkTrailer}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </div>
-                </div>
-              )}
+                  </div>
+                )}
               </div>
             ))}
           </div>

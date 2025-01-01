@@ -27,9 +27,10 @@ function HomeMovie() {
     <>
       <Header />
       <div>
-        <div style={{ padding: "20px" }}>
-          <QuickBooking />
+        <div>
           <CarouselBanner items={items} />
+          <QuickBooking />
+
         </div>
         <ListMovie />
         <BannerEvent />

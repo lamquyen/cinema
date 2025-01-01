@@ -13,7 +13,7 @@ const QuickBooking = () => {
 
 
   return (
-    <div className="quick-booking-container">
+    <div className="quick-booking-container mx-[15%]">
       <div>
         <select
           value={selectedMovie}

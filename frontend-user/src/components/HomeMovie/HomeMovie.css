@@ -16,26 +16,24 @@
 
 
 .carousel-image {
-
   border-radius: 10px;
 }
 
 
 /**************************CSS LIST MOVIE********************************/
 .listMovie{
-  width: 60%;
+  width: 100%;
   height: auto;
-  margin-left: 20%;
-  padding: 20px;
+  
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
 .titleM{
-  width: 40%;
-  height: 50px;
-  border: 1px solid red;
-  border-radius: 0 25px;
+ 
+  margin-top: 25px;
+  width:max-content;
+  height:fit-content;
   margin-left: 20px;
   display: flex;
 }
@@ -48,25 +46,30 @@
 }
 
 .boxM{
+  
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-}
-
-.imgBox{
-  width: 100% !important;
   
 }
+
+/* .imgBox{
+  width: 100% !important;
+  
+  
+} */
 
 .boxCard{
   width: 15%;
 }
 
 .cardM{
-  width: 90%;
-  height: 95%;
-  background-color: aqua;
+  width: fit-content;
+  height: auto;
+ 
+  gap:3;
+  margin-bottom: 30px;
   
 }
 
@@ -152,8 +155,8 @@
 .quick-booking-container {
   position: absolute;
   top: 500px;
-  left: 25%;
-  width: 1000px; /* Độ rộng tối đa */
+  margin: 0 10% 0 10%;
+  width: 70%; /* Độ rộng tối đa */
   margin: 20px auto; /* Căn giữa theo chiều ngang */
   background-color: #ffffff; /* Nền trắng */
   padding: 16px; /* Khoảng cách trong */

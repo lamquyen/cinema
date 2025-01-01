@@ -25,7 +25,7 @@ const Payment = async (req, res) => {
         orderId, amount, userId, selectedSeats, showtimeId: showtimeId
     }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    var ipnUrl = `https://6485-2402-800-639f-abb9-816a-b62d-6812-a7c1.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
+    var ipnUrl = `https://3de8-2402-800-639f-abb9-bcee-c0ef-a027-85a0.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
     var requestType = "payWithMethod";
 
 
