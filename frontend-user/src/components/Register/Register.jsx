@@ -81,16 +81,16 @@ function Register({ isOpen, onClose, onLoginClick }) {
   };
 
   return (
-    <div className={`modal ${isOpen ? "is-open" : ""}`}>
-      <div className="modal-content">
-        <div className="register-container">
+    <div className={`realtive modal ${isOpen ? "is-open" : ""}`}>
+      <div className="modal-content font-nunito absolute top-4 left-1/3 m-0  rounded-lg ">
+        <div className="register-container  ">
           <button className="close-button" onClick={onClose}>
             X
           </button>
           <img
             alt="Cartoon image of two dogs and a hat"
             src={logo}
-            style={{ height: "200px", width: "200px" }}
+            style={{ height: "100px", width: "200px" }}
           />
           <h2>Đăng Ký Tài Khoản</h2>
           <form onSubmit={handleSubmit}>
@@ -105,63 +105,68 @@ function Register({ isOpen, onClose, onLoginClick }) {
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                placeholder="Nhập Email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="phone">Số điện thoại</label>
-              <input
-                id="phone"
-                placeholder="Nhập Số điện thoại"
-                type="text"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Giới tính</label>
-              <div className="radio-group">
+            <div className="form-group flex justify-between">
+              <div>
+                <label htmlFor="email">Email</label>
                 <input
-                  id="male"
-                  name="sex"
-                  type="radio"
-                  value="Nam"
-                  checked={formData.sex === "Nam"}
-                  onChange={handleRadioChange}
+                  id="email"
+                  placeholder="Nhập Email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
-                <label htmlFor="male">Nam</label>
-                <input
-                  id="female"
-                  name="sex"
-                  type="radio"
-                  value="Nữ"
-                  checked={formData.sex === "Nữ"}
-                  onChange={handleRadioChange}
-                  required
-                />
-                <label htmlFor="female">Nữ</label>
               </div>
+              <div><label htmlFor="phone">Số điện thoại</label>
+                <input
+                  id="phone"
+                  placeholder="Nhập Số điện thoại"
+                  type="text"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                /></div>
+
+            </div>
+
+            <div className="form-group flex justify-between  ">
+              <div className="flex items-center text-xl"><label className="h-fit mr-4
+              ">Giới tính</label>
+                <div className="radio-group">
+                  <input
+                    id="male"
+                    name="sex"
+                    type="radio"
+                    value="Nam"
+                    checked={formData.sex === "Nam"}
+                    onChange={handleRadioChange}
+                    required
+                  />
+                  <label htmlFor="male">Nam</label>
+                  <input
+                    id="female"
+                    name="sex"
+                    type="radio"
+                    value="Nữ"
+                    checked={formData.sex === "Nữ"}
+                    onChange={handleRadioChange}
+                    required
+                  />
+                  <label htmlFor="female">Nữ</label>
+                </div></div>
+              <div className="flex items-center gap-2"><label htmlFor="dateOfBirth">Ngày sinh</label>
+                <input
+                  id="dateOfBirth"
+                  className="h-fit border border-[#ccc] p-1"
+                  placeholder="Ngày/Tháng/Năm"
+                  type="date"
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  required
+                /></div>
             </div>
             <div className="form-group">
-              <label htmlFor="dateOfBirth">Ngày sinh</label>
-              <input
-                id="dateOfBirth"
-                placeholder="Ngày/Tháng/Năm"
-                type="date"
-                value={formData.dateOfBirth}
-                onChange={handleChange}
-                required
-              />
+
             </div>
             <div className="form-group">
               <label htmlFor="password">Mật khẩu</label>

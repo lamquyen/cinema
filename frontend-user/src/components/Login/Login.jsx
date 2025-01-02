@@ -62,8 +62,8 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
   };
 
   return (
-    <div className={`modal ${isOpen ? "is-open" : ""}`}>
-      <div className="modal-content">
+    <div className={`realtive modal ${isOpen ? "is-open" : ""}`}>
+      <div className="modal-content font-nunito absolute top-4 left-1/3 m-0  rounded-lg">
         <div className="login-container">
           <button className="close-button" onClick={onClose}>
             X
@@ -71,7 +71,7 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
           <img
             alt="Cartoon image of two dogs and a hat"
             src={logo}
-            style={{ height: "200px", width: "200px" }}
+            style={{ height: "100px", width: "200px" }}
           />
           <h2>Đăng Nhập Tài Khoản</h2>
           <form onSubmit={handleSubmit}>

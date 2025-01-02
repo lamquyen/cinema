@@ -7,7 +7,18 @@ function ListMovie() {
   const [selectedTrailer, setSelectedTrailer] = useState(null);
   const [showingM, setShowingM] = useState([]);
   const [upComingM, setUpComingM] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
+  const isLoggedIn = localStorage.getItem('loggedInUser') !== null; // Kiểm tra nếu người dùng đã đăng nhập
+  const handleBookingClick = (e) => {
+    if (!isLoggedIn) {
+      e.preventDefault(); // Ngăn hành động chuyển trang
+      setShowAlert(true); // Hiển thị thông báo
+      setTimeout(() => {
+        setShowAlert(false); // Ẩn thông báo sau 3 giây
+      }, 3000);
+    }
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -73,6 +84,16 @@ function ListMovie() {
           Sắp chiếu
         </button>
       </div>
+      <div>
+        {showAlert && (
+          <div className="fixed top-4 right-4 z-50 flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 " role="alert">
+            <svg className="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span className="font-medium">Thông báo: </span> Bạn vui lòng đăng nhập để có thể tiếp tục đặt vé.
+          </div>
+        )}
+      </div>
       <div className="phimList">
         {activeTab === "dangChieu" && (
           <div className="boxM ">
@@ -86,7 +107,7 @@ function ListMovie() {
                 <p class="text-2 p-1 text-black-600  mb-3 font-medium text-gray-900 " >{phim.title}</p>
 
                 <div className="border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link to={`/DetailMovie/${phim._id}`} className="bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
+                  <Link to={`/DetailMovie/${phim._id}`} onClick={(e) => handleBookingClick(e)} className="bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
                     Đặt vé
                   </Link>
                   <button

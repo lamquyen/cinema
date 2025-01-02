@@ -1,7 +1,8 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
+
 /*************************CSS CAROUSEL****************************/
 .carousel {
   width: 100%;
@@ -21,37 +22,37 @@
 
 
 /**************************CSS LIST MOVIE********************************/
-.listMovie{
+.listMovie {
   width: 100%;
   height: auto;
-  
+
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-.titleM{
- 
+.titleM {
+
   margin-top: 25px;
-  width:max-content;
-  height:fit-content;
+  width: max-content;
+  height: fit-content;
   margin-left: 20px;
   display: flex;
 }
 
-.phimList{
+.phimList {
   width: 100%;
- 
+
   margin-left: 20px;
   margin-top: 30px;
 }
 
-.boxM{
-  
+.boxM {
+
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  
+
 }
 
 /* .imgBox{
@@ -60,20 +61,20 @@
   
 } */
 
-.boxCard{
+.boxCard {
   width: 15%;
 }
 
-.cardM{
+.cardM {
   width: fit-content;
   height: auto;
- 
-  gap:3;
+
+  gap: 3;
   margin-bottom: 30px;
-  
+
 }
 
-.votes{
+.votes {
   width: 100px;
   height: 30px;
   background-color: #00020482;
@@ -83,7 +84,7 @@
   display: flex;
 }
 
-.typeBox{
+.typeBox {
   width: 40px;
   height: 30px;
   background-color: #f97316;
@@ -96,7 +97,7 @@
 
 /******************************CSS PROMOTIONAL EVENT *******************************************/
 
-.listEvent{
+.listEvent {
   width: 59%;
   height: 400px;
   margin-left: 20%;
@@ -104,7 +105,7 @@
   margin-bottom: 20px;
 }
 
-.tieleEv{
+.tieleEv {
   margin-left: 10px;
   color: black;
   font-size: 20px;
@@ -114,13 +115,13 @@
 
 /***********************************CSS BANNER MOVIE*******************************************************/
 
-.bannerM{
+.bannerM {
   width: 100%;
   height: 450px;
   background-color: rgba(57, 34, 233, 0.491);
 }
 
-.boxBanner{
+.boxBanner {
   width: 60%;
   height: 450px;
   margin-left: 20%;
@@ -129,7 +130,7 @@
   justify-content: space-around;
 }
 
-.imgBanner{
+.imgBanner {
   width: 35%;
   height: 300px;
   margin-top: 5%;
@@ -137,13 +138,13 @@
 
 }
 
-.contentBanner{
+.contentBanner {
   width: 60%;
   height: 350px;
   margin-top: 5%;
 }
 
-.QRcode{
+.QRcode {
   width: 200px;
   height: 200px;
   margin-left: 25%;
@@ -156,12 +157,18 @@
   position: absolute;
   top: 500px;
   margin: 0 10% 0 10%;
-  width: 70%; /* Độ rộng tối đa */
-  margin: 20px auto; /* Căn giữa theo chiều ngang */
-  background-color: #ffffff; /* Nền trắng */
-  padding: 16px; /* Khoảng cách trong */
-  border-radius: 12px; /* Bo góc */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bóng đổ */
+  width: 70%;
+  /* Độ rộng tối đa */
+  margin: 20px auto;
+  /* Căn giữa theo chiều ngang */
+  background-color: #ffffff;
+  /* Nền trắng */
+  padding: 16px;
+  /* Khoảng cách trong */
+  border-radius: 12px;
+  /* Bo góc */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  /* Bóng đổ */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -169,15 +176,18 @@
 }
 
 .quick-booking-container div {
-  flex: 1; /* Các thành phần đều chia đều khoảng cách */
-  margin: 0 8px; /* Khoảng cách giữa các thành phần */
+  flex: 1;
+  /* Các thành phần đều chia đều khoảng cách */
+  margin: 0 8px;
+  /* Khoảng cách giữa các thành phần */
 }
 
 .quick-booking-container label {
   display: block;
   font-size: 14px;
   font-weight: bold;
-  color: #f97316; /* Màu cam đậm */
+  color: #f97316;
+  /* Màu cam đậm */
   margin-bottom: 8px;
 }
 
@@ -185,47 +195,78 @@
   width: 100%;
   padding: 8px 12px;
   font-size: 14px;
-  border: 2px solid #f97316; /* Viền cam */
-  border-radius: 8px; /* Bo góc */
-  background-color: #ffffff; /* Nền trắng */
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
-  appearance: none; /* Ẩn mũi tên mặc định */
+  border: 2px solid #f97316;
+  /* Viền cam */
+  border-radius: 8px;
+  /* Bo góc */
+  background-color: #ffffff;
+  /* Nền trắng */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  /* Bóng đổ nhẹ */
+  appearance: none;
+  /* Ẩn mũi tên mặc định */
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
 }
 
 .quick-booking-container select:disabled {
-  background-color: #f3f4f6; /* Màu xám nhạt */
-  color: #9ca3af; /* Chữ xám nhạt */
-  border-color: #e5e7eb; /* Viền xám */
+  background-color: #f3f4f6;
+  /* Màu xám nhạt */
+  color: #9ca3af;
+  /* Chữ xám nhạt */
+  border-color: #e5e7eb;
+  /* Viền xám */
 }
 
 .quick-booking-container button {
-  flex-shrink: 0; /* Giữ kích thước cố định */
-  background-color: #f97316; /* Nút màu cam */
-  color: #ffffff; /* Chữ trắng */
+  flex-shrink: 0;
+  /* Giữ kích thước cố định */
+  background-color: #f97316;
+  /* Nút màu cam */
+  color: #ffffff;
+  /* Chữ trắng */
   font-size: 16px;
   font-weight: bold;
   padding: 12px 24px;
   border: none;
-  border-radius: 8px; /* Bo góc */
+  border-radius: 8px;
+  /* Bo góc */
   cursor: pointer;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Bóng đổ */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  /* Bóng đổ */
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .quick-booking-container button:hover {
-  background-color: #fb923c; /* Màu cam sáng hơn khi hover */
-  transform: scale(1.05); /* Phóng to nhẹ */
+  background-color: #fb923c;
+  /* Màu cam sáng hơn khi hover */
+  transform: scale(1.05);
+  /* Phóng to nhẹ */
 }
 
 .quick-booking-container button:disabled {
-  background-color: #f3f4f6; /* Màu xám nhạt */
-  color: #9ca3af; /* Chữ xám nhạt */
-  box-shadow: none; /* Không bóng đổ */
+  background-color: #f3f4f6;
+  /* Màu xám nhạt */
+  color: #9ca3af;
+  /* Chữ xám nhạt */
+  box-shadow: none;
+  /* Không bóng đổ */
   cursor: not-allowed;
 }
 
 
 /*******************************************/
+.hiddena {
+  display: none;
+}
+
+#alert {
+  position: fixed;
+  top: 20px;
+  /* Khoảng cách từ trên cùng */
+  right: 20px;
+  /* Khoảng cách từ bên phải */
+  z-index: 1000;
+  /* Đảm bảo thông báo nằm trên các phần tử khác */
+}
