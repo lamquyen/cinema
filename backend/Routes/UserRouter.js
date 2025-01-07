@@ -10,6 +10,8 @@ import {
   deleteUser,
   updateUserByAdmin,
   deleteUserByAdmin,
+  checkEmail,
+  resetPassword,
 } from "../Controllers/UserControllers.js";
 import { protect } from "../middlewares/auth.js";
 
@@ -25,5 +27,7 @@ router.get("/:id", getUserById);
 router.delete("/:id", protect, deleteUser);
 router.delete("/delete-admin/:id", deleteUserByAdmin);
 router.get("/transaction-history", GetAllTicketsOfUser);
+router.post("/check-email", checkEmail);
+router.post("/reset-password", resetPassword);
 
 export default router;
