@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import logo from "../img/logoLogin.svg";
 import NotificationModal from "../NotificationModal/NotificationModal.jsx";
+import ForgotPassword from "../ForgotPassword/ForgotPassword.jsx";
 import axios from "axios";
 
 function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
@@ -16,6 +17,8 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
     message: "",
   });
 
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
@@ -23,18 +26,13 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "http://localhost:5000/api/users/login",
         formData
       );
       const { data } = response;
-
-      // Assuming 'data' is the user object or has a 'user' key
       const user = data.user || data;
-
-      // Pass user data to onLoginSuccess to update state in Header
       onLoginSuccess(user);
 
       setModal({
@@ -61,10 +59,24 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
     setModal({ isOpen: false, title: "", message: "" });
   };
 
+  const handleForgotPasswordClick = (e) => {
+    e.preventDefault();
+    setShowForgotPassword(true);
+  };
+
+  if (showForgotPassword) {
+    return (
+      <ForgotPassword
+        isOpen={true}
+        onClose={() => setShowForgotPassword(false)}
+      />
+    );
+  }
+
   return (
-    <div className={`realtive modal ${isOpen ? "is-open" : ""}`}>
-      <div className="modal-content font-nunito absolute top-4 left-1/3 m-0  rounded-lg">
-        <div className="login-container">
+    <div className={`auth-modal ${isOpen ? "is-open" : ""}`}>
+      <div className="auth-modal-content">
+        <div className="auth-container">
           <button className="close-button" onClick={onClose}>
             X
           </button>
@@ -100,7 +112,7 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
                 <i className="fa fa-eye-slash"></i>
               </div>
             </div>
-            <button className="btn" type="submit">
+            <button className="auth-btn" type="submit">
               ĐĂNG NHẬP
             </button>
           </form>
@@ -110,11 +122,15 @@ function Login({ isOpen, onClose, onRegisterClick, onLoginSuccess }) {
             title={modal.title}
             message={modal.message}
           />
-          <div className="forgot-password">Quên mật khẩu?</div>
+          <div className="forgot-password-link">
+            <a href="#" onClick={handleForgotPasswordClick}>
+              Quên mật khẩu?
+            </a>
+          </div>
           <hr />
-          <div className="register">
-            Bạn chưa có tài khoản?
-            <a className="register-button" href="#" onClick={onRegisterClick}>
+          <div className="register-section">
+            <span>Bạn chưa có tài khoản?</span>
+            <a className="register-link" href="#" onClick={onRegisterClick}>
               Đăng ký
             </a>
           </div>

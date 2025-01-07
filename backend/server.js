@@ -4,19 +4,20 @@ import dotenv from "dotenv";
 import userRouter from "./Routes/UserRouter.js";
 import userMovie from "./Routes/MovieRouter.js";
 import userCinema from "./Routes/CinemaRouter.js";
-import showtimeRouter from "./Routes/ShowtimeRouter.js"
+import showtimeRouter from "./Routes/ShowtimeRouter.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { connect } from "./config/db.js";
-import movieRouter from "./Routes/MovieRouter.js"
-import roomRouter from "./Routes/RoomRouter.js"
-import paymentRouter from "./Routes/PaymentRouter.js"
+import movieRouter from "./Routes/MovieRouter.js";
+import roomRouter from "./Routes/RoomRouter.js";
+import paymentRouter from "./Routes/PaymentRouter.js";
+import bookingRouter from "./Routes/BookingRouter.js";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 // connect DB
 connect();
@@ -31,9 +32,9 @@ app.use("/api/cinemas", userCinema);
 app.use("/api/movie", movieRouter);
 app.use("/api/showtimes", showtimeRouter);
 app.use("/api/rooms", roomRouter);
+app.use("/api/booking", bookingRouter);
 
-
-app.use("/api/momo", paymentRouter)
+app.use("/api/momo", paymentRouter);
 // error handler
 app.use(errorHandler);
 

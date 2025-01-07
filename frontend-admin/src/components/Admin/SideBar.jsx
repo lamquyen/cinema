@@ -61,11 +61,11 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to="/update-profile"
+              to="/booking"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <i className="fas fa-user-cog"></i>
-              Update Profile
+              Booking
             </NavLink>
           </li>
           <li>

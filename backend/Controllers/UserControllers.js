@@ -301,6 +301,57 @@ const deleteUserByAdmin = async (req, res) => {
   }
 };
 
+// Check if email exists
+const checkEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(404);
+      throw new Error("Email không tồn tại trong hệ thống");
+    }
+
+    res.json({ exists: true });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Reset password
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, newPassword } = req.body;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(404);
+      throw new Error("Không tìm thấy tài khoản");
+    }
+
+    // Hash new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({
+      message: "Đặt lại mật khẩu thành công",
+      user: {
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      },
+    });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -312,4 +363,6 @@ export {
   deleteUser,
   updateUserByAdmin,
   deleteUserByAdmin,
+  checkEmail,
+  resetPassword,
 };

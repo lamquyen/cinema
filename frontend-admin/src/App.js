@@ -6,6 +6,7 @@ import Users from "./components/Admin/Users.jsx";
 import ProtectedRoute from "./components/Admin/ProtectedRoute";
 import MovieList from "./components/Admin/MovieList.jsx";
 import Cinema from "./components/Admin/Cinema.jsx";
+import Booking from "./components/Admin/Booking.jsx";
 
 function App() {
   return (
@@ -42,6 +43,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Users />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Booking"
+            element={
+              <ProtectedRoute>
+                <Booking />
               </ProtectedRoute>
             }
           />

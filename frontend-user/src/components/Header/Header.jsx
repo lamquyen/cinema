@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 // import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import jwtDecode from "jwt-decode";
 
 function Header() {
@@ -18,6 +19,7 @@ function Header() {
 
   const [modalType, setModalType] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check localStorage for logged-in user on component mount
@@ -58,10 +60,8 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    // Update state to log out the user
     setLoggedInUser(null);
-    // Optional: Redirect to the homepage or reload the page
-    window.location.reload(); // Reload to reset the UI
+    navigate("/");
   };
 
   const getDisplayName = () => {
@@ -106,7 +106,6 @@ function Header() {
         <a className="hover:text-orange-500" href="/Blog-movies">
           Blog Mê phim
         </a>
-
       </div>
       <div className="flex relative h-fit border-none">
         <div className="absolute"><svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -118,12 +117,8 @@ function Header() {
 
       <div className="">
         {loggedInUser ? (
-          <div className="flex gap-3 justify-center items-center " >
-            <Link
-              to="/Profile"
-            >
-              Hello, {getDisplayName()}
-            </Link>
+          <div className="flex gap-3 justify-center items-center ">
+            <Link to="/Profile">Hello, {getDisplayName()}</Link>
             <button onClick={handleLogout} className="">
               Logout
             </button>
@@ -152,4 +147,3 @@ function Header() {
 }
 
 export default Header;
-
