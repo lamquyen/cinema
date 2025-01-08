@@ -169,11 +169,12 @@ const GetAllTicketsOfUser = async (req, res) => {
     const bookings = await BookingModel.find({ userId })
       .populate({
         path: "showtimeId",
-        select: "movie times days",
-        populate: {
-          path: "movie",
-          select: "title",
-        },
+        select: "movie times days cinema room ", // Chọn các trường cần thiết từ showtimeId
+        populate: [
+          { path: "movie", select: "title img type" }, // Populate movie
+          { path: "cinema", select: "cinemaName" }, // Populate cinema
+          { path: "room", select: "roomName" }, // Populate room
+        ],
       })
       .sort({ createdAt: -1 }) // Sắp xếp theo ngày mới nhất
       .skip(skip) // Bỏ qua các bản ghi ở các trang trước
@@ -183,12 +184,20 @@ const GetAllTicketsOfUser = async (req, res) => {
       return res.status(400).send("No bookings found for this user");
     }
     const formattedBookings = bookings.map((booking) => ({
+
       totalPrice: booking.totalPrice,
       ticketCode: booking.ticketCode,
       seats: booking.seat.map((seat) => seat.number).join(", "),
+      foodNames: booking.foodNames.map((food) => `${food.name} (x${food.quantity})`).join(", "),
       showtime: {
+        img: booking.showtimeId?.movie?.img,
+
         time: booking.showtimeId?.times,
         movieTitle: booking.showtimeId?.movie?.title,
+        type: booking.showtime?.movie?.type,
+        room: booking.showtimeId?.room?.roomName,
+        cinema: booking.showtimeId?.cinema?.cinemaName,
+
         day: booking.showtimeId?.days.map(
           (day) => new Date(day).toISOString().split("T")[0]
         ),

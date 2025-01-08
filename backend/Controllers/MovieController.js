@@ -4,7 +4,8 @@ import SeatStatusModel from "../Models/StatusSeatModel.js";
 import Room from "../Models/RoomModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
 import BlogModel from "../Models/BlogModels.js";
-import mongoose from "mongoose";
+import FoodModel from "../Models/FoodModels.js";
+import mongoose from 'mongoose';
 
 // CreateMovie
 export const createMovie = async (req, res) => {
@@ -283,6 +284,15 @@ export const blog = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const getAllFoods = async (req, res) => {
+  try {
+    const blog = await FoodModel.find()
+    res.status(200).json(blog)
+  } catch {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
 
 // CallbackPayment tối ưu hơn
 export const getAllMoviePagination = async (req, res) => {

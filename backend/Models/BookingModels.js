@@ -24,6 +24,15 @@ const BookingSchema = new Schema(
         typeSeat: { type: String, required: true },
       },
     ],
+    foodNames: [
+        {
+            name: { type: String },
+            price: { type: Number },
+            quantity: { type: Number },
+        },
+    ],
+    totalSeatPrice: { type: Number, required: true },
+    totalFoodPrice: { type: Number },
     totalPrice: { type: Number, required: true },
     ticketCode: { type: String, required: true },
   },
