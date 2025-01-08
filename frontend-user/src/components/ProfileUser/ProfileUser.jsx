@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import "./ProfileUser.css";
 import Header from "../Header/Header";
@@ -14,6 +16,9 @@ const Profile = () => {
     console.log(`Changing to tab: ${tab}`);
     setActiveTab(tab); // cập nhật tab được chọn
   };
+
+
+
   return (
     <div>
       <Header />
@@ -37,8 +42,8 @@ const Profile = () => {
           <a href="#">Quà Tặng</a>
           <a href="#">Chính Sách</a>
         </div>
-        {activeTab === "information" && <Information />}
-        {activeTab === "transaction" && <Transaction />}
+        {activeTab === "information" && <Information key="informationTab" />}
+        {activeTab === "transaction" && <Transaction key="transactionTab" />}
 
       </div>
       <Footer />

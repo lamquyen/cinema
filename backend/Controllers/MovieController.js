@@ -4,6 +4,7 @@ import SeatStatusModel from "../Models/StatusSeatModel.js";
 import Room from "../Models/RoomModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
 import BlogModel from "../Models/BlogModels.js";
+import FoodModel from "../Models/FoodModels.js";
 import mongoose from 'mongoose';
 
 // CreateMovie
@@ -278,6 +279,14 @@ export const updateStatusSeat = async (showtimeId, StatusSeats) => {
 export const blog = async (req, res) => {
   try {
     const blog = await BlogModel.find()
+    res.status(200).json(blog)
+  } catch {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+export const getAllFoods = async (req, res) => {
+  try {
+    const blog = await FoodModel.find()
     res.status(200).json(blog)
   } catch {
     res.status(500).json({ message: "Internal Server Error" });

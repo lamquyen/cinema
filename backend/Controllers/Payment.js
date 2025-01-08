@@ -11,10 +11,11 @@ var secretKey = 'K951B6PE1waDMi640xX08PD3vg6EkVlz';
 
 //tạo link thanh toán
 const Payment = async (req, res) => {
-    const { amount, userId, selectedSeats, showtimeId } = req.body;
+    const { amount, userId, selectedSeats, showtimeId, selectedFoods } = req.body;
     var orderInfo = 'Thanh toán vé xem phim';
     var partnerCode = 'MOMO';
-    var redirectUrl = `http://localhost:3000/Profile`;
+    const ticketCode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    var redirectUrl = `http://localhost:3000/Profile?ticketCode=${ticketCode}`;
     var orderId = partnerCode + new Date().getTime();
     var requestId = orderId;
     var extraData = '';
@@ -22,16 +23,18 @@ const Payment = async (req, res) => {
     var autoCapture = true;
     var lang = 'vi';
     const jwtToken = jwt.sign({
-        orderId, amount, userId, selectedSeats, showtimeId: showtimeId
-    }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        orderId, amount, userId, selectedSeats, showtimeId: showtimeId, selectedFoods, ticketCode
+    },
+        process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    var ipnUrl = `https://26be-2402-800-639f-abb9-c1d7-5eef-47e3-e9ed.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
+    var ipnUrl = `https://a913-2402-800-639f-abb9-f862-f291-4b0f-63e8.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
     var requestType = "payWithMethod";
 
 
     // var rawSignature = "accessKey=" + accessKey + "&amount=" + amount + "&extraData=" + extraData + "&ipnUrl=" + ipnUrl + "&orderId=" + orderId + "&orderInfo=" + orderInfo + "&partnerCode=" + partnerCode + "&redirectUrl=" + redirectUrl + "&requestId=" + requestId + "&requestType=" + requestType;
     //puts raw signature
-    const rawSignature = `accessKey=${accessKey}&amount=${amount}&extraData=${extraData}&ipnUrl=${ipnUrl}&orderId=${orderId}&orderInfo=${orderInfo}&partnerCode=${partnerCode}&redirectUrl=${redirectUrl}&requestId=${requestId}&requestType=${requestType}`
+    const rawSignature =
+        `accessKey=${accessKey}&amount=${amount}&extraData=${extraData}&ipnUrl=${ipnUrl}&orderId=${orderId}&orderInfo=${orderInfo}&partnerCode=${partnerCode}&redirectUrl=${redirectUrl}&requestId=${requestId}&requestType=${requestType}`
     console.log("--------------------RAW SIGNATURE----------------")
     console.log(rawSignature)
 
@@ -93,14 +96,34 @@ const CallbackPayment = async (req, res) => {
             if (err) {
                 return res.status(400).json({ error: "Token không hợp lệ hoặc hết hạn" });
             }
-            const { orderId, amount, userId, selectedSeats, showtimeId } = decoded;
-            const ticketCode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+            const { orderId, amount, userId, selectedSeats, selectedFoods, showtimeId, ticketCode } = decoded;
+
+
+            const totalSeatPrice = selectedSeats.reduce(
+                (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000),
+                0
+            );
+
+            const totalFoodPrice = selectedFoods.reduce(
+                (sum, food) => sum + (food.price * food.quantity || 0),
+                0
+            );
+
+            // Tên thức ăn
+            const foodNames = selectedFoods.map(food => ({
+                name: food.name || "Unknown",
+                price: food.price || 0,
+                quantity: food.quantity || 0
+            }));
             // Lưu thông tin vào MongoDB
             const bookingData = new BookingModels({
                 orderId,  // Thêm orderId vào dữ liệu cần lưu
                 userId,
                 showtimeId,
                 seat: selectedSeats,
+                foodNames,
+                totalSeatPrice,
+                totalFoodPrice,
                 totalPrice: amount,
                 ticketCode
             });

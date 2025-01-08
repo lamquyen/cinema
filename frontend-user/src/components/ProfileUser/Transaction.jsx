@@ -1,12 +1,16 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
-
+import Ticket from "./Ticket";
+import { useLocation } from 'react-router-dom';
 const Transaction = () => {
 
     const [bookings, setBookings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [selectedBooking, setSelectedBooking] = useState(null); // Dữ liệu vé được chọn
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const location = useLocation();
     const userData = localStorage.getItem('loggedInUser')
     const user = JSON.parse(userData);
     const userId = user._id;
@@ -28,9 +32,38 @@ const Transaction = () => {
         }
         fetchBooking();
     }, [userId, currentPage])
+
+    useEffect(() => {
+        // Kiểm tra nếu URL có tham số ticketCode
+        const queryParams = new URLSearchParams(location.search);
+        const ticketCode = queryParams.get('ticketCode');
+
+        if (ticketCode) {
+            // Tìm booking tương ứng với ticketCode và mở modal
+            const booking = bookings.find(b => b.ticketCode === ticketCode);
+            if (booking) {
+                setSelectedBooking(booking);
+                setIsModalOpen(true);
+            }
+        }
+    }, [location.search, bookings]);
+
+
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
+
+    const handleRowClick = (booking) => {
+        setSelectedBooking(booking); // Lưu dữ liệu vé được chọn
+        setIsModalOpen(true); // Mở modal
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedBooking(null); // Xóa dữ liệu vé khi đóng modal
+    };
+
+
     return (
         <>
             <div className="my-10 mx-9">
@@ -61,7 +94,8 @@ const Transaction = () => {
                                 bookings.map((booking, index) => (
                                     <tr
                                         key={index}
-                                        className="odd:bg-white  even:bg-gray-300 text-black  "
+                                        onClick={() => handleRowClick(booking)}
+                                        className="odd:bg-white  even:bg-gray-300 text-black cursor-pointer hover:border  hover:border-black  "
                                     >
                                         <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                             {booking.showtime?.movieTitle || 'N/A'}
@@ -107,6 +141,26 @@ const Transaction = () => {
                             </div>
                         </tbody>
                     </table>
+                    {/* Modal */}
+                    {isModalOpen && (
+                        <div
+                            className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                            onClick={closeModal} // Đóng modal khi nhấn ra ngoài
+                        >
+                            <div
+                                className="bg-white p-6 rounded-lg shadow-lg w-96 relative"
+                                onClick={(e) => e.stopPropagation()} // Ngăn sự kiện đóng modal khi nhấn vào nội dung bên trong
+                            >
+                                <button
+                                    className="absolute top-2 right-2 text-gray-600"
+                                    onClick={closeModal}
+                                >
+                                    &times;
+                                </button>
+                                <Ticket booking={selectedBooking} /> {/* Truyền dữ liệu vào Ticket */}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
 
