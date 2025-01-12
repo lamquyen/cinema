@@ -11,6 +11,12 @@ import movieRouter from "./Routes/MovieRouter.js";
 import roomRouter from "./Routes/RoomRouter.js";
 import paymentRouter from "./Routes/PaymentRouter.js";
 import bookingRouter from "./Routes/BookingRouter.js";
+import path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 
@@ -37,6 +43,7 @@ app.use("/api/booking", bookingRouter);
 app.use("/api/momo", paymentRouter);
 // error handler
 app.use(errorHandler);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const PORT = process.env.PORT || 5000;
 

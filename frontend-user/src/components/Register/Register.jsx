@@ -95,7 +95,7 @@ function Register({ isOpen, onClose, onLoginClick }) {
           <h2>Đăng Ký Tài Khoản</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="fullName">Họ và tên</label>
+              <label htmlFor="fullName">Họ và tên:</label>
               <input
                 id="fullName"
                 placeholder="Nhập Họ và tên"
@@ -105,9 +105,9 @@ function Register({ isOpen, onClose, onLoginClick }) {
                 required
               />
             </div>
-            <div className="form-group flex justify-between">
-              <div>
-                <label htmlFor="email">Email</label>
+            <div className="form-group">
+              <div className="email">
+                <label htmlFor="email">Email:</label>
                 <input
                   id="email"
                   placeholder="Nhập Email"
@@ -117,7 +117,8 @@ function Register({ isOpen, onClose, onLoginClick }) {
                   required
                 />
               </div>
-              <div><label htmlFor="phone">Số điện thoại</label>
+              <div>
+                <label htmlFor="phone">Số điện thoại:</label>
                 <input
                   id="phone"
                   placeholder="Nhập Số điện thoại"
@@ -125,13 +126,18 @@ function Register({ isOpen, onClose, onLoginClick }) {
                   value={formData.phone}
                   onChange={handleChange}
                   required
-                /></div>
-
+                />
+              </div>
             </div>
 
             <div className="form-group flex justify-between  ">
-              <div className="flex items-center text-xl"><label className="h-fit mr-4
-              ">Giới tính</label>
+              <div className="flex items-center text-xl sex">
+                <label
+                  className="h-fit mr-4
+              "
+                >
+                  Giới tính:
+                </label>
                 <div className="radio-group">
                   <input
                     id="male"
@@ -153,8 +159,10 @@ function Register({ isOpen, onClose, onLoginClick }) {
                     required
                   />
                   <label htmlFor="female">Nữ</label>
-                </div></div>
-              <div className="flex items-center gap-2"><label htmlFor="dateOfBirth">Ngày sinh</label>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 date-of-birth">
+                <label htmlFor="dateOfBirth">Ngày sinh:</label>
                 <input
                   id="dateOfBirth"
                   className="h-fit border border-[#ccc] p-1"
@@ -163,13 +171,11 @@ function Register({ isOpen, onClose, onLoginClick }) {
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
-                /></div>
+                />
+              </div>
             </div>
             <div className="form-group">
-
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Mật khẩu</label>
+              <label htmlFor="password">Mật khẩu:</label>
               <input
                 id="password"
                 placeholder="Nhập Mật khẩu"
@@ -180,7 +186,7 @@ function Register({ isOpen, onClose, onLoginClick }) {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="confirmPassword">Nhập lại mật khẩu</label>
+              <label htmlFor="confirmPassword">Nhập lại mật khẩu:</label>
               <input
                 id="confirmPassword"
                 placeholder="Nhập lại mật khẩu"

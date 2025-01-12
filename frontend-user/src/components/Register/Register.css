@@ -80,7 +80,6 @@
 
   .form-group .radio-group {
     display: flex;
-
   }
 
   .form-group .radio-group label {
@@ -206,5 +205,26 @@
     background-color: #ff7f00;
     color: #fff;
     /* text-decoration: none !important; */
+  }
+}
+
+.email {
+  margin-bottom: 15px;
+}
+
+.sex {
+  label {
+    margin-bottom: 0 !important;
+    margin-right: 8px !important;
+  }
+}
+
+.date-of-birth {
+  label {
+    margin-bottom: 0 !important;
+  }
+
+  #dateOfBirth {
+    border-radius: 5px;
   }
 }

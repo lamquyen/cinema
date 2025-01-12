@@ -43,15 +43,6 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
-              to="/categories"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <i className="fas fa-list-alt"></i>
-              Categories
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/users"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
@@ -66,24 +57,6 @@ const SideBar = () => {
             >
               <i className="fas fa-user-cog"></i>
               Booking
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/favorites"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <i className="fas fa-heart"></i>
-              Favorites Movies
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/change-password"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              <i className="fas fa-lock"></i>
-              Change Password
             </NavLink>
           </li>
           <li>

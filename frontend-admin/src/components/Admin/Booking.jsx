@@ -120,6 +120,10 @@ const Booking = () => {
     });
   };
 
+  const formatCurrency = (value) => {
+    return value ? value.toLocaleString("vi-VN") : "0";
+  };
+
   // Get unique movie titles and cinemas for filter options
   // const movieTitles = [
   //   ...new Set(bookings.map((b) => b.showtimeId.movie.title)),
@@ -181,22 +185,24 @@ const Booking = () => {
             {/* Date range filters */}
             <div className="filter-item">
               <input
-                type="date"
+                type={filters.startDate ? "date" : "text"}
                 name="startDate"
                 value={filters.startDate}
                 onChange={handleFilterChange}
                 className="filter-date"
                 placeholder="Từ ngày"
+                onFocus={(e) => (e.target.type = "date")}
               />
             </div>
             <div className="filter-item">
               <input
-                type="date"
+                type={filters.endDate ? "date" : "text"}
                 name="endDate"
                 value={filters.endDate}
                 onChange={handleFilterChange}
                 className="filter-date"
                 placeholder="Đến ngày"
+                onFocus={(e) => (e.target.type = "date")}
               />
             </div>
 
@@ -343,12 +349,52 @@ const Booking = () => {
                         </div>
                       </div>
 
+                      {selectedBooking.foodNames &&
+                        selectedBooking.foodNames.length > 0 && (
+                          <div className="detail-row">
+                            <div className="detail-item">
+                              <strong>Đồ ăn & Thức uống:</strong>
+                              <div className="food-container">
+                                {selectedBooking.foodNames.map(
+                                  (food, index) => (
+                                    <div key={index} className="food-item">
+                                      <span>{food.name || "N/A"}</span>
+                                      <span>x{food.quantity || 0}</span>
+                                      <span>
+                                        {food.price
+                                          ? `${formatCurrency(food.price)}đ`
+                                          : "0đ"}
+                                      </span>
+                                    </div>
+                                  )
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                      <div className="detail-row">
+                        <div className="detail-item">
+                          <strong>Tổng tiền ghế:</strong>
+                          <span>
+                            {formatCurrency(selectedBooking.totalSeatPrice)}đ
+                          </span>
+                        </div>
+                        {selectedBooking.totalFoodPrice > 0 && (
+                          <div className="detail-item">
+                            <strong>Tổng tiền đồ ăn:</strong>
+                            <span>
+                              {formatCurrency(selectedBooking.totalFoodPrice)}đ
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
                       <div className="detail-row">
                         <div className="detail-item">
                           <strong>Tổng tiền:</strong>
                           <span>
-                            {selectedBooking.totalPrice.toLocaleString("vi-VN")}
-                            đ
+                            {formatCurrency(selectedBooking.totalPrice)}đ
                           </span>
                         </div>
                         <div className="detail-item">
@@ -361,6 +407,7 @@ const Booking = () => {
                         </div>
                       </div>
                     </div>
+
                     {/* Thông tin phim và rạp */}
                     <div className="detail-section">
                       <h4 className="section-title">Thông tin suất chiếu</h4>
