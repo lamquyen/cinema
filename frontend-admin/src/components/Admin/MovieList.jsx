@@ -19,20 +19,22 @@ const MovieList = () => {
     useState(false); // Modal thông báo xóa thành công
   const [newMovie, setNewMovie] = useState({
     title: "",
-    img: "",
-    img02: "",
+    img: null,
+    img02: null,
     describe: "",
     linkTrailer: "",
     showDate: "",
     genre: "",
     cast: "",
-    // rating: "",
     type: "",
     times: "",
     nation: "",
     director: "",
     manufacturer: "",
   });
+
+  const [previewImg, setPreviewImg] = useState(null);
+  const [previewImg02, setPreviewImg02] = useState(null);
   const [isAddSuccessModalVisible, setIsAddSuccessModalVisible] =
     useState(false); // Modal thông báo thêm thành công
   const [isAddErrorModalVisible, setIsAddErrorModalVisible] = useState(false); // Modal thông báo thêm thất bại
@@ -75,23 +77,70 @@ const MovieList = () => {
     setSelectedMovie({ ...selectedMovie, [name]: value });
   };
 
+  const handleEditFileChange = (e, imageField) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Tạo preview URL cho ảnh đã chọn
+      const previewUrl = URL.createObjectURL(file);
+
+      setSelectedMovie((prev) => ({
+        ...prev,
+        [imageField]: file, // Lưu file để upload
+        [`${imageField}Preview`]: previewUrl, // Lưu URL preview
+      }));
+    }
+  };
+
   const handleUpdateMovie = async () => {
     try {
-      await axios.put(
+      const formData = new FormData();
+
+      // Thêm tất cả các trường dữ liệu vào FormData
+      Object.keys(selectedMovie).forEach((key) => {
+        // Bỏ qua các trường preview
+        if (!key.includes("Preview")) {
+          if (key === "img") {
+            // Chỉ thêm file nếu là file mới được chọn
+            if (selectedMovie[key] instanceof File) {
+              formData.append(key, selectedMovie[key]);
+            }
+          } else {
+            formData.append(key, selectedMovie[key]);
+          }
+        }
+      });
+
+      const response = await axios.put(
         `http://localhost:5000/api/movie/${selectedMovie._id}`,
-        selectedMovie
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      // Cập nhật danh sách phim trong state
+
+      // Cập nhật danh sách phim
       setMovies((prevMovies) =>
         prevMovies.map((movie) =>
-          movie._id === selectedMovie._id ? selectedMovie : movie
+          movie._id === selectedMovie._id ? response.data : movie
         )
       );
-      setIsSuccessModalVisible(true); // Hiển thị modal thông báo
-      setTimeout(() => setIsSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
+
+      setIsModalVisible(false);
+      setIsSuccessModalVisible(true);
+      setTimeout(() => setIsSuccessModalVisible(false), 3000);
+
+      // Xóa các URL preview
+      if (selectedMovie.imgPreview) {
+        URL.revokeObjectURL(selectedMovie.imgPreview);
+      }
+      if (selectedMovie.img02Preview) {
+        URL.revokeObjectURL(selectedMovie.img02Preview);
+      }
     } catch (error) {
-      setIsErrorModalVisible(true); // Hiển thị modal thất bại
-      setTimeout(() => setIsErrorModalVisible(false), 3000); // Tự động đóng modal
+      setIsErrorModalVisible(true);
+      setTimeout(() => setIsErrorModalVisible(false), 3000);
     }
   };
 
@@ -128,35 +177,74 @@ const MovieList = () => {
     setIsDeleteModalVisible(false); // Đóng modal xác nhận
   };
 
+  const handleFileChange = (e, imageField) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Create preview URL for the selected image
+      const previewUrl = URL.createObjectURL(file);
+
+      if (imageField === "img") {
+        setPreviewImg(previewUrl);
+        setNewMovie({ ...newMovie, img: file });
+      } else {
+        setPreviewImg02(previewUrl);
+        setNewMovie({ ...newMovie, img02: file });
+      }
+    }
+  };
+
   const handleAddMovie = async () => {
     try {
+      const formData = new FormData();
+
+      // Append all movie data to FormData
+      Object.keys(newMovie).forEach((key) => {
+        if (key === "img" || key === "img02") {
+          if (newMovie[key]) {
+            formData.append(key, newMovie[key]);
+          }
+        } else {
+          formData.append(key, newMovie[key]);
+        }
+      });
+
       const response = await axios.post(
         "http://localhost:5000/api/movie/",
-        newMovie
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      setMovies([...movies, response.data]); // Thêm phim mới vào danh sách
-      setShowModal(false); // Ẩn modal
+
+      setMovies([...movies, response.data]);
+      setShowModal(false);
+
+      // Reset form and previews
       setNewMovie({
         title: "",
-        img: "",
-        img02: "",
+        img: null,
+        img02: null,
         describe: "",
         linkTrailer: "",
         showDate: "",
         genre: "",
         cast: "",
-        // rating: "",
         type: "",
         times: "",
         nation: "",
         director: "",
         manufacturer: "",
       });
-      setIsAddSuccessModalVisible(true); // Hiển thị modal thông báo thành công
-      setTimeout(() => setIsAddSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
+      setPreviewImg(null);
+      setPreviewImg02(null);
+
+      setIsAddSuccessModalVisible(true);
+      setTimeout(() => setIsAddSuccessModalVisible(false), 3000);
     } catch (error) {
-      setIsAddErrorModalVisible(true); // Hiển thị modal thông báo thất bại
-      setTimeout(() => setIsAddErrorModalVisible(false), 3000); // Tự động đóng modal
+      setIsAddErrorModalVisible(true);
+      setTimeout(() => setIsAddErrorModalVisible(false), 3000);
     }
   };
 
@@ -290,12 +378,20 @@ const MovieList = () => {
                 </label>
                 <label>
                   Image URL:
-                  <input
-                    type="text"
-                    name="img"
-                    value={selectedMovie.img || ""}
-                    onChange={handleInputChange}
-                  />
+                  <div className="image-upload-container">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleEditFileChange(e, "img")}
+                      className="file-input"
+                    />
+                    {/* <div className="image-preview">
+                      <img
+                        src={selectedMovie.imgPreview || selectedMovie.img}
+                        alt="Preview"
+                      />
+                    </div> */}
+                  </div>
                 </label>
                 <label>
                   Describe:
@@ -356,7 +452,16 @@ const MovieList = () => {
               </button>
               <button
                 className="btn cancel"
-                onClick={() => setIsModalVisible(false)}
+                onClick={() => {
+                  setIsModalVisible(false);
+                  // Xóa các URL preview khi đóng modal
+                  // if (selectedMovie.imgPreview) {
+                  //   URL.revokeObjectURL(selectedMovie.imgPreview);
+                  // }
+                  // if (selectedMovie.img02Preview) {
+                  //   URL.revokeObjectURL(selectedMovie.img02Preview);
+                  // }
+                }}
               >
                 Cancel
               </button>
@@ -443,21 +548,36 @@ const MovieList = () => {
                 </label>
                 <label>
                   Image URL:
-                  <input
-                    type="text"
-                    name="img"
-                    value={newMovie.img}
-                    onChange={handleAddInputChange}
-                  />
+                  <div className="image-upload-container">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, "img")}
+                      className="file-input"
+                    />
+                    {/* {previewImg && (
+                      <div className="image-preview">
+                        <img src={previewImg} alt="Preview" />
+                      </div>
+                    )} */}
+                  </div>
                 </label>
+
                 <label>
                   Image URL 02:
-                  <input
-                    type="text"
-                    name="img02"
-                    value={newMovie.img02}
-                    onChange={handleAddInputChange}
-                  />
+                  <div className="image-upload-container">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleFileChange(e, "img02")}
+                      className="file-input"
+                    />
+                    {/* {previewImg02 && (
+                      <div className="image-preview">
+                        <img src={previewImg02} alt="Preview 2" />
+                      </div>
+                    )} */}
+                  </div>
                 </label>
                 <label>
                   Describe:
@@ -504,15 +624,6 @@ const MovieList = () => {
                     onChange={handleAddInputChange}
                   />
                 </label>
-                {/* <label>
-                  Rating:
-                  <input
-                    type="number"
-                    name="rating"
-                    value={newMovie.rating}
-                    onChange={handleAddInputChange}
-                  />
-                </label> */}
                 <label>
                   Type:
                   <input
@@ -565,7 +676,11 @@ const MovieList = () => {
                 </button>
                 <button
                   className="btn cancel"
-                  onClick={() => setShowModal(false)}
+                  onClick={() => {
+                    setShowModal(false);
+                    // setPreviewImg(null);
+                    // setPreviewImg02(null);
+                  }}
                 >
                   Cancel
                 </button>

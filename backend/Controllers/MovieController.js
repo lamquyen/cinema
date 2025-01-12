@@ -5,47 +5,81 @@ import Room from "../Models/RoomModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
 import BlogModel from "../Models/BlogModels.js";
 import FoodModel from "../Models/FoodModels.js";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+import multer from "multer";
+import path from "path";
+import fs from "fs";
+
+// Cấu hình multer để xử lý upload file
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const uploadDir = "uploads/movies";
+    // Tạo thư mục nếu chưa tồn tại
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    // Tạo tên file unique bằng timestamp
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+// Giới hạn loại file được upload
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image/")) {
+    cb(null, true);
+  } else {
+    cb(new Error("Not an image! Please upload an image."), false);
+  }
+};
+
+export const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // Giới hạn 5MB
+  },
+});
 
 // CreateMovie
 export const createMovie = async (req, res) => {
   try {
-    const {
-      title,
-      img,
-      img02,
-      describe,
-      linkTrailer,
-      showDate,
-      genre,
-      cast,
-      // rating,
-      type,
-      times,
-      nation,
-      director,
-      manufacturer,
-    } = req.body;
-    const newMovie = new Movie({
-      title,
-      img,
-      img02,
-      describe,
-      linkTrailer,
-      showDate,
-      genre,
-      cast,
-      // rating,
-      type,
-      times,
-      nation,
-      director,
-      manufacturer,
-    });
+    const movieData = req.body;
+
+    // Xử lý đường dẫn file đã upload
+    if (req.files) {
+      if (req.files["img"]) {
+        // Thêm đường dẫn đầy đủ của server
+        movieData.img = `http://localhost:5000/uploads/movies/${req.files["img"][0].filename}`;
+      }
+      if (req.files["img02"]) {
+        movieData.img02 = `http://localhost:5000/uploads/movies/${req.files["img02"][0].filename}`;
+      }
+    }
+
+    // Chuyển đổi các trường từ string sang array
+    if (typeof movieData.genre === "string") {
+      movieData.genre = movieData.genre.split(",").map((item) => item.trim());
+    }
+    if (typeof movieData.director === "string") {
+      movieData.director = movieData.director
+        .split(",")
+        .map((item) => item.trim());
+    }
+    if (typeof movieData.cast === "string") {
+      movieData.cast = movieData.cast.split(",").map((item) => item.trim());
+    }
+
+    const newMovie = new Movie(movieData);
     await newMovie.save();
+
     res.status(201).json(newMovie);
   } catch (err) {
-    res.status(400).send(err.message);
+    console.error("Error creating movie:", err);
+    res.status(400).json({ message: err.message });
   }
 };
 
@@ -80,11 +114,21 @@ export const getAllMovie = async (req, res) => {
 // Get Movie By Id
 export const getMovieById = async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id); // Truy vấn bằng ID
+    let movie = await Movie.findById(req.params.id);
     if (!movie) {
       return res.status(404).json({ message: "Movie not found" });
     }
-    res.json(movie); // Trả về dữ liệu phim
+
+    // Đảm bảo URL ảnh đầy đủ
+    movie = movie.toObject();
+    movie.img = movie.img.startsWith("http")
+      ? movie.img
+      : `http://localhost:5000${movie.img}`;
+    movie.img02 = movie.img02.startsWith("http")
+      ? movie.img02
+      : `http://localhost:5000${movie.img02}`;
+
+    res.json(movie);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error retrieving movie" });
@@ -200,21 +244,53 @@ export { SeatLayout };
 // Update Movie By Id
 export const updateMovie = async (req, res) => {
   try {
-    const { id } = req.params; // Lấy id từ params
-    const updateData = req.body; // Lấy dữ liệu cập nhật từ body
+    const { id } = req.params;
+    const updateData = req.body;
 
-    // Tìm và cập nhật thông tin phim dựa trên id
+    // Xử lý file uploads nếu có
+    if (req.files) {
+      const movie = await Movie.findById(id);
+
+      // Xử lý img
+      if (req.files["img"]) {
+        // Xóa file cũ nếu tồn tại và không phải là URL external
+        if (
+          movie.img &&
+          !movie.img.startsWith("http") &&
+          movie.img.startsWith("/uploads")
+        ) {
+          const oldPath = path.join(__dirname, "..", movie.img);
+          if (fs.existsSync(oldPath)) {
+            fs.unlinkSync(oldPath);
+          }
+        }
+        updateData.img = `http://localhost:5000/uploads/movies/${req.files["img"][0].filename}`;
+      }
+    }
+
+    // Xử lý chuyển đổi string sang array
+    if (typeof updateData.genre === "string") {
+      updateData.genre = updateData.genre.split(",").map((item) => item.trim());
+    }
+    if (typeof updateData.director === "string") {
+      updateData.director = updateData.director
+        .split(",")
+        .map((item) => item.trim());
+    }
+    if (typeof updateData.cast === "string") {
+      updateData.cast = updateData.cast.split(",").map((item) => item.trim());
+    }
+
     const updatedMovie = await Movie.findByIdAndUpdate(id, updateData, {
-      new: true, // Trả về dữ liệu đã được cập nhật
-      runValidators: true, // Chạy các validator trong schema
+      new: true,
+      runValidators: true,
     });
 
-    // Kiểm tra nếu không tìm thấy phim
     if (!updatedMovie) {
       return res.status(404).json({ message: "Movie not found" });
     }
 
-    res.status(200).json(updatedMovie); // Trả về thông tin phim đã cập nhật
+    res.status(200).json(updatedMovie);
   } catch (error) {
     console.error("Error updating movie:", error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -287,27 +363,38 @@ export const blog = async (req, res) => {
 
 export const getAllFoods = async (req, res) => {
   try {
-    const blog = await FoodModel.find()
-    res.status(200).json(blog)
+    const blog = await FoodModel.find();
+    res.status(200).json(blog);
   } catch {
     res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
 // CallbackPayment tối ưu hơn
 export const getAllMoviePagination = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
-    const limit = 5; // Items per page
+    const limit = 5;
     const skip = (page - 1) * limit;
 
     const totalMovies = await Movie.countDocuments();
     const totalPages = Math.ceil(totalMovies / limit);
 
-    const movies = await Movie.find()
+    let movies = await Movie.find()
       .skip(skip)
       .limit(limit)
-      .sort({ showDate: -1 }); // Sort by show date descending
+      .sort({ showDate: -1 });
+
+    // Đảm bảo URL ảnh đầy đủ
+    movies = movies.map((movie) => ({
+      ...movie.toObject(),
+      img: movie.img.startsWith("http")
+        ? movie.img
+        : `http://localhost:5000${movie.img}`,
+      img02: movie.img02.startsWith("http")
+        ? movie.img02
+        : `http://localhost:5000${movie.img02}`,
+    }));
 
     res.json({
       movies,

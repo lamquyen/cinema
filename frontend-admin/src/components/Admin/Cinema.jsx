@@ -109,7 +109,7 @@ const Cinema = () => {
               {cinemas.map((cinema) => (
                 <div className="cinema-element" key={cinema._id}>
                   <div className="title">
-                    <h3 className="cinema-location">{cinema.location}</h3>
+                    <h4 className="cinema-location">{cinema.location}</h4>
                     <span onClick={() => handleCinemaClick(cinema)}>
                       Chi tiết
                     </span>
@@ -120,7 +120,7 @@ const Cinema = () => {
                     alt={cinema.cinemaName}
                     className="cinema-img"
                   />
-                  <h2 className="cinema-name">{cinema.cinemaName}</h2>
+                  <h4 className="cinema-name">{cinema.cinemaName}</h4>
                   {/* <div className="cinema-address">
                     Địa chỉ: {cinema.address}
                   </div> */}
