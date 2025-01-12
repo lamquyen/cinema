@@ -1,14 +1,16 @@
 import Moana from '../img/moanatrailer.png'
-import Barcode from 'react-barcode';
+import { QRCodeCanvas } from 'qrcode.react';
 const Ticket = ({ booking }) => {
     if (!booking) return null;
 
     const {
-        showtime: { movieTitle, time, day, cinema, room, img, movieType } = {},
+        showtime: { movieTitle, time, day, cinema, room, img, type } = {},
         seats,
         foodNames,
         totalPrice,
         ticketCode,
+        voucher,
+        voucherCode
     } = booking;
 
     return (
@@ -20,7 +22,7 @@ const Ticket = ({ booking }) => {
                         <div>
                             <p className="font-bold text-lg">{movieTitle}</p>
                             <p className="flex mt-4 gap-2 text-base">
-                                2D phụ đề - <p className="w-fit bg-orange-600 text-white rounded-sm p-[1px]">{movieType}</p>
+                                2D phụ đề - <p className="w-fit bg-orange-600 text-white rounded-sm p-[1px]">{type}</p>
                             </p>
                         </div>
                     </div>
@@ -41,6 +43,18 @@ const Ticket = ({ booking }) => {
                         <p className="">{foodNames}</p>
 
                     </div>
+                    <div className="total  items-center font-medium text-base text-gray-500 text-nowrap ">
+                        <div className='flex gap-2'>
+                            <p className='font-bold text-black'>Voucher:</p>
+                            <p className="">{voucher}</p>
+                        </div>
+                        <div className='flex gap-2'>
+                            <p className='font-bold text-black'>Mã Voucher :</p>
+                            <p className="">{voucherCode}</p>
+                        </div>
+
+
+                    </div>
 
 
                 </div>
@@ -50,9 +64,9 @@ const Ticket = ({ booking }) => {
                         {totalPrice.toLocaleString()}{' '}VNĐ
                     </p>
                 </div>
-                <div className="mt-4 flex-col justify-center ">
+                <div className="mt-4 flex gap-10 ">
                     <p className="font-bold">Mã vé:</p>
-                    <Barcode value={ticketCode || 'N/A'} className="w-[100%] " />
+                    <QRCodeCanvas value={ticketCode || 'N/A'} className="w-[100%]" />
                 </div>
             </div>
         </div>

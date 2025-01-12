@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import moment from "moment";
+
 import Information from "./Information";
 import Transaction from "./Transaction";
 

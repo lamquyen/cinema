@@ -100,13 +100,13 @@ function ListMovie() {
             {showingM.map((phim) => (
               <div
                 key={phim._id}
-                className="relative group border-none rounded-lg   shadow-lg hover:shadow-xl h-max w-fit cardM"
+                className="relative group border-none rounded-lg   shadow-lg hover:shadow-xl hover:bg-gray-200 h-max w-fit cardM"
 
               >
                 <img src={phim.img} className="h-96 w-72 border-none rounded-lg " />
                 <p class="text-2 p-1 text-black-600  mb-3 font-medium text-gray-900 " >{phim.title}</p>
 
-                <div className="border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Link to={`/DetailMovie/${phim._id}`} onClick={(e) => handleBookingClick(e)} className="bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
                     Đặt vé
                   </Link>
@@ -154,12 +154,12 @@ function ListMovie() {
             {upComingM.map((phim) => (
               <div
                 key={phim._id}
-                className="relative group bg-gray-200 p-4 rounded-lg shadow-lg hover:shadow-xl cardM"
+                className="relative group bg-gray-200 p-4   rounded-lg shadow-lg hover:shadow-xl cardM"
                 style={{ width: "80%" }}
               >
                 <img src={phim.img} className="imgBox" />
-                <p class="text-2 p-1 text-black-600 font-medium text-gray-900 dark:text-white mx-2 mb-3" >{phim.title}</p>
-                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
+                <p class="text-2 p-1 text-black-600 font-medium text-gray-900 mx-2 mb-3" >{phim.title}</p>
+                <div className="absolute rounded-lg inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Link to={`/DetailMovie/${phim._id}`} className="bg-red-600 text-white px-4 py-2 m-2 rounded-lg shadow-lg hover:bg-red-700">
                     Đặt vé
                   </Link>

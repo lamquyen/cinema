@@ -176,6 +176,10 @@ const GetAllTicketsOfUser = async (req, res) => {
           { path: "room", select: "roomName" }, // Populate room
         ],
       })
+      .populate({
+        path: "discountId",
+        select: "name code"
+      })
       .sort({ createdAt: -1 }) // Sắp xếp theo ngày mới nhất
       .skip(skip) // Bỏ qua các bản ghi ở các trang trước
       .limit(pageSize); // Giới hạn số lượng bản ghi mỗi lần trả về
@@ -189,12 +193,13 @@ const GetAllTicketsOfUser = async (req, res) => {
       ticketCode: booking.ticketCode,
       seats: booking.seat.map((seat) => seat.number).join(", "),
       foodNames: booking.foodNames.map((food) => `${food.name} (x${food.quantity})`).join(", "),
+      voucher: booking.discountId?.name,
+      voucherCode: booking.discountId?.code,
       showtime: {
         img: booking.showtimeId?.movie?.img,
-
         time: booking.showtimeId?.times,
         movieTitle: booking.showtimeId?.movie?.title,
-        type: booking.showtime?.movie?.type,
+        type: booking.showtimeId?.movie?.type,
         room: booking.showtimeId?.room?.roomName,
         cinema: booking.showtimeId?.cinema?.cinemaName,
 

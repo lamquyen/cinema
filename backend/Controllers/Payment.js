@@ -5,13 +5,14 @@ import dotenv from "dotenv";
 import BookingModels from '../Models/BookingModels.js';
 import { updateStatusSeat } from './MovieController.js';
 import jwt from 'jsonwebtoken';
+import PromotionModel from '../Models/PromotionModels.js';
 dotenv.config();
 var accessKey = 'F8BBA842ECF85';
 var secretKey = 'K951B6PE1waDMi640xX08PD3vg6EkVlz';
 
 //tạo link thanh toán
 const Payment = async (req, res) => {
-    const { amount, userId, selectedSeats, showtimeId, selectedFoods } = req.body;
+    const { amount, userId, selectedSeats, showtimeId, selectedFoods, discountId } = req.body;
     var orderInfo = 'Thanh toán vé xem phim';
     var partnerCode = 'MOMO';
     const ticketCode = Math.floor(1000000000 + Math.random() * 9000000000).toString();
@@ -23,11 +24,11 @@ const Payment = async (req, res) => {
     var autoCapture = true;
     var lang = 'vi';
     const jwtToken = jwt.sign({
-        orderId, amount, userId, selectedSeats, showtimeId: showtimeId, selectedFoods, ticketCode
+        orderId, amount, userId, selectedSeats, showtimeId: showtimeId, selectedFoods, ticketCode, discountId
     },
         process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    var ipnUrl = `https://a913-2402-800-639f-abb9-f862-f291-4b0f-63e8.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
+    var ipnUrl = `https://ae89-2402-800-639f-abb9-8582-fc1-bb3e-ceec.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
     var requestType = "payWithMethod";
 
 
@@ -96,7 +97,7 @@ const CallbackPayment = async (req, res) => {
             if (err) {
                 return res.status(400).json({ error: "Token không hợp lệ hoặc hết hạn" });
             }
-            const { orderId, amount, userId, selectedSeats, selectedFoods, showtimeId, ticketCode } = decoded;
+            const { orderId, amount, userId, selectedSeats, selectedFoods, showtimeId, ticketCode, discountId } = decoded;
 
 
             const totalSeatPrice = selectedSeats.reduce(
@@ -124,6 +125,7 @@ const CallbackPayment = async (req, res) => {
                 foodNames,
                 totalSeatPrice,
                 totalFoodPrice,
+                discountId,
                 totalPrice: amount,
                 ticketCode
             });
@@ -132,7 +134,15 @@ const CallbackPayment = async (req, res) => {
 
             console.log("Đơn hàng đã được lưu thành công vào database!");
             await updateStatusSeat(showtimeId, selectedSeats.map(seat => ({ number: seat.number, status: 'booked' })));
-
+            if (discountId) {
+                const promotion = await PromotionModel.findById(discountId);
+                if (promotion) {
+                    // Cập nhật voucher là không còn hoạt động
+                    promotion.isActive = false;
+                    await promotion.save();
+                    console.log("Voucher đã được cập nhật thành không hoạt động.");
+                }
+            }
             // Trả về phản hồi thành công một lần duy nhất
             return res.send('Thành công');
 
@@ -166,41 +176,40 @@ const CheckStatusOrder = async (req, res) => {
     let result = await axios(option)
     return res.status(200).json(result.data)
 }
-const SaveInforOrder = () => {
-    try {
-        // Nhận token từ query parameter
-        const { token } = req.query;
+const getVoucherByCode = async (req, res) => {
+    const { code } = req.body; // Lấy code từ body request
 
-        if (!token) {
-            return res.status(400).json({ error: "Không có token trong yêu cầu" });
+    if (!code) {
+        return res.status(400).json({ message: "Code is required" });
+    }
+
+    try {
+        // Tìm kiếm voucher theo code
+        const promotion = await PromotionModel.findOne({ code });
+
+        if (!promotion) {
+            return res.status(404).json({ message: "Voucher not found" });
         }
 
-        // Giải mã token để lấy thông tin thanh toán
-        jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-            if (err) {
-                return res.status(400).json({ error: "Token không hợp lệ hoặc hết hạn" });
-            }
-            const { orderId, amount, userId, selectedSeats, showtimeId } = decoded;
-
-            // Lưu thông tin vào MongoDB
-            const bookingData = new BookingModel({
-                orderId,  // Thêm orderId vào dữ liệu cần lưu
-                userId,
-                showtimeId,
-                seat: selectedSeats,
-                totalPrice
-            });
-            console.log(bookingData)
-            await bookingData.save();
-
-            console.log("Đơn hàng đã được lưu thành công vào database!");
-            return res.redirect('http://localhost:3000');
+        // Kiểm tra nếu voucher không hoạt động hoặc đã hết hạn
+        const currentDate = new Date();
+        if (!promotion.isActive) {
+            return res.status(400).json({ message: "Voucher đã được sử dụng" });
+        }
+        if (promotion.endDate < currentDate) {
+            return res.status(400).json({ message: "Voucher đã hết hạn sữ dụng" });
+        }
+        // Trả về thông tin voucher
+        return res.status(200).json({
+            message: "Voucher hợp lệ",
+            promotion
         });
     } catch (error) {
-        console.error("Lỗi khi xử lý callback thanh toán:", error);
-        res.status(500).send("Đã có lỗi xảy ra");
+        console.error("Error fetching voucher:", error);
+        return res.status(500).json({ message: "Server error", error });
     }
-}
+};
 
 
-export { Payment, CallbackPayment, CheckStatusOrder, SaveInforOrder };
+
+export { Payment, CallbackPayment, CheckStatusOrder, getVoucherByCode };

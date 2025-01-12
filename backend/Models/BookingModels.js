@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import User from "./UserModels.js"; // Thêm dòng này để đảm bảo User model được đăng ký
-import Showtime from "./ShowtimeModels.js"; // Thêm dòng này để đảm bảo Showtime model được đăng ký
-import Movie from "./MovieModels.js"; // Thêm dòng này để đảm bảo Movie model được đăng ký
+
 
 const { Schema } = mongoose;
 
@@ -25,14 +23,15 @@ const BookingSchema = new Schema(
       },
     ],
     foodNames: [
-        {
-            name: { type: String },
-            price: { type: Number },
-            quantity: { type: Number },
-        },
+      {
+        name: { type: String },
+        price: { type: Number },
+        quantity: { type: Number },
+      },
     ],
     totalSeatPrice: { type: Number, required: true },
     totalFoodPrice: { type: Number },
+    discountId: { type: mongoose.Schema.Types.ObjectId, ref: "promotion" },
     totalPrice: { type: Number, required: true },
     ticketCode: { type: String, required: true },
   },

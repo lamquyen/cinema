@@ -104,7 +104,7 @@ const Transaction = () => {
                                         <td className="px-6 py-4">
                                             {`Ghế: ${booking.seats} | Suất chiếu: ${booking.showtime?.time || 'N/A'} | Ngày: ${booking.showtime?.day || 'N/A'}`}
                                         </td>
-                                        <td className="px-6 py-4">{booking.totalPrice} VNĐ</td>
+                                        <td className="px-6 py-4">{booking.totalPrice.toLocaleString()} VNĐ</td>
                                     </tr>
                                 ))
                             ) : (

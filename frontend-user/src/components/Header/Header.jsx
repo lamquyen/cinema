@@ -5,11 +5,10 @@ import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-// import { Link } from "react-router";
-import jwtDecode from "jwt-decode";
+
 
 function Header() {
-  const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
+  const options = ["Tp. Hồ Chí Minh", "Hà Nội", "Đà Nẵng"];
   const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
 
@@ -73,11 +72,11 @@ function Header() {
   return (
     <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
-        <img className="w-28 h-[100%]" src={logo} />
+        <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
 
       <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
-        <div className="self-center text-center h-fit">
+        <div className="self-center text-center h-fit text-nowrap">
           <Dropdown
             options={options}
             placeholder="Rạp Chiếu"
@@ -85,14 +84,14 @@ function Header() {
             herf="rap-phim"
           />
         </div>
-        <div>
+        <div className="text-nowrap">
           <Dropdown
             options={events}
             placeholder="Sự Kiện"
             onSelect={handleSelect}
           />
         </div>
-        <div>
+        <div className="text-nowrap">
           <Dropdown
             options={movies}
             placeholder="Phim"
