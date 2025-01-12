@@ -100,7 +100,7 @@ const Booking = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ amount, userId, selectedSeats, showtimeId: id, selectedFoods, discountId: selectedDiscount.discountId }), // Truyền TT vào request
+        body: JSON.stringify({ amount, userId, selectedSeats, showtimeId: id, selectedFoods, discountId: selectedDiscount?.discountId || null }), // Truyền TT vào request
       });
 
       const data = await response.json();

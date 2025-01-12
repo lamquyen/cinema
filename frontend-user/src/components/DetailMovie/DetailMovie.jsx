@@ -295,14 +295,14 @@ function DetailMovie() {
         </div>
 
         {/* Nội dung phim */}
-        <div className="ml-36 mr-[30%] font-nunito  h-fit">
+        <div className="ml-36 mr-[30%]  font-nunito  h-fit">
           <span className="mb-4 text-lg font-bold border-l-4 border-blue-700 pl-2 block">
             Nội dung phim
           </span>
           <p className="text-gray-500">{movieDetails.describe}</p>
         </div>
         {/* fillter lịch chiếu*/}
-        <div className="ml-36 mr-[30%] mt-6 mb-10 font-nunito w-fit h-fit">
+        <div className="ml-36 mr-[30%] mt-6 mb-10 font-nunito max-w-[60%] h-fit">
           <span className="mb-4 text-lg font-bold border-l-4 border-blue-700 pl-2 block">
             Lịch chiếu
           </span>
@@ -358,21 +358,25 @@ function DetailMovie() {
               </select>
             </div>
           </div>
-          <div className="w-auto py-9 flex-row space-y-5 border-b-[1px]">
+          <div className="w-[100%] py-3 flex-row   ">
             {Object.keys(showtimes).map((cinemaName) => (
-              <div key={cinemaName} className="w-auto py-9 flex-row space-y-5 border-b-[1px]">
+              <div key={cinemaName} className=" py-9 flex-row space-y-5 border-b-[1px]">
                 <p className="font-bold text-lg text-gray-800">{cinemaName}</p>
-                <div className="flex items-center space-x-4">
-                  <p className="text-gray-700 font-medium w-36 mr-8">Suất Chiếu</p>
-                  {showtimes[cinemaName].map((showtime) => (
-                    <button
-                      key={showtime._id}
-                      onClick={() => handleChangePage(showtime._id)}
-                      className="border border-gray-400 rounded-md px-4 py-1"
-                    >
-                      {showtime.times}
-                    </button>
-                  ))}
+                <div className="flex items-center gap-4 max-w-[100%] ">
+                  <p className="text-gray-700 font-medium w-fit mr-8 text-nowrap">Suất Chiếu</p>
+                  <div></div>
+                  <div className=" space-y-2 ">
+                    {showtimes[cinemaName].map((showtime) => (
+                      <button
+                        key={showtime._id}
+                        onClick={() => handleChangePage(showtime._id)}
+                        className="border mr-2 border-gray-400 rounded-md px-4 py-1"
+                      >
+                        {showtime.times}
+                      </button>
+                    ))}
+                  </div>
+
                 </div>
               </div>
             ))}
