@@ -1,0 +1,99 @@
+.box-container{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background-color: rgb(220, 220, 202);
+   
+}
+
+.fix-h{
+    height: auto;
+}
+
+.hig{
+    height: auto;
+}
+
+.w{
+    width: 10%;
+}
+.revenue{
+    width: 60%;
+    background-color: burlywood;
+    display: flex;
+  
+}
+
+.total-revenue-room{
+    width: 30%;
+    height: 100%;
+    background-color: aqua;
+}
+
+.room-title{
+   margin: 10px;
+    background-color: beige;
+    text-align: center;
+    font-size: 12px;
+    padding: 10px;
+}
+.revenue-content{
+    background-color: beige;
+    padding: 10px;
+    margin: 10px;
+}
+
+.revenue-content h3{
+    margin-bottom: 10px;
+}
+
+.revenue-content span{
+    margin-right: 10px;
+}
+
+.note{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgba(0, 145, 255, 0.136);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.note p{
+    margin-bottom: 10px;
+}
+
+.total{
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 145, 255, 0.136);
+    color: green;
+}
+
+.sumPrice{
+    background-color: rgba(0, 145, 255, 0.136);
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: red;
+    margin-bottom: 10Px;
+}
+
+.dropdown-container {
+    margin: 10px 0;
+}
+
+.dropdown {
+    width: 200px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.selected-room{
+    background-color: orange;
+}
