@@ -1,0 +1,20 @@
+.box-container{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background-color: rgb(220, 220, 202);
+   
+}
+
+.hig{
+    height: auto;
+}
+
+
+.revenue{
+    width: 60%;
+    background-color: burlywood;
+    display: flex;
+  
+}

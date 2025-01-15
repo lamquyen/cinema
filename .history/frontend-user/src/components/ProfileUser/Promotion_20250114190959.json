@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Giảm giá 10%",
+        "description": "Giảm giá 10% cho đơn hàng ",
+        "startDate": "2023-10-01T00:00:00Z",
+        "endDate": "2025-10-31T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 10,
+        "code": "MVPJ252000"
+    },
+    {
+        "name": "Giảm giá 20%",
+        "description": "Giảm giá 20% cho tất cả sản phẩm.",
+        "startDate": "2023-11-01T00:00:00Z",
+        "endDate": "2025-11-15T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 20,
+        "code": "MVPJ252001"
+    },
+    {
+        "name": "Giảm giá 15%",
+        "description": "Giảm giá 15% cho sản phẩm mới.",
+        "startDate": "2023-11-16T00:00:00Z",
+        "endDate": "2025-11-30T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 15,
+        "code": "MVPJ252002"
+    },
+    {
+        "name": "Giảm giá 5%",
+        "description": "Giảm giá 5% cho đơn hàng ",
+        "startDate": "2023-10-15T00:00:00Z",
+        "endDate": "2025-12-15T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 5,
+        "code": "MVPJ252003"
+    },
+    {
+        "name": "Giảm giá 25%",
+        "description": "Giảm giá 25% cho sản phẩm.",
+        "startDate": "2023-12-01T00:00:00Z",
+        "endDate": "2025-12-31T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 25,
+        "code": "MVPJ252004"
+    },
+    {
+        "name": "Giảm giá 30%",
+        "description": "Giảm giá 30% cho các sản phẩm .",
+        "startDate": "2023-06-01T00:00:00Z",
+        "endDate": "2023-06-30T23:59:59Z",
+        "isActive": false,
+        "discountPercentage": 30,
+        "code": "MVPJ252005"
+    },
+    {
+        "name": "Giảm giá 50%",
+        "description": "Giảm giá 50% cho sản phẩm.",
+        "startDate": "2023-09-01T00:00:00Z",
+        "endDate": "2025-09-30T23:59:59Z",
+        "isActive": false,
+        "discountPercentage": 50,
+        "code": "MVPJ252006"
+    },
+    {
+        "name": "Giảm giá 40%",
+        "description": "Giảm giá 40% cho khách hàng thân thiết.",
+        "startDate": "2023-10-01T00:00:00Z",
+        "endDate": "2025-10-31T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 40,
+        "code": "MVPJ252007"
+    },
+    {
+        "name": "Giảm giá 12%",
+        "description": "Giảm giá 12% cho đơn hàng",
+        "startDate": "2023-11-01T00:00:00Z",
+        "endDate": "2025-11-30T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 12,
+        "code": "MVPJ252008"
+    },
+    {
+        "name": "Giảm giá 8%",
+        "description": "Giảm giá 8% cho sản phẩm ",
+        "startDate": "2023-10-15T00:00:00Z",
+        "endDate": "2025-11-15T23:59:59Z",
+        "isActive": true,
+        "discountPercentage": 8,
+        "code": "MVPJ252009"
+    }
+]

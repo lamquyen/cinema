@@ -116,11 +116,20 @@ li {
   align-items: baseline;
 }
 
+.movie-title,
+.user-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .table {
   width: 100%;
   background-color: #fff;
   border-collapse: collapse;
   overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -132,12 +141,20 @@ li {
 
 .table tr:hover {
   background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #f0f0f0;
 }
 
 .table th,
 .table td {
   padding: 12px;
+  padding: 12px;
   text-align: center;
+  border-bottom: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
 
@@ -148,7 +165,9 @@ li {
 }
 
 /* .table tr:nth-child(even) {
+/* .table tr:nth-child(even) {
   background-color: #fff;
+} */
 } */
 
 .thumbnail {
@@ -326,6 +345,26 @@ li {
   } */
 }
 
+.modal-add-content {
+  width: 50%;
+
+  /* h3 {
+    text-align: center;
+  } */
+
+  form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* .btns-add {
+    display: flex;
+    justify-content: center;
+  } */
+}
+
 .modal-edit-content h3,
 .modal-delete-content h3,
 .modal-add-content h3,
@@ -355,6 +394,7 @@ li {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  height: 20px;
   height: 20px;
 }
 
@@ -872,3 +912,411 @@ h3 {
   height: auto;
   display: block;
 } */
+
+
+
+/*********************CSS SCREENING********************************/
+/* Container lớn cho dropdown */
+.dropdown-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px; /* Tạo khoảng cách giữa các dropdown */
+}
+
+/* Tiêu đề của dropdown */
+.dropdown-title {
+  padding: 10px;
+  color: #fff;
+  background-color: #ff7f00;
+  font-weight: bold;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+
+/* Menu dropdown */
+.dropdown-menu {
+  display: block;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.content{
+  height: auto;
+  padding: 10px;
+}
+
+.line{
+  width: 100%;
+  height: 2px;
+  background-color: #034ea2;
+  margin: 1rem 0;
+}
+
+.screen{
+  width: 100%;
+  height: 450px;
+  display: flex;
+  background-color: #ccc;
+}
+
+.showtimes{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+}
+
+.box-showtime{
+  width: 20%;
+  height: 95%;
+  padding: 5px;
+  background-color: #fff;
+}
+
+.box-showtime h4, .box-showtime h5{
+  text-align: center;
+}
+
+.box-showtime h5{
+  margin-top: 5px;
+}
+
+.box-showtime p {
+  margin-bottom: 8px;
+}
+
+.btn-room{
+  text-decoration: none; 
+  margin-top: 10px;
+  margin-left: 25px;
+  color: red;
+}
+
+.btn-room :hover{
+  background-color: no;
+}
+
+.poster{
+  width: 80%;
+  height: 55%;
+  margin-left: 20px;
+  background-color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.room{
+  width:20%;
+  height: 100%;
+  background-color: #4caf50;
+}
+
+.room-number{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 33%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.room-number h3{
+  font-size: 32px;
+}
+
+
+
+
+
+
+/**********************CSS SHOWTIME*********************************/
+/* Wrapper cho component */
+
+
+/* Container chứa các nút và ngày */
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Nút chuyển ngày trái và phải */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+
+/* Container hiển thị các ngày */
+.overflow-hidden {
+  display: flex;
+  overflow: hidden;
+  gap: 32px;
+}
+
+/* Nút ngày */
+button {
+  display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f5f5f5;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Khi ngày được chọn */
+button.selected {
+  background-color: #007bff;
+    color: white;
+    width: auto;
+}
+
+
+
+
+/* Hiển thị tên ngày và số ngày */
+button div {
+  text-align: center;
+}
+
+.day {
+  font-size: 16px;
+}
+
+.date {
+  font-size: 12px;
+}
+
+/*******************************CSS FORM*************/
+.showtime-form {
+  width: 20%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 100; /* Đảm bảo form nằm trên các phần tử khác */
+}
+
+/* Tiêu đề của form */
+.showtime-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Các thẻ label cho các input */
+.showtime-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #555;
+}
+
+/* Các input và select */
+.showtime-form input,
+.showtime-form select {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.showtime-form input[type="date"] {
+  background-color: #f9f9f9;
+}
+
+.showtime-form select {
+  background-color: #f9f9f9;
+}
+
+/* Placeholder input */
+.showtime-form input::placeholder {
+  color: #aaa;
+}
+
+/* Các button */
+.showtime-form .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.showtime-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.showtime-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.showtime-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.showtime-form button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+.showtime-form button[type="button"]:hover {
+  background-color: #e53935;
+}
+
+/* Responsive - Điều chỉnh khi màn hình nhỏ */
+@media screen and (max-width: 768px) {
+  .showtime-form {
+    width: 90%;
+    top: 40%;
+  }
+
+  .showtime-form h2 {
+    font-size: 20px;
+  }
+
+  .showtime-form input,
+  .showtime-form select {
+    font-size: 14px;
+  }
+
+  .showtime-form .buttons {
+    flex-direction: column;
+  }
+
+  .showtime-form button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .showtime-form button:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*****************************CSS ChangeShowtimeForm*******************/
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%; /* Đảm bảo tương thích với màn hình nhỏ */
+  max-width: 400px; /* Giới hạn kích thước tối đa */
+  z-index: 1000; /* Luôn nằm trên các phần tử khác */
+  font-family: Arial, sans-serif;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+  z-index: 999; /* Nằm ngay dưới form */
+}
+
+.form-container h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-container label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-container input[type="time"],
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-actions button:first-child {
+  background-color: #4caf50; /* Green for Save */
+}
+
+.form-actions button:first-child:hover {
+  background-color: #45a049;
+}
+
+.form-actions button:last-child {
+  background-color: #f44336; /* Red for Cancel */
+}
+
+.form-actions button:last-child:hover {
+  background-color: #e53935;
+}

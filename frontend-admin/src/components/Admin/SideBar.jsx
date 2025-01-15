@@ -43,6 +43,24 @@ const SideBar = () => {
           </li>
           <li>
             <NavLink
+              to="/Screening"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              <i className="fas fa-plus-circle"></i>
+              Screening
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/RevenueAndRoom"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              <i className="fas fa-plus-circle"></i>
+              RevenueAndRoom
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/users"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
@@ -53,9 +71,11 @@ const SideBar = () => {
           <li>
             <NavLink
               to="/booking"
+              to="/booking"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <i className="fas fa-user-cog"></i>
+              Booking
               Booking
             </NavLink>
           </li>

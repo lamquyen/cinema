@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 // import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-
+import { Link } from "react-router";
+import jwtDecode from "jwt-decode";
+import MovieSearch from "./MovieSearch .jsx"
 
 function Header() {
-  const options = ["HCM", "Hà Nội", "Đà Nẵng"];
+  const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
   const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
+  const [allMovies, setAllMovies] = useState([]); //
 
   const handleSelect = (selected) => {
     console.log("Selected option:", selected);
@@ -28,6 +30,17 @@ function Header() {
     } catch (error) {
       console.error("Error parsing loggedInUser from localStorage:", error);
     }
+  }, []);
+
+  useEffect(() => {
+    // Fetch danh sách phim từ API
+    fetch("http://localhost:5000/api/movies/released")
+      .then((response) => response.json())
+      .then((data) => setAllMovies(Array.isArray(data) ? data : [])) // Xử lý dữ liệu không hợp lệ
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        setAllMovies([]);
+      });
   }, []);
 
   const handleLoginClick = () => {
@@ -71,12 +84,13 @@ function Header() {
 
   return (
     <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
+    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
         <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
 
       <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
-        <div className="self-center text-center h-fit text-nowrap">
+        <div className="self-center text-center h-fit">
           <Dropdown
             options={options}
             placeholder="Rạp Chiếu"
@@ -104,20 +118,24 @@ function Header() {
 
         <a className="hover:text-orange-500" href="/Blog-movies">
           Blog Mê phim
+        <a className="hover:text-orange-500" href="/Blog-movies">
+          Blog Mê phim
         </a>
+
       </div>
-      <div className="flex relative h-fit border-none">
-        <div className="absolute"><svg className="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
-        </svg>
-        </div>
-        <input className="pl-6 border border-none" placeholder="Tìm kiếm ..." />
+      <div>
+      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
       </div>
 
       <div className="">
+      <div className="">
         {loggedInUser ? (
-          <div className="flex gap-3 justify-center items-center ">
-            <Link to="/Profile">Hello, {getDisplayName()}</Link>
+          <div className="flex gap-3 justify-center items-center " >
+            <Link
+              to="/Profile"
+            >
+              Hello, {getDisplayName()}
+            </Link>
             <button onClick={handleLogout} className="">
               Logout
             </button>

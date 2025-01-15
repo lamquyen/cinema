@@ -1,0 +1,29 @@
+.box-container{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background-color: rgb(220, 220, 202);
+    height: 700px;
+}
+
+.hig{
+    height: 600px;
+}
+
+.revenue{
+    width: 60%;
+    height: 600px;
+    background-color: burlywood;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-revenue{
+    width: 70%;
+    height: 25%;
+    background-color: blueviolet;
+    align-items: center;
+}
