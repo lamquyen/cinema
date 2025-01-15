@@ -20,6 +20,7 @@ function Header() {
 
   const [modalType, setModalType] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Check localStorage for logged-in user on component mount
@@ -71,10 +72,8 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    // Update state to log out the user
     setLoggedInUser(null);
-    // Optional: Redirect to the homepage or reload the page
-    window.location.reload(); // Reload to reset the UI
+    navigate("/");
   };
 
   const getDisplayName = () => {
@@ -85,8 +84,9 @@ function Header() {
 
   return (
     <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
+    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
-        <img className="w-28 h-[100%]" src={logo} />
+        <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
 
       <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
@@ -98,14 +98,14 @@ function Header() {
             herf="rap-phim"
           />
         </div>
-        <div>
+        <div className="text-nowrap">
           <Dropdown
             options={events}
             placeholder="Sự Kiện"
             onSelect={handleSelect}
           />
         </div>
-        <div>
+        <div className="text-nowrap">
           <Dropdown
             options={movies}
             placeholder="Phim"
@@ -118,6 +118,8 @@ function Header() {
 
         <a className="hover:text-orange-500" href="/Blog-movies">
           Blog Mê phim
+        <a className="hover:text-orange-500" href="/Blog-movies">
+          Blog Mê phim
         </a>
 
       </div>
@@ -125,6 +127,7 @@ function Header() {
       <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
       </div>
 
+      <div className="">
       <div className="">
         {loggedInUser ? (
           <div className="flex gap-3 justify-center items-center " >

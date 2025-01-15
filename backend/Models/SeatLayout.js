@@ -9,7 +9,9 @@ const SeatLayoutSchema = new Schema({
             row: { type: String, required: true },
             seats: [
                 {
-                    number: { type: String, required: true }
+                    number: { type: String, required: true },
+                    typeSeat: { type: String, required: true },
+
 
                 }
             ]

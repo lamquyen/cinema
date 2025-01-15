@@ -1,0 +1,37 @@
+[
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Corn",
+        "price": 70000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "PepSi 32Oz",
+        "price": 70000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Combo 1: Corn + Pepsi 32Oz",
+        "price": 70000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Combo 2: Corn + Pepsi 32Oz + chicken corn ",
+        "price": 130000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Combo 3: Corn + Pepsi 32Oz + French fries",
+        "price": 110000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Combo 4: Corn + Pepsi 32Oz + Xúc xích lốc xoáy",
+        "price": 140000
+    },
+    {
+        "img": "https://booking.bhdstar.vn/CDN/media/entity/get/ItemGraphic/662036?width=160&height=160&referenceScheme=HeadOffice&allowPlaceHolder=true",
+        "nameF": "Combo 5: 2 Corn + 2 Pepsi 32Oz",
+        "price": 125000
+    }
+]

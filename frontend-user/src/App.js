@@ -8,7 +8,7 @@ import Booking from "./components/DetailMovie/Booking.jsx";
 import Transaction from "./components/ProfileUser/Transaction.jsx";
 import BlogMovies from "./components/HomeMovie/BlogMovies.jsx";
 import Ticket from "./components/ProfileUser/Ticket.jsx";
-
+import Endows from "./components/Header/endows.jsx";
 function App() {
   return (
     <>
@@ -21,7 +21,7 @@ function App() {
           <Route path="/Booking/:id" element={<Booking />} />
           <Route path="/Ticket" element={< Ticket />} />
           <Route path="/Blog-Movies" element={<BlogMovies />} />
-
+          <Route path="/Endows" element={<Endows />} />
 
         </Routes>
       </Router>

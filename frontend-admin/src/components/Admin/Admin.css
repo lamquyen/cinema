@@ -116,11 +116,20 @@ li {
   align-items: baseline;
 }
 
+.movie-title,
+.user-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
 .table {
   width: 100%;
   background-color: #fff;
   border-collapse: collapse;
   overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -132,12 +141,20 @@ li {
 
 .table tr:hover {
   background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #f0f0f0;
 }
 
 .table th,
 .table td {
   padding: 12px;
+  padding: 12px;
   text-align: center;
+  border-bottom: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
 }
 
@@ -148,7 +165,9 @@ li {
 }
 
 /* .table tr:nth-child(even) {
+/* .table tr:nth-child(even) {
   background-color: #fff;
+} */
 } */
 
 .thumbnail {
@@ -326,6 +345,26 @@ li {
   } */
 }
 
+.modal-add-content {
+  width: 50%;
+
+  /* h3 {
+    text-align: center;
+  } */
+
+  form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* .btns-add {
+    display: flex;
+    justify-content: center;
+  } */
+}
+
 .modal-edit-content h3,
 .modal-delete-content h3,
 .modal-add-content h3,
@@ -355,6 +394,7 @@ li {
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  height: 20px;
   height: 20px;
 }
 

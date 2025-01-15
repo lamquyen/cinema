@@ -71,9 +71,11 @@ const SideBar = () => {
           <li>
             <NavLink
               to="/booking"
+              to="/booking"
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               <i className="fas fa-user-cog"></i>
+              Booking
               Booking
             </NavLink>
           </li>
