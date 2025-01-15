@@ -5,7 +5,7 @@ import DetailMovie from "./components/DetailMovie/DetailMovie";
 import Profile from "./components/ProfileUser/ProfileUser";
 import Cinema from "./components/Cinema/Cinema";
 import Booking from "./components/DetailMovie/Booking.jsx";
-import Transaction from "./components/ProfileUser/Transaction.jsx";
+import Endows from "./components/Header/endows.jsx";
 import BlogMovies from "./components/HomeMovie/BlogMovies.jsx";
 import Ticket from "./components/ProfileUser/Ticket.jsx";
 
@@ -21,6 +21,7 @@ function App() {
           <Route path="/Booking/:id" element={<Booking />} />
           <Route path="/Ticket" element={< Ticket />} />
           <Route path="/Blog-Movies" element={<BlogMovies />} />
+          <Route path="/Endows" element={<Endows />} />
 
 
         </Routes>

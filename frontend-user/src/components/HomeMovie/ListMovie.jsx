@@ -106,8 +106,15 @@ function ListMovie() {
                 <img src={phim.img} className="h-96 w-72 border-none rounded-lg " />
                 <p class="text-2 p-1 text-black-600  mb-3 font-medium text-gray-900 " >{phim.title}</p>
 
-                <div className="border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link to={`/DetailMovie/${phim._id}`} onClick={(e) => handleBookingClick(e)} className="bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
+                <div className="
+                border-none rounded-lg text-lg font-nunito absolute inset-0 flex items-center justify-center
+                 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                  <Link to={`/DetailMovie/${phim._id}`} onClick={(e) => handleBookingClick(e)}
+                    className="flex items-center text-center bg-red-600 text-white px-4 py-1 m-2 rounded-md shadow-lg hover:bg-red-700">
+                    <svg className="w-6 h-6 mr-1 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.5 12A2.5 2.5 0 0 1 21 9.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v2.5a2.5 2.5 0 0 1 0 5V17a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+                    </svg>
                     Đặt vé
                   </Link>
                   <button

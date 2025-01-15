@@ -235,7 +235,7 @@ function DetailMovie() {
                       d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"
                     />
                   </svg>
-                  {movieDetails.showDate}
+                  {movieDetails.showDate.split('T')[0]}
                 </span>
               </p>
               <p className="flex gap-2 items-center">
@@ -269,9 +269,12 @@ function DetailMovie() {
               </p>
               <p className="text-gray-500 text-sm">
                 Thể loại:{" "}
-                <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">
-                  {movieDetails.genre}
-                </span>
+                {movieDetails.genre.map((genre) => (
+                  <span className="text-black border rounded-md m-1 p-1  hover:border-orange-500">
+                    {genre}
+                  </span>
+                ))}
+
               </p>
               <p className="text-gray-500 text-sm">
                 Đạo diễn:{" "}
@@ -280,10 +283,11 @@ function DetailMovie() {
                 </span>
               </p>
               <p className="text-gray-500 text-sm">
-                Diễn viên:{" "}
-                <span className="text-black border rounded-md m-2 p-1  hover:border-orange-500">
-                  {movieDetails.cast}
-                </span>
+                Diễn viên:{" "} {movieDetails.cast.map((cast) => (
+                  <span className="text-black border rounded-md m-1 p-1  hover:border-orange-500">
+                    {cast}
+                  </span>))}
+
               </p>
             </div>
           </div>
