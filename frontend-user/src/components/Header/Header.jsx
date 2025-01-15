@@ -8,7 +8,7 @@ import Register from "../Register/Register.jsx";
 
 
 function Header() {
-  const options = ["Tp. Hồ Chí Minh", "Hà Nội", "Đà Nẵng"];
+  const options = ["HCM", "Hà Nội", "Đà Nẵng"];
   const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
 

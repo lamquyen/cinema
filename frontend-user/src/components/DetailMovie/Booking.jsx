@@ -126,22 +126,22 @@ const Booking = () => {
       <Header />
       <div className="bg-gray-200 h-auto z-0">
         <div className="stepper w-full mt-2 mb-3 bg-white h-fit py-4 items-center">
-          <ul className="flex justify-center items-center">
-            <li className="pr-4 pb-5 border-b-2 border-blue-800 text-base text-blue-400 font-nunito font-bold">
+          <ul className="flex justify-center items-center text-gray-500">
+            <li className="pr-4 pb-5 border-b-2  border-gray-300 text-gray-500 text-base font-nunito font-bold">
               Chọn phim/ Rạp/ Suất
             </li>
             <li
               className={`pr-4 pb-5 ${step === 1
                 ? "border-b-2 border-blue-800 text-blue-600"
-                : "border-b-2 border-blue-800 text-blue-400"
+                : "border-b-2 border-gray-300 text-gray-500"
                 } text-base font-nunito font-bold`}
             >
               Chọn ghế
             </li>
             <li
-              className={`pr-4 pb-5 ${step === 1
+              className={`pr-4 pb-5 ${step === 2
                 ? "border-b-2 border-blue-800 text-blue-600"
-                : "border-b-2 border-blue-800 text-blue-400"
+                : "border-b-2 border-gray-300 text-gray-500"
                 } text-base font-nunito font-bold`}
             >
               Chọn thức ăn

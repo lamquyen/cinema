@@ -176,7 +176,7 @@ export const getTopRating = async (req, res) => {
     // Lọc phim đang chiếu, sắp xếp theo rating giảm dần, giới hạn 3 phim
     const movies = await Movie.find({ showDate: { $lte: today } })
       .sort({ rating: -1 }) // Sắp xếp theo rating giảm dần
-      .limit(3); // Lấy 3 phim đầu tiên
+      .limit(4); // Lấy  phim đầu tiên
 
     res.status(200).json(movies);
   } catch (error) {
