@@ -4,13 +4,13 @@ import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import jwtDecode from "jwt-decode";
 import MovieSearch from "./MovieSearch .jsx"
 
 function Header() {
   const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
-  const events = ["Endows"];
+  const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
   const [allMovies, setAllMovies] = useState([]); //
 
@@ -100,9 +100,8 @@ function Header() {
         <div className="text-nowrap">
           <Dropdown
             options={events}
-            placeholder="Khuyến Mãi"
+            placeholder="Sự Kiện"
             onSelect={handleSelect}
-            herf="uu-dai"
           />
         </div>
         <div className="text-nowrap">

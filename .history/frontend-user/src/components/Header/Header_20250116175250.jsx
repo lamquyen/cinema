@@ -10,7 +10,7 @@ import MovieSearch from "./MovieSearch .jsx"
 
 function Header() {
   const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
-  const events = ["Endows"];
+  const events = [" Ưu Đãi"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
   const [allMovies, setAllMovies] = useState([]); //
 
@@ -100,7 +100,7 @@ function Header() {
         <div className="text-nowrap">
           <Dropdown
             options={events}
-            placeholder="Khuyến Mãi"
+            placeholder="Sự Kiện"
             onSelect={handleSelect}
             herf="uu-dai"
           />

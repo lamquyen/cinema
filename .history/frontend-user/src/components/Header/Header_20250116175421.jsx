@@ -100,7 +100,7 @@ function Header() {
         <div className="text-nowrap">
           <Dropdown
             options={events}
-            placeholder="Khuyến Mãi"
+            placeholder="Ưu Đãi"
             onSelect={handleSelect}
             herf="uu-dai"
           />
