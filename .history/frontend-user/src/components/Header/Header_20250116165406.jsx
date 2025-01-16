@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
-// import "./Header.css";
+import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import jwtDecode from "jwt-decode";
-import MovieSearch from "./MovieSearch .jsx"
 
 function Header() {
-  const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
-  const events = ["Endows"];
+  const options = ["HCM","Hà-Nội","Đà-Nẵng"];
+  const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
-  const [allMovies, setAllMovies] = useState([]); //
 
   const handleSelect = (selected) => {
     console.log("Selected option:", selected);
@@ -20,7 +18,6 @@ function Header() {
 
   const [modalType, setModalType] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Check localStorage for logged-in user on component mount
@@ -30,17 +27,6 @@ function Header() {
     } catch (error) {
       console.error("Error parsing loggedInUser from localStorage:", error);
     }
-  }, []);
-
-  useEffect(() => {
-    // Fetch danh sách phim từ API
-    fetch("http://localhost:5000/api/movies/released")
-      .then((response) => response.json())
-      .then((data) => setAllMovies(Array.isArray(data) ? data : [])) // Xử lý dữ liệu không hợp lệ
-      .catch((error) => {
-        console.error("Error fetching movies:", error);
-        setAllMovies([]);
-      });
   }, []);
 
   const handleLoginClick = () => {
@@ -72,8 +58,10 @@ function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedInUser");
+    // Update state to log out the user
     setLoggedInUser(null);
-    navigate("/");
+    // Optional: Redirect to the homepage or reload the page
+    window.location.reload(); // Reload to reset the UI
   };
 
   const getDisplayName = () => {
@@ -83,12 +71,12 @@ function Header() {
   };
 
   return (
-    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
+    <div className="flex justify-around w-[100%] items-center h-20 ">
       <Link to={"/"} className="w-fit h-20">
-        <img className="w-28 h-[100%]" src={logo} alt="logo" />
+        <img className="w-28 h-[100%]" src={logo} />
       </Link>
 
-      <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
+      <div className=" flex justify-between gap-8 items-center h-fit text-gray-600 ">
         <div className="self-center text-center h-fit">
           <Dropdown
             options={options}
@@ -97,15 +85,14 @@ function Header() {
             herf="rap-phim"
           />
         </div>
-        <div className="text-nowrap">
+        <div>
           <Dropdown
             options={events}
-            placeholder="Khuyến Mãi"
+            placeholder="Sự Kiện"
             onSelect={handleSelect}
-            herf="uu-dai"
           />
         </div>
-        <div className="text-nowrap">
+        <div>
           <Dropdown
             options={movies}
             placeholder="Phim"
@@ -116,25 +103,28 @@ function Header() {
           <Link to={"/"}>Mua vé</Link>
         </p>
 
-
-        <a className="hover:text-orange-500" href="/Blog-movies">
-          Blog Mê phim
+        <a className="hover:text-orange-500" href="#">
+          Blog Mê Phim
         </a>
-
+        <div>
+          <input className="border-1-red p-1" placeholder="Tìm kiếm ..." />
+        </div>
       </div>
-      <div>
-      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
-      </div>
 
-      <div className="">
+      <div className="ticket">
         {loggedInUser ? (
-          <div className="flex gap-3 justify-center items-center " >
+          <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
             <Link
               to="/Profile"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                cursor: "pointer",
+              }}
             >
               Hello, {getDisplayName()}
             </Link>
-            <button onClick={handleLogout} className="">
+            <button onClick={handleLogout} className="logout-button">
               Logout
             </button>
           </div>
@@ -157,7 +147,7 @@ function Header() {
           />
         )}
       </div>
-      </div>
+    </div>
   );
 }
 

@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../middlewares/auth.js";
 import BookingModel from "../Models/BookingModels.js";
 import Showtime from "../Models/ShowtimeModels.js";
+import BookingModel from "../Models/BookingModels.js";
+import Showtime from "../Models/ShowtimeModels.js";
 
 //Register
 const registerUser = asyncHandler(async (req, res) => {

@@ -1,69 +1,47 @@
 import React, { useState, useEffect } from "react";
-// import "./Header.css";
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link, useNavigate } from "react-router";
-import jwtDecode from "jwt-decode";
-import MovieSearch from "./MovieSearch .jsx"
+import { Link, useNavigate } from "react-router-dom";
+import MovieSearch from "./MovieSearch .jsx";
 
 function Header() {
   const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
-  const events = ["Endows"];
+  const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
-  const [allMovies, setAllMovies] = useState([]); //
-
-  const handleSelect = (selected) => {
-    console.log("Selected option:", selected);
-  };
-
+  const [allMovies, setAllMovies] = useState([]);
   const [modalType, setModalType] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check localStorage for logged-in user on component mount
     try {
       const userData = localStorage.getItem("loggedInUser");
-      setLoggedInUser(userData ? JSON.parse(userData) : null); // Chỉ cần parse đối tượng, không phải email
+      setLoggedInUser(userData ? JSON.parse(userData) : null);
     } catch (error) {
       console.error("Error parsing loggedInUser from localStorage:", error);
     }
   }, []);
 
   useEffect(() => {
-    // Fetch danh sách phim từ API
     fetch("http://localhost:5000/api/movies/released")
       .then((response) => response.json())
-      .then((data) => setAllMovies(Array.isArray(data) ? data : [])) // Xử lý dữ liệu không hợp lệ
+      .then((data) => setAllMovies(Array.isArray(data) ? data : []))
       .catch((error) => {
         console.error("Error fetching movies:", error);
         setAllMovies([]);
       });
   }, []);
 
-  const handleLoginClick = () => {
-    setModalType("login");
-  };
-
-  const handleRegisterClick = () => {
-    setModalType("register");
-  };
-
-  const handleCloseModal = () => {
-    setModalType(null);
-  };
+  const handleLoginClick = () => setModalType("login");
+  const handleRegisterClick = () => setModalType("register");
+  const handleCloseModal = () => setModalType(null);
 
   const handleLoginSuccess = (userData) => {
-    // Save user data to localStorage
     localStorage.setItem("loggedInUser", JSON.stringify(userData));
-
-    // Delay updating the state until after the modal closes
     setTimeout(() => {
       setLoggedInUser(userData);
-
-      // Close the modal after 3 seconds
       setTimeout(() => {
         setModalType(null);
       }, 3000);
@@ -77,9 +55,9 @@ function Header() {
   };
 
   const getDisplayName = () => {
-    if (!loggedInUser || !loggedInUser.fullName) return ""; // Không có user
+    if (!loggedInUser || !loggedInUser.fullName) return "";
     const parts = loggedInUser.fullName.trim().split(" ");
-    return parts.length > 1 ? parts[parts.length - 1] : parts[0]; // Lấy từ cuối hoặc nguyên tên
+    return parts.length > 1 ? parts[parts.length - 1] : parts[0];
   };
 
   return (
@@ -88,52 +66,42 @@ function Header() {
         <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
 
-      <div className=" flex justify-between gap-4 items-center h-fit text-gray-600 ">
-        <div className="self-center text-center h-fit">
-          <Dropdown
-            options={options}
-            placeholder="Rạp Chiếu"
-            onSelect={handleSelect}
-            herf="rap-phim"
-          />
-        </div>
-        <div className="text-nowrap">
-          <Dropdown
-            options={events}
-            placeholder="Khuyến Mãi"
-            onSelect={handleSelect}
-            herf="uu-dai"
-          />
-        </div>
-        <div className="text-nowrap">
-          <Dropdown
-            options={movies}
-            placeholder="Phim"
-            onSelect={handleSelect}
-          />
-        </div>
+      <div className="flex justify-between gap-4 items-center h-fit text-gray-600">
+        <Dropdown
+          options={options}
+          placeholder="Rạp Chiếu"
+          onSelect={(selected)}
+          herf={'rap-chieu'}
+        />
+        <Dropdown
+          options={events}
+          placeholder="Sự Kiện"
+          onSelect={(selected)}
+        />
+        <Dropdown
+          options={movies}
+          placeholder="Phim"
+          onSelect={(selected)}
+        />
         <p className="hover:text-orange-500">
           <Link to={"/"}>Mua vé</Link>
         </p>
-
-
         <a className="hover:text-orange-500" href="/Blog-movies">
           Blog Mê phim
         </a>
-
       </div>
+
       <div>
-      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
+        <MovieSearch
+          movies={allMovies}
+          onSearch={(term) => console.log("Tìm kiếm:", term)}
+        />
       </div>
 
-      <div className="">
+      <div>
         {loggedInUser ? (
-          <div className="flex gap-3 justify-center items-center " >
-            <Link
-              to="/Profile"
-            >
-              Hello, {getDisplayName()}
-            </Link>
+          <div className="flex gap-3 justify-center items-center">
+            <Link to="/Profile">Hello, {getDisplayName()}</Link>
             <button onClick={handleLogout} className="">
               Logout
             </button>
@@ -146,7 +114,7 @@ function Header() {
             isOpen={modalType === "login"}
             onClose={handleCloseModal}
             onRegisterClick={handleRegisterClick}
-            onLoginSuccess={handleLoginSuccess} // Pass success handler
+            onLoginSuccess={handleLoginSuccess}
           />
         )}
         {modalType === "register" && (
@@ -157,7 +125,7 @@ function Header() {
           />
         )}
       </div>
-      </div>
+    </div>
   );
 }
 
