@@ -4,13 +4,13 @@ import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import jwtDecode from "jwt-decode";
 import MovieSearch from "./MovieSearch .jsx"
 
 function Header() {
   const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
-  const events = ["Endows"];
+  const events = [" Ưu Đãi", "Phim Hay Tháng"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
   const [allMovies, setAllMovies] = useState([]); //
 
@@ -84,6 +84,7 @@ function Header() {
 
   return (
     <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
+    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
         <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
@@ -100,9 +101,8 @@ function Header() {
         <div className="text-nowrap">
           <Dropdown
             options={events}
-            placeholder="Khuyến Mãi"
+            placeholder="Sự Kiện"
             onSelect={handleSelect}
-            herf="uu-dai"
           />
         </div>
         <div className="text-nowrap">
@@ -116,16 +116,18 @@ function Header() {
           <Link to={"/"}>Mua vé</Link>
         </p>
 
-
+        <a className="hover:text-orange-500" href="/Blog-movies">
+          Blog Mê phim
         <a className="hover:text-orange-500" href="/Blog-movies">
           Blog Mê phim
         </a>
 
       </div>
       <div>
-        <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
+      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
       </div>
 
+      <div className="">
       <div className="">
         {loggedInUser ? (
           <div className="flex gap-3 justify-center items-center " >

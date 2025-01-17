@@ -123,7 +123,7 @@ function Header() {
 
       </div>
       <div>
-        <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
+      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
       </div>
 
       <div className="">
@@ -157,7 +157,7 @@ function Header() {
           />
         )}
       </div>
-    </div>
+      </div>
   );
 }
 
