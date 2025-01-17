@@ -7,11 +7,11 @@ const Endows = () => {
     return (
         <>
             <Header />
-            <div className=" flex justify-between mx-6 my-8">
+            <div className=" flex justify-around mx-6 my-8">
 
                 <div className=" w-[65%] font-nunito ">
                     <h1 className="border-l-4 pl-2 border-blue-700 font-semibold text-2xl text-gray-700 mb-5">Danh Sách Ưu Đãi</h1>
-                    <div className=" flex flex-wrap justify-around gap-10 w-fit h-fit ">
+                    <div className=" flex flex-wrap justify-start gap-10 w-fit h-fit">
                         {data.map((item, index) => (
                             <div
                                 key={index}
