@@ -42,28 +42,10 @@ function DetailMovie() {
     fetchMovieDetails();
   }, [id]); // Gọi lại khi id thay đổi
 
-  useEffect(() => {
-    const fetchShowtimes = async () => {
-      try {
-        const response = await axios.get(`http://localhost:5000/api/showtimes/movie/${id}`);
-        const filteredShowtimes = groupByCinema(response.data); // Chỉ lấy suất chiếu hôm nay
-        setShowtimes(filteredShowtimes);
-      } catch (error) {
-        console.error('Error fetching showtimes:', error);
-      }
-    };
-
-    fetchShowtimes();
-  }, [id]);
-
-
-  const groupByCinema = (data) => {
-    // Lấy ngày hôm nay theo định dạng YYYY-MM-DD
-    const today = moment().format("YYYY-MM-DD");
-
+  const groupByCinema = (data, date) => {
     return data.reduce((acc, current) => {
-      // Lọc suất chiếu theo ngày hôm nay
-      if (moment(current.showDate).format("YYYY-MM-DD") === today) {
+      const currentShowDate = moment(current.days[0]).format("YYYY-MM-DD"); // Lấy ngày đầu tiên trong mảng 'days'
+      if (currentShowDate === date) {
         const cinemaName = current.cinema.cinemaName;
         if (!acc[cinemaName]) {
           acc[cinemaName] = [];
@@ -73,7 +55,36 @@ function DetailMovie() {
       return acc;
     }, {});
   };
+  useEffect(() => {
+    const fetchShowtimes = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/showtimes/movie/${id}`);
+        const showtimesData = response.data || []; // Kiểm tra dữ liệu rỗng
 
+        // Chuyển đổi trường 'days' trong dữ liệu về định dạng 'YYYY-MM-DD'
+        const formattedShowtimesData = showtimesData.map(showtime => {
+          const formattedDays = showtime.days.map(day => {
+            const date = new Date(day);
+            return date.toISOString().split('T')[0]; // Định dạng ngày theo 'YYYY-MM-DD'
+          });
+
+          return {
+            ...showtime,
+            days: formattedDays, // Cập nhật lại trường 'days' với định dạng mới
+          };
+        });
+
+        console.log("Selected Date:", selectedDate);
+        console.log("Formatted Showtimes Data:", formattedShowtimesData); // Kiểm tra dữ liệu đã định dạng
+        const filteredShowtimes = groupByCinema(formattedShowtimesData, selectedDate); // Lọc theo ngày
+        console.log("Filtered Showtimes:", filteredShowtimes); // Kiểm tra dữ liệu lọc
+        setShowtimes(filteredShowtimes); // Cập nhật state
+      } catch (error) {
+        console.error("Error fetching showtimes:", error);
+      }
+    };
+    fetchShowtimes();
+  }, [id, selectedDate]);
 
   if (!movieDetails) return <p>Loading...</p>;
 
@@ -119,6 +130,14 @@ function DetailMovie() {
     if (e.target.id === "modal-backdrop") {
       handelCloseModal();
     }
+  };
+  const isShowtimePast = (showtime) => {
+    const currentDate = moment();
+    const showtimeDate = moment(showtime.days[0]).startOf('day'); // Lấy ngày chiếu
+    const showtimeTime = moment(showtime.times, "HH:mm");
+
+    // Kiểm tra nếu ngày chiếu đã qua hoặc nếu ngày chiếu là hôm nay và giờ chiếu đã qua
+    return showtimeDate.isBefore(currentDate, 'day') || (showtimeDate.isSame(currentDate, 'day') && showtimeTime.isBefore(currentDate, 'minute'));
   };
   return (
     <div className="h-fit">
@@ -324,7 +343,11 @@ function DetailMovie() {
                   .map((day) => (
                     <div
                       key={day.fullDate}
-                      onClick={() => setSelectedDate(day.fullDate)}
+
+                      onClick={() => {
+                        console.log("Selected Date:", day.fullDate); // Kiểm tra giá trị
+                        setSelectedDate(day.fullDate);
+                      }}
                       className={`text-gray-700 text-base cursor-pointer text-center p-2 rounded transition-colors ${selectedDate === day.fullDate
                         ? "bg-blue-500 text-white"
                         : "hover:bg-gray-100"
@@ -362,29 +385,43 @@ function DetailMovie() {
               </select>
             </div>
           </div>
-          <div className="w-[100%] py-3 flex-row   ">
-            {Object.keys(showtimes).map((cinemaName) => (
-              <div key={cinemaName} className=" py-9 flex-row space-y-5 border-b-[1px]">
-                <p className="font-bold text-lg text-gray-800">{cinemaName}</p>
-                <div className="flex items-center gap-4 max-w-[100%] ">
-                  <p className="text-gray-700 font-medium w-fit mr-8 text-nowrap">Suất Chiếu</p>
-                  <div></div>
-                  <div className=" space-y-2 ">
-                    {showtimes[cinemaName].map((showtime) => (
-                      <button
-                        key={showtime._id}
-                        onClick={() => handleChangePage(showtime._id)}
-                        className="border mr-2 border-gray-400 rounded-md px-4 py-1 hover:bg-gray-300"
-                      >
-                        {showtime.times}
-                      </button>
-                    ))}
-                  </div>
+          {/* hiển thị suất chiếu */}
+          <div className="w-[100%] py-3 flex-row">
+            {Object.keys(showtimes).length === 0 ? (
+              <p className="text-center text-gray-500">Không có suất chiếu nào vào ngày này.</p>
+            ) : (
+              Object.keys(showtimes).map((cinemaName) => (
+                <div key={cinemaName} className="py-9 flex-row space-y-5 border-b-[1px]">
+                  <p className="font-bold text-lg text-gray-800">{cinemaName}</p>
+                  <div className="flex items-center gap-4 max-w-[100%]">
+                    <p className="text-gray-700 font-medium w-fit mr-8 text-nowrap">
+                      Suất Chiếu
+                    </p>
+                    <div>
+                      {showtimes[cinemaName].map((showtime) => {
+                        const isPast = isShowtimePast(showtime); // Sử dụng hàm mới
 
+                        return (
+                          <button
+                            key={showtime._id}
+                            onClick={() => !isPast && handleChangePage(showtime._id)}
+                            disabled={isPast}
+                            className={`border mr-2 rounded-md px-4 py-1 ${isPast
+                              ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                              : "border-gray-400 hover:bg-gray-300"
+                              }`}
+                          >
+                            {showtime.times}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
+
 
 
         </div>
