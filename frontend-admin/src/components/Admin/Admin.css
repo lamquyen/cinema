@@ -169,7 +169,6 @@ li {
   background-color: #fff;
 } */
 
-
 .thumbnail {
   width: 100%;
   height: 80px;
@@ -182,9 +181,14 @@ li {
   cursor: pointer;
 }
 
+.btn.edit,
+.btn.delete {
+  display: unset;
+  padding: 8px;
+}
+
 .btn.edit {
   color: #4299e1;
-  margin-right: 10px;
 }
 
 .btn.delete {
@@ -202,6 +206,10 @@ li {
   float: right;
   cursor: pointer;
   font-weight: bold;
+}
+
+.add-btn:hover {
+  background-color: #e66b00;
 }
 
 .modal {
@@ -251,6 +259,7 @@ li {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: unset;
 }
 
 .btn.cancel {
@@ -261,6 +270,7 @@ li {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 10px;
+  display: unset;
 }
 
 .modal-noti {
@@ -339,10 +349,9 @@ li {
     margin-bottom: 20px;
   }
 
-  /* .btns-add {
+  .btns-add {
     display: flex;
-    justify-content: center;
-  } */
+  }
 }
 
 .modal-add-content {
@@ -854,8 +863,18 @@ h3 {
   background-size: 800px 104px;
 }
 
+.direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .chart {
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .chart-section {
@@ -882,7 +901,11 @@ h3 {
 .chartComboBox {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: baseline !important;
+}
+
+.noti-norevenue {
+  margin-left: 10px;
 }
 
 /* Add these styles to your Admin.css file */
@@ -913,8 +936,6 @@ h3 {
   display: block;
 } */
 
-
-
 /*********************CSS SCREENING********************************/
 /* Container lớn cho dropdown */
 .dropdown-container {
@@ -938,7 +959,6 @@ h3 {
   transition: background-color 0.3s;
 }
 
-
 /* Menu dropdown */
 .dropdown-menu {
   display: block;
@@ -949,26 +969,26 @@ h3 {
   padding: 10px;
 }
 
-.content{
+.content {
   height: auto;
   padding: 10px;
 }
 
-.line{
+.line {
   width: 100%;
   height: 2px;
   background-color: #034ea2;
   margin: 1rem 0;
 }
 
-.screen{
+.screen {
   width: 100%;
   height: 450px;
   display: flex;
   background-color: #ccc;
 }
 
-.showtimes{
+.showtimes {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -976,18 +996,19 @@ h3 {
   height: 100%;
 }
 
-.box-showtime{
+.box-showtime {
   width: 20%;
   height: 95%;
   padding: 5px;
   background-color: #fff;
 }
 
-.box-showtime h4, .box-showtime h5{
+.box-showtime h4,
+.box-showtime h5 {
   text-align: center;
 }
 
-.box-showtime h5{
+.box-showtime h5 {
   margin-top: 5px;
 }
 
@@ -995,18 +1016,18 @@ h3 {
   margin-bottom: 8px;
 }
 
-.btn-room{
-  text-decoration: none; 
+.btn-room {
+  text-decoration: none;
   margin-top: 10px;
   margin-left: 25px;
   color: red;
 }
 
-.btn-room :hover{
+.btn-room :hover {
   background-color: no;
 }
 
-.poster{
+.poster {
   width: 80%;
   height: 55%;
   margin-left: 20px;
@@ -1014,13 +1035,13 @@ h3 {
   margin-bottom: 10px;
 }
 
-.room{
-  width:20%;
+.room {
+  width: 20%;
   height: 100%;
   background-color: #4caf50;
 }
 
-.room-number{
+.room-number {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -1031,18 +1052,12 @@ h3 {
   cursor: pointer;
 }
 
-.room-number h3{
+.room-number h3 {
   font-size: 32px;
 }
 
-
-
-
-
-
 /**********************CSS SHOWTIME*********************************/
 /* Wrapper cho component */
-
 
 /* Container chứa các nút và ngày */
 .flex {
@@ -1067,7 +1082,6 @@ button:hover {
   background-color: #e0e0e0;
 }
 
-
 /* Container hiển thị các ngày */
 .overflow-hidden {
   display: flex;
@@ -1077,16 +1091,15 @@ button:hover {
 
 /* Nút ngày */
 button {
-  display: flex
-;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
@@ -1100,12 +1113,9 @@ button:focus {
 /* Khi ngày được chọn */
 button.selected {
   background-color: #007bff;
-    color: white;
-    width: auto;
+  color: white;
+  width: auto;
 }
-
-
-
 
 /* Hiển thị tên ngày và số ngày */
 button div {
@@ -1191,7 +1201,7 @@ button div {
 }
 
 .showtime-form button[type="submit"] {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 

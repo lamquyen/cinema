@@ -217,7 +217,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap direction">
           <div className="chart">
             <div className="chart-section" style={{ height: "400px" }}>
               <div className="flex justify-between items-center mb-4 chartComboBox">
@@ -273,7 +273,7 @@ const Dashboard = () => {
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <p>No revenue data available</p>
+                <p className="noti-norevenue">No revenue data available</p>
               )}
             </div>
           </div>
@@ -333,7 +333,9 @@ const Dashboard = () => {
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <p>No movie revenue data available</p>
+                <p className="noti-norevenue">
+                  No movie revenue data available
+                </p>
               )}
             </div>
           </div>
