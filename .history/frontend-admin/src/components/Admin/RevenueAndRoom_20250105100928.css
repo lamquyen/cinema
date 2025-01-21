@@ -1,0 +1,29 @@
+.box-container{
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background-color: rgb(220, 220, 202);
+   
+}
+
+.revenue{
+    width: 60%;
+    background-color: burlywood;
+    display: flex;
+  
+}
+
+.total-revenue-room{
+    width: 25%;
+    height: 100%;
+    background-color: aqua;
+}
+
+.room-title{
+    margin-left: 5%;
+    margin-top: 10px;
+    background-color: beige;
+    text-align: center;
+    font-size: 12px;
+}

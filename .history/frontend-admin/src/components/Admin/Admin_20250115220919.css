@@ -1,0 +1,1322 @@
+/* body {
+  background-color: #1a202c;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  margin: 50px 100px;
+  max-width: 90%;
+}
+
+.sidebar {
+  position: sticky;
+  overflow-y: auto;
+  top: 20px;
+  width: 20%;
+  margin-right: 50px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  height: max-content;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+li {
+  margin-top: 0;
+}
+
+.sidebar ul li:first-child a {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.sidebar ul li:last-child a {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.sidebar a i {
+  margin-right: 10px;
+}
+
+.sidebar a.active {
+  color: #fff;
+  background-color: #ff7f00;
+  font-weight: bold;
+}
+
+.main {
+  width: 75%;
+  padding: 0 20px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat {
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.stat .icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.stat-number {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.movie-title,
+.user-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.movie-title,
+.user-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.table {
+  width: 100%;
+  background-color: #fff;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.table tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.table tr:hover {
+  background-color: #f0f0f0;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #ff7f00;
+  color: #fff;
+  text-align: center;
+}
+
+/* .table tr:nth-child(even) {
+/* .table tr:nth-child(even) {
+  background-color: #fff;
+} */
+} */
+
+.thumbnail {
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+}
+
+.btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn.edit {
+  color: #4299e1;
+  margin-right: 10px;
+}
+
+.btn.delete {
+  color: #e53e3e;
+}
+
+.add-btn {
+  margin-top: 20px;
+  height: 50px;
+  width: 120px;
+  color: #fff;
+  background-color: #ff7f00;
+  border: 0px;
+  border-radius: 10px;
+  float: right;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+.modal-content {
+  position: sticky;
+  overflow-y: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.modal-content label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.btn.save,
+.btn.confirm {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn.cancel {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.modal-noti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-noti-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.btn-noti-close {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-noti-close:hover {
+  background-color: #0056b3;
+}
+
+.modal-edit,
+.modal-delete,
+.modal-add,
+.modal-confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-edit-content,
+.modal-delete-content,
+.modal-add-content,
+.modal-confirm-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal-add-content {
+  width: 50%;
+
+  /* h3 {
+    text-align: center;
+  } */
+
+  form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* .btns-add {
+    display: flex;
+    justify-content: center;
+  } */
+}
+
+.modal-add-content {
+  width: 50%;
+
+  /* h3 {
+    text-align: center;
+  } */
+
+  form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* .btns-add {
+    display: flex;
+    justify-content: center;
+  } */
+}
+
+.modal-edit-content h3,
+.modal-delete-content h3,
+.modal-add-content h3,
+.modal-confirm-content h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.modal-edit-content label,
+.modal-delete-content label,
+.modal-add-content label,
+.modal-confirm-content label {
+  display: block;
+  margin: 10px 0;
+}
+
+.modal-edit-content input,
+.modal-edit-content textarea,
+.modal-confirm-content input,
+.modal-confirm-content textarea,
+.modal-add-content input,
+.modal-add-content textarea,
+.modal-delete-content input,
+.modal-delete-content textarea {
+  width: 95%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 20px;
+  height: 20px;
+}
+
+.modal-confirm-content button {
+  margin-top: 20px;
+}
+
+/* cinema */
+.cinema {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 40px;
+}
+
+.cinema-element {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0;
+
+    span {
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 8px 15px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background-color: #ff7f00;
+      color: #fff;
+    }
+  }
+
+  .cinema-img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+  }
+
+  .cinema-address {
+    font-size: 18px;
+    font-style: italic;
+  }
+}
+
+.cinema-detail {
+  font-size: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .back-button {
+    width: 100px;
+    height: 50px;
+    background-color: #ff7f00;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 0px;
+    cursor: pointer;
+  }
+
+  .cinema-detail-name {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  .cinema-detail-img {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* background-color: #000000; */
+
+    .slider-image {
+      max-width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease-in-out;
+      border-radius: 10px;
+    }
+
+    .prev-button,
+    .next-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+      border-radius: 50%;
+    }
+
+    .prev-button {
+      left: 10px;
+    }
+
+    .next-button {
+      right: 10px;
+    }
+
+    .prev-button:hover,
+    .next-button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  .cinema-detail-location,
+  .cinema-detail-address {
+    strong {
+      text-transform: capitalize;
+      font-size: 22px;
+    }
+  }
+
+  /* .cinema-detail-room {
+    .room-element {
+      border: 0px solid transparent;
+      border-radius: 10px;
+      background-color: #ff7f00;
+      color: #fff;
+      padding: 20px;
+    }
+  } */
+}
+
+/* Phân trang */
+.pagination {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 16px;
+  font-weight: 600;
+}
+
+/* Booking */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.bookings-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.bookings-table th,
+.bookings-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.bookings-table th {
+  background-color: #ff7f00;
+  color: #fff;
+  font-weight: bold;
+}
+
+.booking-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.booking-row:hover {
+  background-color: #f0f0f0;
+}
+
+.no-results {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+.pagination-btn {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.pagination-btn:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  color: #999;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* Đảm bảo modal hiển thị trên cùng */
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative; /* Để close button định vị chính xác */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  color: #666;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.detail-item {
+  flex: 1;
+  min-width: 200px;
+}
+
+.detail-item strong {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.food-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.food-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.food-item span:first-child {
+  flex: 2;
+}
+
+.food-item span:not(:first-child) {
+  flex: 1;
+  text-align: right;
+}
+
+.seats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.seat-tag {
+  background-color: #e2e8f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.detail-section {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Filter section styles */
+.filters-section {
+  margin: 20px 0;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  margin-bottom: 15px;
+}
+
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  align-items: center;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-select,
+.filter-date,
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  /* width: 100%; */
+}
+
+.filter-select:focus,
+.filter-date:focus,
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.clear-filters-btn {
+  padding: 8px 16px;
+  background-color: #ff7f00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clear-filters-btn:hover {
+  background-color: #e66b00;
+}
+
+/* Update existing results count style */
+.results-count {
+  margin: 15px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Optional: Add loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.loading {
+  animation: shimmer 1s linear infinite;
+  background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+  background-size: 800px 104px;
+}
+
+.chart {
+  margin-bottom: 40px;
+}
+
+.chart-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.chart-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.all-combobox {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+}
+
+.chartComboBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* Add these styles to your Admin.css file */
+
+/* .image-upload-container {
+  margin-top: 8px;
+} */
+
+/* .file-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+} */
+
+/* .image-preview {
+  margin-top: 8px;
+  max-width: 200px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+} */
+
+
+
+/*********************CSS SCREENING********************************/
+/* Container lớn cho dropdown */
+.dropdown-container {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px; /* Tạo khoảng cách giữa các dropdown */
+}
+
+/* Tiêu đề của dropdown */
+.dropdown-title {
+  padding: 10px;
+  color: #fff;
+  background-color: #ff7f00;
+  font-weight: bold;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+
+/* Menu dropdown */
+.dropdown-menu {
+  display: block;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.content{
+  height: auto;
+  padding: 10px;
+}
+
+.line{
+  width: 100%;
+  height: 2px;
+  background-color: #034ea2;
+  margin: 1rem 0;
+}
+
+.screen{
+  width: 100%;
+  height: 450px;
+  display: flex;
+  background-color: #ccc;
+}
+
+.showtimes{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 100%;
+}
+
+.box-showtime{
+  width: 20%;
+  height: 95%;
+  padding: 5px;
+  background-color: #fff;
+}
+
+.box-showtime h4, .box-showtime h5{
+  text-align: center;
+}
+
+.box-showtime h5{
+  margin-top: 5px;
+}
+
+.box-showtime p {
+  margin-bottom: 8px;
+}
+
+.btn-room{
+  text-decoration: none; 
+  margin-top: 10px;
+  margin-left: 25px;
+  color: red;
+}
+
+.btn-room :hover{
+  background-color: no;
+}
+
+.poster{
+  width: 80%;
+  height: 55%;
+  margin-left: 20px;
+  background-color: #4caf50;
+  margin-bottom: 10px;
+}
+
+.room{
+  width:20%;
+  height: 100%;
+  background-color: #4caf50;
+}
+
+.room-number{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 33%;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.room-number h3{
+  font-size: 32px;
+}
+
+
+
+
+
+
+/**********************CSS SHOWTIME*********************************/
+/* Wrapper cho component */
+
+
+/* Container chứa các nút và ngày */
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Nút chuyển ngày trái và phải */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+
+/* Container hiển thị các ngày */
+.overflow-hidden {
+  display: flex;
+  overflow: hidden;
+  gap: 32px;
+}
+
+/* Nút ngày */
+button {
+  display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+  background-color: #f5f5f5;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Khi ngày được chọn */
+button.selected {
+  background-color: #007bff;
+    color: white;
+    width: auto;
+}
+
+
+
+
+/* Hiển thị tên ngày và số ngày */
+button div {
+  text-align: center;
+}
+
+.day {
+  font-size: 16px;
+}
+
+.date {
+  font-size: 12px;
+}
+
+/*******************************CSS FORM*************/
+.showtime-form {
+  width: 20%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  z-index: 100; /* Đảm bảo form nằm trên các phần tử khác */
+}
+
+/* Tiêu đề của form */
+.showtime-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Các thẻ label cho các input */
+.showtime-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #555;
+}
+
+/* Các input và select */
+.showtime-form input,
+.showtime-form select {
+  width: 90%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.showtime-form input[type="date"] {
+  background-color: #f9f9f9;
+}
+
+.showtime-form select {
+  background-color: #f9f9f9;
+}
+
+/* Placeholder input */
+.showtime-form input::placeholder {
+  color: #aaa;
+}
+
+/* Các button */
+.showtime-form .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.showtime-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.showtime-form button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.showtime-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.showtime-form button[type="button"] {
+  background-color: #f44336;
+  color: white;
+}
+
+.showtime-form button[type="button"]:hover {
+  background-color: #e53935;
+}
+
+/* Responsive - Điều chỉnh khi màn hình nhỏ */
+@media screen and (max-width: 768px) {
+  .showtime-form {
+    width: 90%;
+    top: 40%;
+  }
+
+  .showtime-form h2 {
+    font-size: 20px;
+  }
+
+  .showtime-form input,
+  .showtime-form select {
+    font-size: 14px;
+  }
+
+  .showtime-form .buttons {
+    flex-direction: column;
+  }
+
+  .showtime-form button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .showtime-form button:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/*****************************CSS ChangeShowtimeForm*******************/
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%; /* Đảm bảo tương thích với màn hình nhỏ */
+  max-width: 400px; /* Giới hạn kích thước tối đa */
+  z-index: 1000; /* Luôn nằm trên các phần tử khác */
+  font-family: Arial, sans-serif;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Nền mờ */
+  z-index: 999; /* Nằm ngay dưới form */
+}
+
+.form-container h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-container label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-container input[type="time"],
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.form-actions button {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-actions button:first-child {
+  background-color: #4caf50; /* Green for Save */
+}
+
+.form-actions button:first-child:hover {
+  background-color: #45a049;
+}
+
+.form-actions button:last-child {
+  background-color: #f44336; /* Red for Cancel */
+}
+
+.form-actions button:last-child:hover {
+  background-color: #e53935;
+}
