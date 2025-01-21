@@ -374,7 +374,7 @@ function DetailMovie() {
                       <button
                         key={showtime._id}
                         onClick={() => handleChangePage(showtime._id)}
-                        className="border mr-2 border-gray-400 rounded-md px-4 py-1"
+                        className="border mr-2 border-gray-400 rounded-md px-4 py-1 hover:bg-gray-300"
                       >
                         {showtime.times}
                       </button>
