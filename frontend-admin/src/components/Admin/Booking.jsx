@@ -349,29 +349,29 @@ const Booking = () => {
                         </div>
                       </div>
 
-                      {selectedBooking.foodNames &&
-                        selectedBooking.foodNames.length > 0 && (
-                          <div className="detail-row">
-                            <div className="detail-item">
-                              <strong>Đồ ăn & Thức uống:</strong>
-                              <div className="food-container">
-                                {selectedBooking.foodNames.map(
-                                  (food, index) => (
-                                    <div key={index} className="food-item">
-                                      <span>{food.name || "N/A"}</span>
-                                      <span>x{food.quantity || 0}</span>
-                                      <span>
-                                        {food.price
-                                          ? `${formatCurrency(food.price)}đ`
-                                          : "0đ"}
-                                      </span>
-                                    </div>
-                                  )
-                                )}
-                              </div>
+                      {selectedBooking.foodNames?.filter((food) => food.name)
+                        ?.length > 0 && (
+                        <div className="detail-row">
+                          <div className="detail-item">
+                            <strong>Đồ ăn & Thức uống:</strong>
+                            <div className="food-container">
+                              {selectedBooking.foodNames
+                                .filter((food) => food.name) // chỉ hiển thị những food có name
+                                .map((food, index) => (
+                                  <div key={index} className="food-item">
+                                    <span>{food.name}</span>
+                                    <span>x{food.quantity || 1}</span>
+                                    <span>
+                                      {food.price
+                                        ? `${formatCurrency(food.price)}đ`
+                                        : "0đ"}
+                                    </span>
+                                  </div>
+                                ))}
                             </div>
                           </div>
-                        )}
+                        </div>
+                      )}
 
                       <div className="detail-row">
                         <div className="detail-item">
@@ -389,6 +389,23 @@ const Booking = () => {
                           </div>
                         )}
                       </div>
+
+                      {selectedBooking.discountId && (
+                        <div className="detail-row">
+                          <div className="detail-item">
+                            <strong>Tên khuyến mãi:</strong>
+                            <span>
+                              {selectedBooking.discountId.name || "N/A"}
+                            </span>
+                          </div>
+                          <div className="detail-item">
+                            <strong>Mã khuyến mãi:</strong>
+                            <span>
+                              {selectedBooking.discountId.code || "N/A"}
+                            </span>
+                          </div>
+                        </div>
+                      )}
 
                       <div className="detail-row">
                         <div className="detail-item">
