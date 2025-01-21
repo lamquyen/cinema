@@ -13,6 +13,7 @@ const getAllBookings = asyncHandler(async (req, res) => {
           { path: "room", select: "roomName" },
         ],
       })
+      .populate("discountId", "name code")
       .exec();
     res.status(200).json(bookings);
   } catch (error) {
@@ -89,9 +90,23 @@ const getAllBookingsPagination = asyncHandler(async (req, res) => {
           as: "showtimeId.room",
         },
       },
+      {
+        $lookup: {
+          from: "promotions", // tên collection của promotion trong MongoDB
+          localField: "discountId",
+          foreignField: "_id",
+          as: "discountId",
+        },
+      },
       { $unwind: "$showtimeId.movie" },
       { $unwind: "$showtimeId.cinema" },
       { $unwind: "$showtimeId.room" },
+      {
+        $unwind: {
+          path: "$discountId",
+          preserveNullAndEmptyArrays: true, // giữ lại các document không có discount
+        },
+      },
     ];
 
     // Add filters to pipeline
@@ -188,7 +203,6 @@ const getFilterOptions = asyncHandler(async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-
 
 export const getByShowtimeId = async (req, res) => {
   try {
