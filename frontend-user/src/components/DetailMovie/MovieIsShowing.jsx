@@ -30,8 +30,9 @@ const MovieIsShowing = () => {
             <p className="border-l-4 border-blue-800 pl-2 font-semibold text-xl text-gray-700 w-fit ">PHIM ĐANG CHIẾU</p>
             {movies.slice(0, 3).map((movie) => (
                 <div key={movie._id} className="w-fit">
-                    <div className="relative group">
-                        <img className="rounded-lg w-[340px] h-60  object-fill" src={movie.img} alt={movie.title} />
+                    <div className="relative group overflow-clip">
+                        <img className="rounded-lg w-[340px] h-60  object-fill
+                         " src={movie.img} alt={movie.title} />
                         <button onClick={() => handleClick(movie._id)}
                             className="absolute top-[40%] left-[40%]
                          bg-opacity-100 opacity-0 transition-opacity duration-300 group-hover:opacity-100
