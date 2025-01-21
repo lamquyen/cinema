@@ -7,25 +7,25 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); // User đang được chỉnh sửa
-  const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false); // Trạng thái Modal thông báo
+  // const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false); // Trạng thái Modal thông báo
   const [isErrorModalVisible, setIsErrorModalVisible] = useState(false); // Modal thông báo thất bại
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false); // Modal xác nhận xóa
   const [isDeleteSuccessModalVisible, setIsDeleteSuccessModalVisible] =
     useState(false); // Modal thông báo xóa thành công
-  const [isAddSuccessModalVisible, setIsAddSuccessModalVisible] =
-    useState(false); // Modal thông báo thêm thành công
-  const [isAddErrorModalVisible, setIsAddErrorModalVisible] = useState(false);
-  const [newUser, setNewUser] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    sex: "",
-    dateOfBirth: "",
-    password: "",
-  });
+  // const [isAddSuccessModalVisible, setIsAddSuccessModalVisible] =
+  //   useState(false); // Modal thông báo thêm thành công
+  // const [isAddErrorModalVisible, setIsAddErrorModalVisible] = useState(false);
+  // const [newUser, setNewUser] = useState({
+  //   fullName: "",
+  //   email: "",
+  //   phone: "",
+  //   sex: "",
+  //   dateOfBirth: "",
+  //   password: "",
+  // });
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -42,77 +42,77 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  const handleAddUser = async () => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/register/",
-        newUser
-      );
-      setUsers([...users, response.data]); // Thêm phim mới vào danh sách
-      setShowModal(false); // Ẩn modal
-      setNewUser({
-        fullName: "",
-        email: "",
-        phone: "",
-        sex: "",
-        dateOfBirth: "",
-        password: "",
-      });
-      setIsAddSuccessModalVisible(true); // Hiển thị modal thông báo thành công
-      setTimeout(() => setIsAddSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
-    } catch (error) {
-      setIsAddErrorModalVisible(true); // Hiển thị modal thông báo thất bại
-      setTimeout(() => setIsAddErrorModalVisible(false), 3000); // Tự động đóng modal
-    }
-  };
+  // const handleAddUser = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/api/users/register/",
+  //       newUser
+  //     );
+  //     setUsers([...users, response.data]); // Thêm phim mới vào danh sách
+  //     setShowModal(false); // Ẩn modal
+  //     setNewUser({
+  //       fullName: "",
+  //       email: "",
+  //       phone: "",
+  //       sex: "",
+  //       dateOfBirth: "",
+  //       password: "",
+  //     });
+  //     setIsAddSuccessModalVisible(true); // Hiển thị modal thông báo thành công
+  //     setTimeout(() => setIsAddSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
+  //   } catch (error) {
+  //     setIsAddErrorModalVisible(true); // Hiển thị modal thông báo thất bại
+  //     setTimeout(() => setIsAddErrorModalVisible(false), 3000); // Tự động đóng modal
+  //   }
+  // };
 
-  const handleAddInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewUser({ ...newUser, [name]: value });
-  };
+  // const handleAddInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setNewUser({ ...newUser, [name]: value });
+  // };
 
-  const handleEditClick = async (userId) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/api/users/${userId}`
-      );
-      setSelectedUser(response.data); // Lấy thông tin User được chọn
-      setIsModalVisible(true); // Hiển thị modal
-    } catch (error) {
-      console.error("Failed to fetch user by ID:", error);
-    }
-  };
+  // const handleEditClick = async (userId) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5000/api/users/${userId}`
+  //     );
+  //     setSelectedUser(response.data); // Lấy thông tin User được chọn
+  //     setIsModalVisible(true); // Hiển thị modal
+  //   } catch (error) {
+  //     console.error("Failed to fetch user by ID:", error);
+  //   }
+  // };
 
-  const handleUpdateUser = async () => {
-    try {
-      await axios.put(
-        `http://localhost:5000/api/users/update-admin/${selectedUser._id}`,
-        selectedUser
-      );
-      // Cập nhật danh sách phim trong state
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user._id === selectedUser._id ? selectedUser : user
-        )
-      );
-      setIsSuccessModalVisible(true); // Hiển thị modal thông báo
-      setTimeout(() => setIsSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
-    } catch (error) {
-      setIsErrorModalVisible(true); // Hiển thị modal thất bại
-      setTimeout(() => setIsErrorModalVisible(false), 3000); // Tự động đóng modal
-    }
-  };
+  // const handleUpdateUser = async () => {
+  //   try {
+  //     await axios.put(
+  //       `http://localhost:5000/api/users/update-admin/${selectedUser._id}`,
+  //       selectedUser
+  //     );
+  //     // Cập nhật danh sách phim trong state
+  //     setUsers((prevUsers) =>
+  //       prevUsers.map((user) =>
+  //         user._id === selectedUser._id ? selectedUser : user
+  //       )
+  //     );
+  //     setIsSuccessModalVisible(true); // Hiển thị modal thông báo
+  //     setTimeout(() => setIsSuccessModalVisible(false), 3000); // Tự động đóng sau 3 giây
+  //   } catch (error) {
+  //     setIsErrorModalVisible(true); // Hiển thị modal thất bại
+  //     setTimeout(() => setIsErrorModalVisible(false), 3000); // Tự động đóng modal
+  //   }
+  // };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedUser({ ...selectedUser, [name]: value });
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setSelectedUser({ ...selectedUser, [name]: value });
+  // };
 
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toISOString().split("T")[0];
-  };
+  // const formatDateForInput = (dateString) => {
+  //   if (!dateString) return "";
+  //   const date = new Date(dateString);
+  //   return date.toISOString().split("T")[0];
+  // };
 
   const handleDeleteClick = (userId) => {
     // Hiển thị modal xác nhận xóa
@@ -153,9 +153,9 @@ const Users = () => {
       <main className="main">
         <div className="user-title">
           <h2 className="subtitle">All Users</h2>
-          <button className="add-btn" onClick={() => setShowModal(true)}>
+          {/* <button className="add-btn" onClick={() => setShowModal(true)}>
             Add User
-          </button>
+          </button> */}
         </div>
 
         {isLoading ? (
@@ -176,7 +176,10 @@ const Users = () => {
             </thead>
             <tbody>
               {users.map((user) => (
-                <tr key={user._id}>
+                <tr
+                  key={user._id}
+                  style={{ display: user.fullName === "admin" ? "none" : "" }}
+                >
                   <td>{user.fullName}</td>
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
@@ -185,12 +188,12 @@ const Users = () => {
                     {new Date(user.dateOfBirth).toLocaleDateString("en-GB")}
                   </td>
                   <td>
-                    <button
+                    {/* <button
                       className="btn edit"
                       onClick={() => handleEditClick(user._id)}
                     >
                       <i className="fas fa-edit"></i> Edit
-                    </button>
+                    </button> */}
                     <button
                       className="btn delete"
                       onClick={() => handleDeleteClick(user._id)}
@@ -204,7 +207,7 @@ const Users = () => {
           </table>
         )}
         {/* Modal */}
-        {isModalVisible && selectedUser && (
+        {/* {isModalVisible && selectedUser && (
           <div className="modal-edit">
             <div className="modal-edit-content">
               <h3>Edit User</h3>
@@ -266,9 +269,9 @@ const Users = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
         {/* Modal thông báo cập nhật thành công */}
-        {isSuccessModalVisible && (
+        {/* {isSuccessModalVisible && (
           <div className="modal-noti">
             <div className="modal-noti-content">
               <h3>Success</h3>
@@ -281,9 +284,9 @@ const Users = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
         {/* Modal thông báo thất bại */}
-        {isErrorModalVisible && (
+        {/* {isErrorModalVisible && (
           <div className="modal-noti">
             <div className="modal-noti-content">
               <h3>Error</h3>
@@ -296,8 +299,8 @@ const Users = () => {
               </button>
             </div>
           </div>
-        )}
-        {showModal && (
+        )} */}
+        {/* {showModal && (
           <div className="modal-add">
             <div className="modal-add-content">
               <h3>Add New User</h3>
@@ -370,9 +373,9 @@ const Users = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {/* Modal thông báo thêm thành công */}
-        {isAddSuccessModalVisible && (
+        {/* {isAddSuccessModalVisible && (
           <div className="modal-noti">
             <div className="modal-noti-content">
               <h3>Success</h3>
@@ -385,7 +388,7 @@ const Users = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
         {/* Modal Xác Nhận Xóa */}
         {isDeleteModalVisible && selectedUser && (
           <div className="modal-confirm">
@@ -421,7 +424,7 @@ const Users = () => {
         )}
 
         {/* Modal thông báo thêm thất bại */}
-        {isAddErrorModalVisible && (
+        {/* {isAddErrorModalVisible && (
           <div className="modal-noti">
             <div className="modal-noti-content">
               <h3>Error</h3>
@@ -434,7 +437,7 @@ const Users = () => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </main>
     </div>
   );
