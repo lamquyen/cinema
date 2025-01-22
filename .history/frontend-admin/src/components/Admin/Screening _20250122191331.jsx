@@ -318,7 +318,7 @@ function Screening() {
                                       </a>
                                     </>
                                   ) : (
-                                    <p style={{color:'gray', fontWeight:'600'}}>
+                                    <p style={{color:'gray'}}>
                                       Suất chiếu đã qua, không thể thay đổi hoặc
                                       xóa.
                                     </p>

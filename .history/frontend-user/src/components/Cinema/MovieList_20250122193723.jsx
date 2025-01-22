@@ -4,17 +4,16 @@ import { Link } from "react-router-dom";
 const MovieList = ({ groupedShowtimes }) => {
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
-  // Hàm kiểm tra nếu suất chiếu đã qua
-  const isShowtimeExpired = (showtime, day) => {
-    const [hours, minutes] = showtime.split(':'); // Tách giờ và phút từ chuỗi thời gian
-    const showDate = new Date(day); // Lấy ngày của suất chiếu
-    showDate.setHours(parseInt(hours), parseInt(minutes), 0, 0); // Gán giờ, phút vào ngày của suất chiếu
-
-    return showDate < new Date(); // Kiểm tra nếu suất chiếu đã qua
-  };
-
   const handleMovieClick = (movieId) => {
     setSelectedMovieId((prev) => (prev === movieId ? null : movieId)); // Toggle chọn phim
+  };
+
+  const currentTime = new Date(); // Lấy thời gian hiện tại
+
+  // Hàm kiểm tra nếu suất chiếu đã qua
+  const isShowtimeExpired = (showtime) => {
+    const showtimeDate = new Date(showtime); // Chuyển thời gian suất chiếu thành Date object
+    return showtimeDate < currentTime; // So sánh với thời gian hiện tại
   };
 
   return (
@@ -22,7 +21,7 @@ const MovieList = ({ groupedShowtimes }) => {
       {/* Danh sách phim */}
       <div className="grid grid-cols-5 gap-6 mt-6">
         {Object.keys(groupedShowtimes).map((movieId) => {
-          const { movie, times, days } = groupedShowtimes[movieId];
+          const { movie, times } = groupedShowtimes[movieId];
           const isSelected = selectedMovieId === movieId;
 
           return (
@@ -60,8 +59,7 @@ const MovieList = ({ groupedShowtimes }) => {
           <h4 className="text-lg font-bold mb-2">Suất chiếu</h4>
           <div className="flex gap-4">
             {groupedShowtimes[selectedMovieId].times.map(({ id, time }) => {
-              const day = groupedShowtimes[selectedMovieId].days[0]; // Lấy ngày đầu tiên từ mảng days
-              const showtimeExpired = isShowtimeExpired(time, day); // Kiểm tra nếu suất chiếu đã qua
+              const showtimeExpired = isShowtimeExpired(time); // Kiểm tra nếu suất chiếu đã qua
 
               return (
                 <Link

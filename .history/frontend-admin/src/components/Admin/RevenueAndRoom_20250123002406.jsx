@@ -118,13 +118,16 @@ function RevenueAndRoom() {
       (total, item) => {
         const seat = Array.isArray(item.seat) ? item.seat : [];
         const foodNames = item.foodNames || [];
-        const discount = item.discountId ? item.discountId.name : "No Discount";
+        
+        // Lấy thông tin giảm giá nếu tồn tại
+        const discount = item.discountId && item.discountId.name ? item.discountId.name : "No Discount";
   
-        console.log("Processing Item:", item); // In item hiện tại
+        // Log thông tin từng item để debug
+        console.log("Processing Item:", item);
         console.log("Discount Applied:", discount);
         console.log("Total Price for Item:", item.totalPrice || 0);
   
-  
+        // Đếm các loại ghế và đồ ăn
         const { seatN, seatV, seatC } = countSeats(seat);
         const { corn, pepsi, combo } = countfoodNames(foodNames);
   
@@ -138,7 +141,7 @@ function RevenueAndRoom() {
           totalCombo: total.totalCombo + combo,
           totalCorn: total.totalCorn + corn,
           totalPepsi: total.totalPepsi + pepsi,
-          totalDiscount: total.totalDiscount + (item.discountId ? (item.totalPrice * 0.12) : 0), // Assuming a 12% discount for simplicity
+          totalDiscount: total.totalDiscount + (item.discountId ? (item.totalPrice * 0.12) : 0), // Assuming 12% discount
           totalPrice: total.totalPrice + (item.totalSeatPrice || 0) + (item.totalFoodPrice || 0),
         };
       },
@@ -157,6 +160,7 @@ function RevenueAndRoom() {
       }
     );
   };
+  
   
 
   const handleBookingUpdate = (data) => {
@@ -363,7 +367,6 @@ function RevenueAndRoom() {
             let totalSeatPrice = 0;
             let totalFoodPrice = 0;
             let totalSeat = 0;
-            let totalVIPSeats = 0;
             let totalfoodNames = 0;
             let totalPrice = 0;
             let totalDiscount = 0;
@@ -373,8 +376,8 @@ function RevenueAndRoom() {
               totalFoodPrice += booking.totalFoodPrice;
               totalSeat += booking.seat.length;
               totalPrice += booking.totalPrice;
-              totalDiscount += booking.discountId ? 1 : 0;
-              totalfoodNames += booking.foodNames.length
+              totalDiscount += booking.discountId != null ? 1 : 0;
+              totalfoodNames += booking.foodNames.length;
   
           
              
@@ -385,7 +388,6 @@ function RevenueAndRoom() {
               totalSeatPrice,
               totalFoodPrice,
               totalSeat,
-              totalVIPSeats,
               totalfoodNames,
               totalPrice,
               totalDiscount
@@ -393,8 +395,6 @@ function RevenueAndRoom() {
           });
   
           setCalculatedRevenues(calculatedRevenue); // Lưu vào state
-
-          
         } catch (error) {
           console.error("Error fetching booking data:", error);
         }
@@ -509,12 +509,12 @@ function RevenueAndRoom() {
                             (revenue) => revenue.showtimeId === showtime._id
                           ) || {
                             totalSeat: 0,
-                            totalVIPSeats: 0,
                             totalCombo: 0,
                             totalSeatPrice: 0,
                             totalFoodPrice: 0,
                             totalPrice: 0,
-                            totalDiscount:0
+                            totalDiscount:0,
+                            totalfoodNames:0,
                           }; // Nếu không tìm thấy, đặt giá trị mặc định
 
                           return (
@@ -524,7 +524,7 @@ function RevenueAndRoom() {
                               <td>{showtime.times}</td>
                               <td>{revenue.totalSeat}</td>
 
-                              <td>{revenue.totalfoodNames}</td>
+                              <td>{console.log(revenue.totalfoodNames)}</td>
                               <td>{revenue.totalDiscount}</td>
 
                               <td>
