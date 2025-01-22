@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
-// import "./Header.css";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import logo from "../img/Phim.png";
 import Dropdown from "./Dropdown";
 import Login from "../Login/Login.jsx";
 import Register from "../Register/Register.jsx";
-import { Link, useNavigate } from "react-router";
+
 import jwtDecode from "jwt-decode";
 import MovieSearch from "./MovieSearch .jsx"
+
 
 function Header() {
   const options = ["HCM", "Hà-Nội", "Đà-Nẵng"];
   const events = ["Endows"];
   const movies = ["Phim đang chiếu", "Phim sắp chiếu"];
   const [allMovies, setAllMovies] = useState([]); //
+  const [showingM, setShowingM] = useState([]);
+  const [upComingM, setUpComingM] = useState([]);
 
   const handleSelect = (selected) => {
     console.log("Selected option:", selected);
@@ -82,8 +87,37 @@ function Header() {
     return parts.length > 1 ? parts[parts.length - 1] : parts[0]; // Lấy từ cuối hoặc nguyên tên
   };
 
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/movie/top_rating');  // URL API của bạn
+        setShowingM(response.data);  // Lưu danh sách phim vào state
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchMovies0 = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/movies/not_released');  // URL API của bạn
+        setUpComingM(response.data);  // Lưu danh sách phim vào state
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
+
+    fetchMovies0();
+  }, []);
+  const handleClick = (id) => {
+    navigate(`/DetailMovie/${id}`)
+  }
   return (
-    <div className="flex justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
+    <div className="flex font-nunito justify-around w-[100%] items-center h-fit border-b-8 border-gray-200 pb-2 pt-2">
       <Link to={"/"} className="w-fit h-20">
         <img className="w-28 h-[100%]" src={logo} alt="logo" />
       </Link>
@@ -105,25 +139,78 @@ function Header() {
             herf="uu-dai"
           />
         </div>
-        <div className="text-nowrap">
-          <Dropdown
-            options={movies}
-            placeholder="Phim"
-            onSelect={handleSelect}
-          />
+
+
+
+        <div className="relative inline-block group">
+          <button className="text-gray-600 text-xl py-2 px-4 rounded-lg">Phim</button>
+
+          {/* Dropdown Menu */}
+          <div
+            className="absolute hidden group-hover:block bg-gray-50 shadow-xl rounded-lg py-2 px-3 w-max z-10"
+          >
+            <div className="h-fit">
+              <p className="border-l-4 pl-2 text-lg border-blue-700 font-normal">
+                Phim Đang Chiếu
+              </p>
+              <ul className="flex justify-between gap-4 items-center">
+                {showingM.slice(0, 4).map((movie) => (
+                  <li
+                    onClick={() => handleClick(movie._id)}
+                    key={movie._id}
+                    className="w-36 h-64 relative group rounded-lg overflow-hidden"
+                  >
+                    {/* Hình ảnh */}
+                    <img
+                      className="w-36 h-48 bg-black rounded-lg object-cover"
+                      src={movie.img}
+                      alt={movie.title}
+                    />
+
+                    {/* Nút "Mua vé" */}
+
+
+                    {/* Tên phim */}
+                    <p className="text-center mt-2">{movie.title}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="border-l-4 pl-2 text-lg border-blue-700 font-normal mt-3">
+                Phim Sắp chiếu
+              </p>
+              <ul className="flex justify-between gap-4 items-center">
+                {upComingM.slice(0, 4).map((movie) => (
+                  <li key={movie._id} className="w-36 h-fit">
+                    <img
+                      className="w-36 h-48 rounded-lg bg-black"
+                      src={movie.img}
+                      alt={movie.title}
+                    />
+                    <p className="h-fit">{movie.title}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
+
+
+
+
+
         <p className="hover:text-orange-500">
           <Link to={"/"}>Mua vé</Link>
         </p>
 
-
-        <a className="hover:text-orange-500" href="/Blog-movies">
+        <a className="hover:text-orange-500 pl-3" href="/Blog-movies">
           Blog Mê phim
         </a>
 
       </div>
       <div>
-      <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
+        <MovieSearch movies={allMovies} onSearch={(term) => console.log("Tìm kiếm:", term)} />
       </div>
 
       <div className="">
@@ -157,7 +244,7 @@ function Header() {
           />
         )}
       </div>
-      </div>
+    </div>
   );
 }
 

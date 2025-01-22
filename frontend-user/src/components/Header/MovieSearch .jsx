@@ -25,7 +25,7 @@ const MovieSearch = ({ movies, onSearch }) => {
   };
 
   return (
-    <div className="movie-search-container">
+    <div className="movie-search-container font-nunito">
       <input
         type="text"
         className="movie-search-input"
@@ -34,15 +34,17 @@ const MovieSearch = ({ movies, onSearch }) => {
         onChange={handleSearchChange}
       />
       {searchTerm && (
-        <div className="movie-search-dropdown">
+        <div className="movie-search-dropdown w-max mt-2 ">
           {filteredMovies.length > 0 ? (
             filteredMovies.map((movie) => (
               <Link
                 key={movie.id}
-                className="movie-search-item"
+                className="movie-search-item flex items-center gap-4 "
                 to={`/DetailMovie/${movie.id}`}
               >
-                {movie.title}
+                <img className="w-14 h-20" src={movie.img} alt={movie.title} />
+                <p className="text-now">{movie.title}</p>
+
               </Link>
             ))
           ) : (
@@ -57,6 +59,6 @@ const MovieSearch = ({ movies, onSearch }) => {
 export default MovieSearch;
 
 
- 
-   
+
+
 
