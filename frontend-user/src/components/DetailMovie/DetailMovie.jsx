@@ -398,23 +398,32 @@ function DetailMovie() {
                       Suất Chiếu
                     </p>
                     <div>
-                      {showtimes[cinemaName].map((showtime) => {
-                        const isPast = isShowtimePast(showtime); // Sử dụng hàm mới
+                      {showtimes[cinemaName]
+                        .sort((a, b) => {
 
-                        return (
-                          <button
-                            key={showtime._id}
-                            onClick={() => !isPast && handleChangePage(showtime._id)}
-                            disabled={isPast}
-                            className={`border mr-2 rounded-md px-4 py-1 ${isPast
-                              ? "border-gray-300 text-gray-400 cursor-not-allowed"
-                              : "border-gray-400 hover:bg-gray-300"
-                              }`}
-                          >
-                            {showtime.times}
-                          </button>
-                        );
-                      })}
+                          const timeToMinutes = (time) => {
+                            const [hours, minutes] = time.split(":").map(Number);
+                            return hours * 60 + minutes;
+                          };
+
+                          return timeToMinutes(a.times) - timeToMinutes(b.times);
+                        }).map((showtime) => {
+                          const isPast = isShowtimePast(showtime); // Sử dụng hàm mới
+
+                          return (
+                            <button
+                              key={showtime._id}
+                              onClick={() => !isPast && handleChangePage(showtime._id)}
+                              disabled={isPast}
+                              className={`border mr-2 rounded-md px-4 py-1 ${isPast
+                                ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                                : "border-gray-400 hover:bg-gray-300"
+                                }`}
+                            >
+                              {showtime.times}
+                            </button>
+                          );
+                        })}
                     </div>
                   </div>
                 </div>
