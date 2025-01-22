@@ -393,8 +393,6 @@ function RevenueAndRoom() {
           });
   
           setCalculatedRevenues(calculatedRevenue); // Lưu vào state
-
-          
         } catch (error) {
           console.error("Error fetching booking data:", error);
         }

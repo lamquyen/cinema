@@ -373,7 +373,7 @@ function RevenueAndRoom() {
               totalFoodPrice += booking.totalFoodPrice;
               totalSeat += booking.seat.length;
               totalPrice += booking.totalPrice;
-              totalDiscount += booking.discountId ? 1 : 0;
+              totalDiscount += booking.discountId != null ? 1 : 0;
               totalfoodNames += booking.foodNames.length
   
           
@@ -393,8 +393,6 @@ function RevenueAndRoom() {
           });
   
           setCalculatedRevenues(calculatedRevenue); // Lưu vào state
-
-          
         } catch (error) {
           console.error("Error fetching booking data:", error);
         }
@@ -524,7 +522,7 @@ function RevenueAndRoom() {
                               <td>{showtime.times}</td>
                               <td>{revenue.totalSeat}</td>
 
-                              <td>{revenue.totalfoodNames}</td>
+                              <td>0</td>
                               <td>{revenue.totalDiscount}</td>
 
                               <td>

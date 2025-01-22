@@ -118,13 +118,16 @@ function RevenueAndRoom() {
       (total, item) => {
         const seat = Array.isArray(item.seat) ? item.seat : [];
         const foodNames = item.foodNames || [];
-        const discount = item.discountId ? item.discountId.name : "No Discount";
+        
+        // Lấy thông tin giảm giá nếu tồn tại
+        const discount = item.discountId && item.discountId.name ? item.discountId.name : "No Discount";
   
-        console.log("Processing Item:", item); // In item hiện tại
+        // Log thông tin từng item để debug
+        console.log("Processing Item:", item);
         console.log("Discount Applied:", discount);
         console.log("Total Price for Item:", item.totalPrice || 0);
   
-  
+        // Đếm các loại ghế và đồ ăn
         const { seatN, seatV, seatC } = countSeats(seat);
         const { corn, pepsi, combo } = countfoodNames(foodNames);
   
@@ -138,7 +141,7 @@ function RevenueAndRoom() {
           totalCombo: total.totalCombo + combo,
           totalCorn: total.totalCorn + corn,
           totalPepsi: total.totalPepsi + pepsi,
-          totalDiscount: total.totalDiscount + (item.discountId ? (item.totalPrice * 0.12) : 0), // Assuming a 12% discount for simplicity
+          totalDiscount: total.totalDiscount + (item.discountId ? (item.totalPrice * 0.12) : 0), // Assuming 12% discount
           totalPrice: total.totalPrice + (item.totalSeatPrice || 0) + (item.totalFoodPrice || 0),
         };
       },
@@ -157,6 +160,7 @@ function RevenueAndRoom() {
       }
     );
   };
+  
   
 
   const handleBookingUpdate = (data) => {
@@ -350,16 +354,15 @@ function RevenueAndRoom() {
           );
   
           const allBookings = bookings.map((booking) => booking.data);
-          console.log('all',allBookings)
+          console.log('allBookings:', allBookings); // Log để kiểm tra
   
-          // Gọi hàm handleBookingUpdate để cập nhật tổng doanh thu
-          const flattenedBookings = allBookings.flat(); // Chuyển từ mảng lồng nhau thành mảng phẳng
+          const flattenedBookings = allBookings.flat();
           handleBookingUpdate(flattenedBookings);
   
           // Tính toán doanh thu cho từng suất chiếu
           const calculatedRevenue = showtimesData.map((showtime, index) => {
             const bookingList = allBookings[index] || [];
-  
+            
             let totalSeatPrice = 0;
             let totalFoodPrice = 0;
             let totalSeat = 0;
@@ -369,15 +372,18 @@ function RevenueAndRoom() {
             let totalDiscount = 0;
   
             bookingList.forEach((booking) => {
-              totalSeatPrice += booking.totalSeatPrice;
-              totalFoodPrice += booking.totalFoodPrice;
-              totalSeat += booking.seat.length;
-              totalPrice += booking.totalPrice;
-              totalDiscount += booking.discountId ? 1 : 0;
-              totalfoodNames += booking.foodNames.length
+              console.log("Booking:", booking); // Log từng booking để kiểm tra
   
-          
-             
+              totalSeatPrice += booking.totalSeatPrice || 0;
+              totalFoodPrice += booking.totalFoodPrice || 0;
+              totalSeat += booking.seat.length || 0;
+              totalfoodNames += booking.foodNames.length || 0;
+              totalPrice += booking.totalPrice || 0;
+  
+              // Kiểm tra nếu có discount
+              if (booking.discountId) {
+                totalDiscount += booking.totalPrice * 0.12; // Giảm giá giả định 12%
+              }
             });
   
             return {
@@ -392,9 +398,9 @@ function RevenueAndRoom() {
             };
           });
   
-          setCalculatedRevenues(calculatedRevenue); // Lưu vào state
-
-          
+          console.log("calculatedRevenues:", calculatedRevenue); // Log kết quả tính toán
+  
+          setCalculatedRevenues(calculatedRevenue);
         } catch (error) {
           console.error("Error fetching booking data:", error);
         }
@@ -403,6 +409,7 @@ function RevenueAndRoom() {
       fetchBookingData();
     }
   }, [showtimesData]);
+  
   
   useEffect(() => {
     if (selectedRoomId) {
@@ -509,13 +516,16 @@ function RevenueAndRoom() {
                             (revenue) => revenue.showtimeId === showtime._id
                           ) || {
                             totalSeat: 0,
-                            totalVIPSeats: 0,
                             totalCombo: 0,
                             totalSeatPrice: 0,
                             totalFoodPrice: 0,
                             totalPrice: 0,
-                            totalDiscount:0
+                            totalDiscount:0,
+                            totalfoodNames:0,
                           }; // Nếu không tìm thấy, đặt giá trị mặc định
+
+                          console.log("Showtime:", showtime);
+                          console.log("Revenue for Showtime:", revenue);
 
                           return (
                             <tr key={showtime._id}>

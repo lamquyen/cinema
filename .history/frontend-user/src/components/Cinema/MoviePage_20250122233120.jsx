@@ -61,7 +61,7 @@ const MoviePage = ({ cinemaLocation }) => {
       acc[movieId] = {
         movie: showtime.movie,
         times: [],
-        days: showtime.days,
+        days: []
       };
     }
 

@@ -1021,15 +1021,6 @@ h3 {
   margin-top: 10px;
   margin-left: 25px;
   color: red;
-  display: block;
-}
-
-.btn-room-disabled {
-  color: gray;
-  cursor: not-allowed;
-  text-decoration: none;
-  margin-top: 10px;
-  margin-left: 40px;
 }
 
 .btn-room :hover {
@@ -1037,7 +1028,7 @@ h3 {
 }
 
 .poster {
-  width: 75%;
+  width: 80%;
   height: 55%;
   margin-left: 20px;
   background-color: #4caf50;

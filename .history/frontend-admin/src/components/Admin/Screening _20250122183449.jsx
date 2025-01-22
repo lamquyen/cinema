@@ -161,29 +161,6 @@ function Screening() {
     alert("Cập nhật lịch chiếu thành công!");
   };
 
-  const handleDeleteShowtime = async (showtimeId) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/showtimes/${showtimeId}`
-      );
-      alert(response.data.message);
-
-      // Cập nhật danh sách suất chiếu sau khi xóa
-      setRoomFilteredShowtimes((prev) => {
-        const updatedShowtimes = prev[selectedRoom.id]?.filter(
-          (st) => st._id !== showtimeId
-        );
-        return { ...prev, [selectedRoom.id]: updatedShowtimes || [] };
-      });
-    } catch (error) {
-      console.error(
-        "Error deleting showtime:",
-        error.response?.data?.message || error.message
-      );
-      alert("Xóa suất chiếu thất bại!");
-    }
-  };
-
   return (
     <div className="container">
       <SideBar />
@@ -284,74 +261,39 @@ function Screening() {
                                     Suất Chiếu:{" "}
                                     <span>{matchingShowtime.times}</span>
                                   </p>
-                                  {moment().isBefore(
-                                    moment(matchingShowtime.times, "HH:mm")
-                                  ) ? (
-                                    <>
-                                      <a
-                                        className="btn-room"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          handleChangeShowtimeClick(
-                                            matchingShowtime
-                                          );
-                                        }}
-                                      >
-                                        Thay đổi lịch chiếu
-                                      </a>
-                                      <a
-                                        className="btn-room"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          if (
-                                            window.confirm(
-                                              "Bạn có chắc chắn muốn xóa suất chiếu này không?"
-                                            )
-                                          ) {
-                                            handleDeleteShowtime(
-                                              matchingShowtime._id
-                                            );
-                                          }
-                                        }}
-                                      >
-                                        Xóa Suất Chiếu
-                                      </a>
-                                    </>
-                                  ) : (
-                                    <p style={{color:'gray', fontWeight:'600'}}>
-                                      Suất chiếu đã qua, không thể thay đổi hoặc
-                                      xóa.
-                                    </p>
-                                  )}
+                                  <a
+                                    className="btn-room"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      handleChangeShowtimeClick(
+                                        matchingShowtime
+                                      );
+                                    }}
+                                  >
+                                    Thay đổi lịch chiếu
+                                  </a>
+                                  <a  className="btn-room">Xóa Suất Chiếu</a>
                                 </div>
                               ) : (
                                 <div>
                                   <h4>Suất chiếu {index + 1}</h4>
                                   <h5>Rạp trống</h5>
                                   <div className="line"></div>
-                                  {moment().isBefore(
-                                    moment(slot.end, "HH:mm")
-                                  ) ? (
-                                    <a
-                                      href="#"
-                                      className="btn-room"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        handleAddShowtimeClick(
-                                          cinemaName,
-                                          selectedRoom?.id,
-                                          cinemaId,
-                                          slot
-                                        );
-                                      }}
-                                    >
-                                      Thêm lịch chiếu
-                                    </a>
-                                  ) : (
-                                    <span className="btn-room-disabled">
-                                      Đã quá giờ
-                                    </span> // Hiển thị trạng thái không thể thêm
-                                  )}
+                                  <a
+                                    href="#"
+                                    className="btn-room"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      handleAddShowtimeClick(
+                                        cinemaName,
+                                        selectedRoom?.id,
+                                        cinemaId,
+                                        slot
+                                      );
+                                    }}
+                                  >
+                                    Thêm lịch chiếu
+                                  </a>
                                 </div>
                               )}
                             </div>
