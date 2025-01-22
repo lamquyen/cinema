@@ -4,15 +4,6 @@ import { Link } from "react-router-dom";
 const MovieList = ({ groupedShowtimes }) => {
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
-  // Hàm kiểm tra nếu suất chiếu đã qua
-  const isShowtimeExpired = (showtime, day) => {
-    const [hours, minutes] = showtime.split(':'); // Tách giờ và phút từ chuỗi thời gian
-    const showDate = new Date(day); // Lấy ngày của suất chiếu
-    showDate.setHours(parseInt(hours), parseInt(minutes), 0, 0); // Gán giờ, phút vào ngày của suất chiếu
-
-    return showDate < new Date(); // Kiểm tra nếu suất chiếu đã qua
-  };
-
   const handleMovieClick = (movieId) => {
     setSelectedMovieId((prev) => (prev === movieId ? null : movieId)); // Toggle chọn phim
   };
@@ -61,7 +52,7 @@ const MovieList = ({ groupedShowtimes }) => {
           <div className="flex gap-4">
             {groupedShowtimes[selectedMovieId].times.map(({ id, time }) => {
               const day = groupedShowtimes[selectedMovieId].days[0]; // Lấy ngày đầu tiên từ mảng days
-              const showtimeExpired = isShowtimeExpired(time, day); // Kiểm tra nếu suất chiếu đã qua
+              const showtimeExpired = showtimeExpired(time, day); // Kiểm tra nếu suất chiếu đã qua
 
               return (
                 <Link
