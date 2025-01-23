@@ -266,64 +266,52 @@ function Screening() {
                             <div key={index} className="box-showtime">
                               {matchingShowtime ? (
                                 <div>
-                                  <h4>Suất chiếu {index + 1}</h4>
-                                  <h5>Phim đang chiếu</h5>
-                                  <div className="line"></div>
-                                  <div className="poster">
-                                    <img
-                                      src={matchingShowtime.movie.img}
-                                      alt={matchingShowtime.movie.title}
-                                      style={{ width: "100%", height: "100%" }}
-                                    />
-                                  </div>
-                                  <p>
-                                    Tên phim:{" "}
-                                    <span>{matchingShowtime.movie.title}</span>
-                                  </p>
-                                  <p>
-                                    Suất Chiếu:{" "}
-                                    <span>{matchingShowtime.times}</span>
-                                  </p>
-                                  {moment().isBefore(
-                                    moment(matchingShowtime.times, "HH:mm")
-                                  ) ? (
-                                    <>
-                                      <a
-                                        className="btn-room"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          handleChangeShowtimeClick(
-                                            matchingShowtime
-                                          );
-                                        }}
-                                      >
-                                        Thay đổi lịch chiếu
-                                      </a>
-                                      <a
-                                        className="btn-room"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          if (
-                                            window.confirm(
-                                              "Bạn có chắc chắn muốn xóa suất chiếu này không?"
-                                            )
-                                          ) {
-                                            handleDeleteShowtime(
-                                              matchingShowtime._id
-                                            );
-                                          }
-                                        }}
-                                      >
-                                        Xóa Suất Chiếu
-                                      </a>
-                                    </>
-                                  ) : (
-                                    <p style={{color:'gray', fontWeight:'600'}}>
-                                      Suất chiếu đã qua, không thể thay đổi hoặc
-                                      xóa.
-                                    </p>
-                                  )}
-                                </div>
+  <h4>Suất chiếu {index + 1}</h4>
+  <h5>Phim đang chiếu</h5>
+  <div className="line"></div>
+  <div className="poster">
+    <img
+      src={matchingShowtime.movie.img}
+      alt={matchingShowtime.movie.title}
+      style={{ width: "100%", height: "100%" }}
+    />
+  </div>
+  <p>
+    Tên phim: <span>{matchingShowtime.movie.title}</span>
+  </p>
+  <p>
+    Suất Chiếu: <span>{matchingShowtime.times}</span>
+  </p>
+  {moment().isBefore(moment(matchingShowtime.times, "HH:mm")) ? (
+    <>
+      <a
+        className="btn-room"
+        onClick={(e) => {
+          e.preventDefault();
+          handleChangeShowtimeClick(matchingShowtime);
+        }}
+      >
+        Thay đổi lịch chiếu
+      </a>
+      <a
+        className="btn-room"
+        onClick={(e) => {
+          e.preventDefault();
+          if (
+            window.confirm("Bạn có chắc chắn muốn xóa suất chiếu này không?")
+          ) {
+            handleDeleteShowtime(matchingShowtime._id);
+          }
+        }}
+      >
+        Xóa Suất Chiếu
+      </a>
+    </>
+  ) : (
+    <p className="text-gray-500">Suất chiếu đã qua, không thể thay đổi hoặc xóa.</p>
+  )}
+</div>
+
                               ) : (
                                 <div>
                                   <h4>Suất chiếu {index + 1}</h4>

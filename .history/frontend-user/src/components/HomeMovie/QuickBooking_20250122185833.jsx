@@ -35,20 +35,19 @@ const QuickBooking = () => {
       const response = await axios.get(
         `http://localhost:5000/api/showtimes/movie/${movieId}`
       );
-
+  
       const cinemaList = response.data.map(
         (showtime) => showtime.cinema.cinemaName
       );
       setCinemas([...new Set(cinemaList)]);
-
+  
       const today = new Date(); // Lấy ngày hiện tại
-
+  
       const daysList = response.data.reduce((acc, showtime) => {
         if (showtime.days && Array.isArray(showtime.days)) {
           showtime.days.forEach((day) => {
             const showDate = new Date(day);
-            if (showDate >= today) {
-              // Chỉ thêm ngày từ hôm nay trở đi
+            if (showDate >= today) { // Chỉ thêm ngày từ hôm nay trở đi
               const formattedDate = showDate.toLocaleDateString("vi-VN");
               if (!acc.includes(formattedDate)) acc.push(formattedDate);
             }
@@ -57,13 +56,12 @@ const QuickBooking = () => {
         return acc;
       }, []);
       setAvailableDates(daysList);
-
+  
       const timesList = response.data.reduce((acc, showtime) => {
         if (showtime.days && Array.isArray(showtime.days)) {
           showtime.days.forEach((day) => {
             const showDate = new Date(day);
-            if (showDate >= today) {
-              // Chỉ xử lý suất chiếu trong tương lai
+            if (showDate >= today) { // Chỉ xử lý suất chiếu trong tương lai
               const formattedDate = showDate.toLocaleDateString("vi-VN");
               if (!acc[formattedDate]) {
                 acc[formattedDate] = [];
@@ -86,7 +84,7 @@ const QuickBooking = () => {
       setAvailableTimes({});
     }
   };
-
+  
   // Xử lý khi chọn phim
   const handleMovieChange = (movieId) => {
     setSelectedMovie(movieId);
@@ -158,21 +156,22 @@ const QuickBooking = () => {
 
       {/* Dropdown chọn ngày */}
       <div>
-        <select
-          value={selectedDate}
-          onChange={(e) => handleDateChange(e.target.value)}
-          disabled={!selectedCinema}
-        >
-          <option value="" disabled>
-            Chọn Ngày
-          </option>
-          {availableDates.map((date, index) => (
-            <option key={index} value={date}>
-              {date}
-            </option>
-          ))}
-        </select>
-      </div>
+  <select
+    value={selectedDate}
+    onChange={(e) => handleDateChange(e.target.value)}
+    disabled={!selectedCinema}
+  >
+    <option value="" disabled>
+      Chọn Ngày
+    </option>
+    {availableDates.map((date, index) => (
+      <option key={index} value={date}>
+        {date}
+      </option>
+    ))}
+  </select>
+</div>
+
 
       {/* Dropdown chọn suất */}
       <div>
