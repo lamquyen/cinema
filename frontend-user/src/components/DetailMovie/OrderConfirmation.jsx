@@ -7,8 +7,8 @@ const OrderConfirmation = ({ selectedSeats, selectedFoods, cinemaName, roomName,
     const [discount, setDiscount] = useState(0);
 
     const totalSeatPrice = selectedSeats.reduce(
-        (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000),
-        0
+        (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 :
+            seat.typeSeat === 'couple' ? 250000 : 100000), 0
     );
 
     const totalFoodPrice = selectedFoods.reduce(
