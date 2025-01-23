@@ -21,7 +21,7 @@ const PickingSeat = ({ onSeatSelect, selectedSeats }) => {
             .catch(error => {
                 console.error('Error fetching seat layout:', error);
             });
-    }, [id]); // Khi showtimeId thay đổi, gọi lại API
+    }, [id]);
     if (!layout) {
         return <div class="flex items-center justify-center w-auto rounded-lg ">
             <div role="status" class="flex justify-center">

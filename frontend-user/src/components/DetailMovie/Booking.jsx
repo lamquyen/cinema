@@ -45,7 +45,7 @@ const Booking = () => {
   const handleNextStep = () => {
     if (step === 1 && selectedSeats.length === 0) {
       setShowAlert(true); // Hiển thị thông báo nếu chưa chọn ghế
-      setTimeout(() => setShowAlert(false), 3000); // Ẩn thông báo sau 3 giây
+      setTimeout(() => setShowAlert(false), 3000);
       return;
     }
 
@@ -245,7 +245,11 @@ const Booking = () => {
                 </div>
                 {selectedSeats.map((seat, index) => (<div className='total flex justify-between font-medium text-base text-gray-500'>
                   <p>{seat.number}</p>
-                  <p>{seat.typeSeat === 'vip' ? '150.000 đ' : '100.000 đ'}</p>
+                  <p>
+                    {seat.typeSeat === 'vip' ? '150.000 đ' :
+                      seat.typeSeat === 'couple' ? '250.000 đ' :
+                        '100.000 đ'}
+                  </p>
 
                 </div>))}
                 {selectedFoods.map((food, index) => (
@@ -261,7 +265,9 @@ const Booking = () => {
                 <p className="text-orange-600">
                   {(
                     selectedSeats.reduce(
-                      (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 : 100000),
+                      (sum, seat) => sum + (seat.typeSeat === 'vip' ? 150000 :
+                        seat.typeSeat === 'couple' ? 250000 :
+                          100000),
                       0
                     ) +
                     selectedFoods.reduce(

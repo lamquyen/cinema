@@ -28,7 +28,7 @@ const Payment = async (req, res) => {
     },
         process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    var ipnUrl = `https://7a05-2402-800-639f-abb9-50f5-2b7c-2252-fd29.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
+    var ipnUrl = `https://9da4-2402-800-639f-abb9-b5d5-bc4e-8127-763d.ngrok-free.app/api/momo/callback?token=${jwtToken}`;
     var requestType = "payWithMethod";
 
 
